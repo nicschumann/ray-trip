@@ -9,7 +9,7 @@ const standard_transition_function = (element, i) => {
 
   window.setTimeout(() => {
     element.classList.remove('pending');
-  }, i * 100 + acc + offset);
+  }, i * 25 + acc + offset);
 
   acc += offset;
 }
@@ -21,6 +21,10 @@ const trippy_transition_function = (element, i) => {
   let random_timing = Math.random() * 50;
 
   window.setTimeout(() => {
+    // random angle:
+    // let angle = Math.floor(Math.random() * 360);
+    // element.setAttribute('style', `transform:rotate(${angle}deg);`);
+
     element.classList.remove('pending');
   }, i * random_timing + acc + offset);
 
@@ -31,7 +35,7 @@ const trippy_transition_function = (element, i) => {
 let texts = [
   {
     text: `Paul Erdős talked about the Book that God keeps. In the Book, God records the most beautiful proofs of all mathematical theorems. Mathematicians often talk about beauty in proof. Einstein talked about feeling physics in his body, and I imagine that there are humans who feel mathematics in theirs. Me, I wonder what typeface God chose for the Book.`,
-    transition: trippy_transition_function
+    transition: standard_transition_function
   }
 ]
 
@@ -54,7 +58,7 @@ function preprocess_text_as_words(text)
 
     span.classList.add('word');
     span.classList.add('pending')
-    span.innerText = word + ' ';
+    span.innerHTML = word + '&nbsp;';
 
     return span;
   });
@@ -76,3 +80,24 @@ function render_text( data )
 
 
 render_text(texts[0]);
+
+
+let blur = 0.3;
+document.addEventListener("mousewheel", event => {
+  let words = document.getElementById('story-container');
+  if (event.deltaY > 0)
+  {
+    blur += 1.0 / (blur + 0.5);
+  }
+  else
+  {
+    blur -= 1.0 / (blur + 0.5);
+  }
+
+  blur = Math.max(Math.min(blur, 100), 0);
+
+
+  words.setAttribute('style', `filter:blur(${blur}px);`);
+
+  // console.log(event);
+})
