@@ -1,0 +1,8 @@
+@import "./fonts/fonts.css";
+
+body {
+  background-color: black;
+  font-family: "Ray";
+  font-weight: 400;
+  box-sizing: border-box;
+}
