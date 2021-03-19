@@ -9,7 +9,7 @@ html
 body
 {
   background-color: black;
-  font-weight: 600;
+  font-weight: 300;
   box-sizing: border-box;
 	height:100%;
 	overflow:auto;
@@ -29,7 +29,10 @@ body
 	-webkit-backface-visibility: hidden;
 	-webkit-perspective: 1000;
   backface-visibility: hidden;
-  transform: translateZ(0);
+  /* transform: translateZ(-100px); */
+	transform-style: preserve-3d;
+	perspective: 550px;
+	overflow: visible;
 }
 
 .margin-text-frame
