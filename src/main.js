@@ -80,11 +80,13 @@ const blur_to_prev_state = (event, story, state) => {
   let rs = document.getElementsByClassName('r-channel');
   let bs = document.getElementsByClassName('b-channel');
 
-  // let random = Math.random();
-  let random = 1;
+  // quasi-sane version
+  let r = t => t * Math.sin(t) / 18;
+  let b = t => t * Math.cos(-t) / 18;
 
-  let r = t => t * Math.sin(random * t) / 20;
-  let b = t => t * Math.cos(random * -t) / 20;
+  // bonkers version
+  // let r = t => t * Math.sin(Math.random() * t) / 20;
+  // let b = t => t * Math.cos(Math.random() * -t) / 20;
 
   Array.from(rs).forEach(el => el.setAttribute('style', `transition:all 2ms;top:${b(t)}px;left:${r(t)}px;`));
   Array.from(bs).forEach(el => el.setAttribute('style', `transition:all 2ms;top:${r(t)}px;left:${b(t)}px;`));
@@ -100,12 +102,17 @@ const blur_to_next_state = (event, story, state) => {
 
   let words = document.getElementsByClassName('word');
 
+  // normal version
   let bl = t => Math.exp(t / 20);
   let op = t => -1 / (55 / 4) * t + 1;
 
+  // bonkers version
+  // let bl = t => Math.exp(Math.random() * t / 20);
+  // let op = t => -1 / (55 / 4) * bl(t) + 1;
+
   console.log(`blur: ${bl(t)}px, op: ${op(t)}`);
 
-  Array.from(words).forEach(el => el.setAttribute('style', `transition:all 2ms; opacity:${op(bl(t))};filter:blur(${bl(t)}px);`));
+  Array.from(words).forEach(el => el.setAttribute('style', `transition:all 2ms; opacity:${op(t)};filter:blur(${bl(t)}px);`));
 
   // const max_blur = 40;
   // let blur = state.story.stage.blur;
