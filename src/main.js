@@ -57,14 +57,22 @@ function do_transition_for_mousewheel(story, state)
         story.animations.up(event, story, state);
       }
 
-      if (story.animations.state > story.animations.upper_limit) {
+      if (
+        story.animations.state > story.animations.upper_limit &&
+        story.transitions.next.length > 0
+      ) {
         document.onmousewheel = null;
-        render_text(stories[1], state);
+        let next_story = random_story(story.transitions.next);
+        render_text(next_story, state);
       }
 
-      if (story.animations.state < story.animations.lower_limit) {
+      if (
+        story.animations.state < story.animations.lower_limit &&
+        story.transitions.prev.length > 0
+      ) {
         document.onmousewheel = null;
-        render_text(stories[1], state);
+        let prev_story = random_story(story.transitions.prev);
+        render_text(prev_story, state);
       }
     }
   };
@@ -113,16 +121,6 @@ const blur_to_next_state = (event, story, state) => {
   console.log(`blur: ${bl(t)}px, op: ${op(t)}`);
 
   Array.from(words).forEach(el => el.setAttribute('style', `transition:all 2ms; opacity:${op(t)};filter:blur(${bl(t)}px);`));
-
-  // const max_blur = 40;
-  // let blur = state.story.stage.blur;
-  // blur += (event.deltaY > 0) ? 1.0 / (blur + 0.5) : -1.0 / (blur + 0.5);
-  // blur = Math.max(Math.min(blur, max_blur), 0);
-  // state.story.stage.blur = blur;
-  //
-  // state.story.stage.opacity = -1 / (max_blur / 4) * blur + 1;
-  //
-  // parent.setAttribute('style', `opacity:${state.story.stage.opacity}; filter:blur(${state.story.stage.blur}px);`)
 };
 
 // const blur_to_next_state = (event, story, state) => {
@@ -145,8 +143,34 @@ const blur_to_next_state = (event, story, state) => {
  * Texts
  */
 
+function stories_to_lookup_table(stories)
+{
+  let lookup = {};
+  stories.forEach((story, i) => {
+    if (typeof lookup[story.id] === 'undefined')
+    {
+      lookup[story.id] = i;
+    }
+    else
+    {
+      console.error(`StoryIDError: found multiple stories with the same story id: "${story.id}".`);
+    }
+  });
+
+  return lookup;
+}
+
+function random_story(story_ids)
+{
+  let index = Math.floor(Math.random() * story_ids.length);
+  let story_id = story_ids[index];
+  let story_index = story_lookup[story_id];
+  return stories[story_index];
+}
+
 const stories = [
   {
+    id: 'desk',
     text: `When my desk is empty, my mind is empty. * When my desk is full, my mind is – * * not full, but chaotic.`,
     marginalia: [],
 
@@ -162,10 +186,12 @@ const stories = [
     },
 
     transitions: {
-
+      next: ['joshua-clover'],
+      prev: []
     }
   },
   {
+    id: 'joshua-clover',
     text: `In 2015, *400 Joshua Clover wrote "Once fire is the form of the spectacle the problem *750 / becomes how to set fire to fire."`,
     marginalia: [],
 
@@ -181,10 +207,13 @@ const stories = [
     },
 
     transitions: {
-
+      next: [],
+      prev: ['desk']
     }
   },
 ]
+
+let story_lookup = stories_to_lookup_table(stories);
 
 let state = {
   story: {
