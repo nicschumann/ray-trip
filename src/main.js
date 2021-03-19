@@ -46,21 +46,26 @@ function do_transition_for_mousewheel(story, state)
   return event => {
     if (!state.transitioning)
     {
-      story.state += event.deltaY;
-      console.log(story.state);
+      story.animations.state += event.deltaY;
+      console.log(story.animations.state);
 
-      if (story.state > 0)
+      if (story.animations.state > 0)
       {
-        story.down(event, story, state);
+        story.animations.down(event, story, state);
       }
       else if (story.state < 0)
       {
-        story.up(event, story, state);
+        story.animations.up(event, story, state);
       }
 
-      if (story.state >= 50) {
+      if (story.animations.state > story.animations.upper_limit) {
         document.onmousewheel = null;
-        render_text(texts[1], state);
+        render_text(stories[1], state);
+      }
+
+      if (story.animations.state < story.animations.lower_limit) {
+        document.onmousewheel = null;
+        render_text(stories[1], state);
       }
     }
   };
@@ -90,26 +95,48 @@ const blur_to_next_state = (event, story, state) => {
 };
 
 
-const texts = [
+/**
+ * Texts
+ */
+
+const stories = [
   {
     text: `When my desk is empty, my mind is empty. * When my desk is full, my mind is – * * not full, but chaotic. * Lately, I've been thinking a lot about the value of maintenance. * * There's an often-cited fact, which says that every 7 years, you regrow all of your skin? * * The turnover rate of your human shell is 7 years. * The average lifespan of a building a metropolitan area in the global north is 30 years. * * What is the turnover rate of the whole city?`,
+    marginalia: [],
 
-    in: standard_transition_function,
-    up: () => {},
-    down: blur_to_next_state,
-    ambient: () => {},
+    animations: {
+      state: 0,
+      upper_limit: 100,
+      lower_limit: -100,
 
-    state: 0
+      in: standard_transition_function,
+      up: () => {},
+      down: blur_to_next_state,
+      ambient: () => {},
+    },
+
+    transitions: {
+
+    }
   },
   {
-    text: `In 2015, *400 Joshua Clover wrote "Once fire is the form of the spectacle the problem *750 becomes how to set fire to fire." * * This has stuck with me, since when I first read it by the lake, in the garden in LA. * * * When Trump was elected, my friend wrote me "get on signal", and then "should I learn to shoot a gun?" * * It's 2021, and you can now purchase California Water Futures. * * The problem with how to set fire to fire is we are running out of water for both.`,
+    text: `In 2015, *400 Joshua Clover wrote "Once fire is the form of the spectacle the problem *750 / becomes how to set fire to fire." * * This has stuck with me, since when I first read it by the lake, in the garden in LA. * * * When Trump was elected, my friend wrote me "get on signal", and then "should I learn to shoot a gun?" * * It's 2021, and you can now purchase California Water Futures. * * The problem with how to set fire to fire is we are running out of water for both.`,
+    marginalia: [],
 
-    in: standard_transition_function,
-    up: () => {},
-    down: blur_to_next_state,
-    ambient: () => {},
+    animations: {
+      state: 0,
+      upper_limit: 100,
+      lower_limit: -100,
 
-    state: 0
+      in: standard_transition_function,
+      up: () => {},
+      down: blur_to_next_state,
+      ambient: () => {},
+    },
+
+    transitions: {
+
+    }
   },
 ]
 
@@ -184,7 +211,7 @@ function render_text( data, state )
 
   elements.forEach((d, i, a) => {
     parent.appendChild(d.element);
-    data.in(d, data, i, a);
+    data.animations.in(d, data, i, a);
   });
 
   window.setTimeout(() => {
@@ -197,4 +224,4 @@ function render_text( data, state )
 }
 
 
-render_text(texts[0], state);
+render_text(stories[0], state);
