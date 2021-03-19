@@ -126,14 +126,3 @@ body
 .static-channel {
 	opacity: 0;
 }
-
-
-.story-frame:hover .r-channel {
-	top:2px;
-	left:2px;
-}
-
-.story-frame:hover .b-channel {
-	top:-2px;
-	left:-2px;
-}

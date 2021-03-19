@@ -47,13 +47,12 @@ function do_transition_for_mousewheel(story, state)
     if (!state.transitioning)
     {
       story.animations.state += event.deltaY;
-      console.log(story.animations.state);
 
       if (story.animations.state > 0)
       {
         story.animations.down(event, story, state);
       }
-      else if (story.state < 0)
+      else if (story.animations.state < 0)
       {
         story.animations.up(event, story, state);
       }
@@ -75,24 +74,64 @@ function do_transition_for_mousewheel(story, state)
  * Ups
  */
 
+const blur_to_prev_state = (event, story, state) => {
+  let t = story.animations.state;
+
+  let rs = document.getElementsByClassName('r-channel');
+  let bs = document.getElementsByClassName('b-channel');
+
+  // let random = Math.random();
+  let random = 1;
+
+  let r = t => t * Math.sin(random * t) / 20;
+  let b = t => t * Math.cos(random * -t) / 20;
+
+  Array.from(rs).forEach(el => el.setAttribute('style', `transition:all 2ms;top:${b(t)}px;left:${r(t)}px;`));
+  Array.from(bs).forEach(el => el.setAttribute('style', `transition:all 2ms;top:${r(t)}px;left:${b(t)}px;`));
+};
+
 
  /**
   * Downs
   */
 
 const blur_to_next_state = (event, story, state) => {
-  let parent = document.getElementById('story-container');
+  let t = story.animations.state;
 
-  const max_blur = 40;
-  let blur = state.story.stage.blur;
-  blur += (event.deltaY > 0) ? 1.0 / (blur + 0.5) : -1.0 / (blur + 0.5);
-  blur = Math.max(Math.min(blur, max_blur), 0);
-  state.story.stage.blur = blur;
+  let words = document.getElementsByClassName('word');
 
-  state.story.stage.opacity = -1 / (max_blur / 4) * blur + 1;
+  let bl = t => Math.exp(t / 20);
+  let op = t => -1 / (55 / 4) * t + 1;
 
-  parent.setAttribute('style', `opacity:${state.story.stage.opacity}; filter:blur(${state.story.stage.blur}px);`)
+  console.log(`blur: ${bl(t)}px, op: ${op(t)}`);
+
+  Array.from(words).forEach(el => el.setAttribute('style', `transition:all 2ms; opacity:${op(bl(t))};filter:blur(${bl(t)}px);`));
+
+  // const max_blur = 40;
+  // let blur = state.story.stage.blur;
+  // blur += (event.deltaY > 0) ? 1.0 / (blur + 0.5) : -1.0 / (blur + 0.5);
+  // blur = Math.max(Math.min(blur, max_blur), 0);
+  // state.story.stage.blur = blur;
+  //
+  // state.story.stage.opacity = -1 / (max_blur / 4) * blur + 1;
+  //
+  // parent.setAttribute('style', `opacity:${state.story.stage.opacity}; filter:blur(${state.story.stage.blur}px);`)
 };
+
+// const blur_to_next_state = (event, story, state) => {
+//   let parent = document.getElementById('story-container');
+//   console.log('next');
+//
+//   const max_blur = 40;
+//   let blur = state.story.stage.blur;
+//   blur += (event.deltaY > 0) ? 1.0 / (blur + 0.5) : -1.0 / (blur + 0.5);
+//   blur = Math.max(Math.min(blur, max_blur), 0);
+//   state.story.stage.blur = blur;
+//
+//   state.story.stage.opacity = -1 / (max_blur / 4) * blur + 1;
+//
+//   parent.setAttribute('style', `opacity:${state.story.stage.opacity}; filter:blur(${state.story.stage.blur}px);`)
+// };
 
 
 /**
@@ -101,16 +140,16 @@ const blur_to_next_state = (event, story, state) => {
 
 const stories = [
   {
-    text: `When my desk is empty, my mind is empty. * When my desk is full, my mind is – * * not full, but chaotic. * Lately, I've been thinking a lot about the value of maintenance. * * There's an often-cited fact, which says that every 7 years, you regrow all of your skin? * * The turnover rate of your human shell is 7 years. * The average lifespan of a building a metropolitan area in the global north is 30 years. * * What is the turnover rate of the whole city?`,
+    text: `When my desk is empty, my mind is empty. * When my desk is full, my mind is – * * not full, but chaotic.`,
     marginalia: [],
 
     animations: {
       state: 0,
-      upper_limit: 100,
+      upper_limit: 80,
       lower_limit: -100,
 
       in: standard_transition_function,
-      up: () => {},
+      up: blur_to_prev_state,
       down: blur_to_next_state,
       ambient: () => {},
     },
@@ -120,16 +159,16 @@ const stories = [
     }
   },
   {
-    text: `In 2015, *400 Joshua Clover wrote "Once fire is the form of the spectacle the problem *750 / becomes how to set fire to fire." * * This has stuck with me, since when I first read it by the lake, in the garden in LA. * * * When Trump was elected, my friend wrote me "get on signal", and then "should I learn to shoot a gun?" * * It's 2021, and you can now purchase California Water Futures. * * The problem with how to set fire to fire is we are running out of water for both.`,
+    text: `In 2015, *400 Joshua Clover wrote "Once fire is the form of the spectacle the problem *750 / becomes how to set fire to fire."`,
     marginalia: [],
 
     animations: {
       state: 0,
-      upper_limit: 100,
+      upper_limit: 80,
       lower_limit: -100,
 
       in: standard_transition_function,
-      up: () => {},
+      up: blur_to_prev_state,
       down: blur_to_next_state,
       ambient: () => {},
     },
@@ -256,6 +295,7 @@ function render_text( data, state )
   state.transitioning = true;
   state.story.stage.blur = 0.3;
   state.story.stage.opacity = 1;
+  data.animations.state = 0;
 
   let parent = state.story.stage.container;
   parent.innerHTML = '';
