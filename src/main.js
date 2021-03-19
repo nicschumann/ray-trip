@@ -193,6 +193,61 @@ function preprocess_text_as_words(data)
   return spans;
 }
 
+function preprocess_text_as_words_with_color_channels(data)
+{
+  let words = data.text.split(' ').filter(word => word.length > 0);
+  let spans = [];
+  let offset = 0;
+
+  words.forEach((word, i) => {
+    if (word == '*') {
+      offset = 600;
+    }
+    else if ( word.indexOf('*') == 0 && Number.isInteger(+word.slice(1)))
+    {
+      offset = +word.slice(1);
+    }
+    else
+    {
+      let element = document.createElement('span');
+      element.classList.add('word');
+      element.classList.add('channeled-word');
+      element.classList.add('pending');
+
+      let static_channel = document.createElement('span');
+      static_channel.classList.add('static-channel');
+      static_channel.innerHTML = word + '&nbsp;';
+      element.append(static_channel);
+
+      let r_channel = document.createElement('span');
+      r_channel.classList.add('channel');
+      r_channel.classList.add('r-channel');
+      r_channel.innerHTML = word + '&nbsp;';
+      element.append(r_channel);
+
+      let g_channel = document.createElement('span');
+      g_channel.classList.add('channel');
+      g_channel.classList.add('g-channel');
+      g_channel.innerHTML = word + '&nbsp;';
+      element.append(g_channel);
+
+      let b_channel = document.createElement('span');
+      b_channel.classList.add('channel');
+      b_channel.classList.add('b-channel');
+      b_channel.innerHTML = word + '&nbsp;';
+      element.append(b_channel);
+
+      let data = {element, offset};
+
+      offset = 0;
+      spans.push(data);
+    }
+  });
+
+  return spans;
+}
+
+
 
 
 
@@ -207,7 +262,7 @@ function render_text( data, state )
   parent.setAttribute('style', `opacity:${state.story.stage.opacity}; filter:blur(${state.story.stage.blur}px);`)
 
   // (optionally) add a process to precompile rests and stops into the data.
-  let elements = preprocess_text_as_words(data);
+  let elements = preprocess_text_as_words_with_color_channels(data);
 
   elements.forEach((d, i, a) => {
     parent.appendChild(d.element);
