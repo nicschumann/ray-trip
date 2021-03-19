@@ -1,22 +1,26 @@
 require('./main.css');
 
 let acc = 0;
-let base = 25;
+let base = 35;
 let padding = 1000;
 
-const standard_transition_function = (element, i) => {
+
+/**
+ * transitions
+ */
+
+const standard_transition_function = (data, story,  i) => {
 
   let offset = (i % 3 == 0) ? 0 : 100;
 
   window.setTimeout(() => {
-    element.classList.remove('pending');
-  }, acc + base + offset);
+    data.element.classList.remove('pending');
+  }, acc + base + offset + data.offset);
 
-  acc += base + offset;
+  acc += base + offset + data.offset;
 }
 
-
-const trippy_transition_function = (element, i) => {
+const trippy_transition_function = (data, story, i) => {
 
   let offset = (i % 3 == 0) ? 0 : 20;
   let random_timing = Math.random();
@@ -24,35 +28,100 @@ const trippy_transition_function = (element, i) => {
   window.setTimeout(() => {
     // random angle:
     // let angle = Math.floor(Math.random() * 360);
-    // element.setAttribute('style', `transform:rotate(${angle}deg);`);
+    // data.element.setAttribute('style', `transform:rotate(${angle}deg);`);
 
-    element.classList.remove('pending');
+    data.element.classList.remove('pending');
   }, 25 * random_timing + acc + offset);
 
-  acc += base * random_timing * offset + random_timing;
+  acc += base * random_timing * offset + random_timing + data.offset;
 }
 
+
+/**
+ * Up/Down Transitions
+ */
+
+function do_transition_for_mousewheel(story, state)
+{
+  return event => {
+    if (!state.transitioning)
+    {
+      story.state += event.deltaY;
+      console.log(story.state);
+
+      if (story.state > 0)
+      {
+        story.down(event, story, state);
+      }
+      else if (story.state < 0)
+      {
+        story.up(event, story, state);
+      }
+
+      if (story.state >= 50) {
+        document.onmousewheel = null;
+        render_text(texts[1], state);
+      }
+    }
+  };
+}
+
+/**
+ * Ups
+ */
+
+
+ /**
+  * Downs
+  */
+
+const blur_to_next_state = (event, story, state) => {
+  let parent = document.getElementById('story-container');
+
+  const max_blur = 40;
+  let blur = state.story.stage.blur;
+  blur += (event.deltaY > 0) ? 1.0 / (blur + 0.5) : -1.0 / (blur + 0.5);
+  blur = Math.max(Math.min(blur, max_blur), 0);
+  state.story.stage.blur = blur;
+
+  state.story.stage.opacity = -1 / (max_blur / 4) * blur + 1;
+
+  parent.setAttribute('style', `opacity:${state.story.stage.opacity}; filter:blur(${state.story.stage.blur}px);`)
+};
 
 
 const texts = [
   {
-    text: `When my desk is empty, my mind is empty. When my desk is full, my mind is – not full, but chaotic. Lately, I've been thinking a lot about the value of maintenance. There's an often-cited fact, which says that every 7 years, you regrow all of your skin? The turnover rate of your human shell is 7 years. The average lifespan of a building a metropolitan area in the global north is 30 years. What is the turnover rate of the whole city?`,
-    transition: standard_transition_function,
+    text: `When my desk is empty, my mind is empty. * When my desk is full, my mind is – * * not full, but chaotic. * Lately, I've been thinking a lot about the value of maintenance. * * There's an often-cited fact, which says that every 7 years, you regrow all of your skin? * * The turnover rate of your human shell is 7 years. * The average lifespan of a building a metropolitan area in the global north is 30 years. * * What is the turnover rate of the whole city?`,
+
+    in: standard_transition_function,
+    up: () => {},
+    down: blur_to_next_state,
+    ambient: () => {},
+
+    state: 0
   },
   {
-    text: `In 2015, Joshua Clover wrote "Once fire is the form of the spectacle the problem / becomes how to set fire to fire." This has stuck with me, since when I first read it by the lake, in the garden in LA. When Trump was elected, my friend wrote me "get on signal", and then "should I learn to shoot a gun?" It's 2021, and you can now purchase California Water Futures. The problem with how to set fire to fire is we are running out of water for both.`,
-    transition: standard_transition_function,
+    text: `In 2015, *400 Joshua Clover wrote "Once fire is the form of the spectacle the problem *750 becomes how to set fire to fire." * * This has stuck with me, since when I first read it by the lake, in the garden in LA. * * * When Trump was elected, my friend wrote me "get on signal", and then "should I learn to shoot a gun?" * * It's 2021, and you can now purchase California Water Futures. * * The problem with how to set fire to fire is we are running out of water for both.`,
+
+    in: standard_transition_function,
+    up: () => {},
+    down: blur_to_next_state,
+    ambient: () => {},
+
+    state: 0
   },
 ]
 
 let state = {
   story: {
     stage: {
+      container: document.getElementById('story-container'),
       blur: 0.3,
       opacity: 1
     }
   }
-}
+};
 
 
 /*
@@ -68,18 +137,36 @@ let state = {
 function preprocess_text_as_words(data)
 {
   let words = data.text.split(' ').filter(word => word.length > 0);
-  let spans = words.map(word => {
-    let span = document.createElement('span')
+  let spans = [];
+  let offset = 0;
 
-    span.classList.add('word');
-    span.classList.add('pending')
-    span.innerHTML = word + '&nbsp;';
+  words.forEach((word, i) => {
+    if (word == '*') {
+      offset = 600;
+    }
+    else if ( word.indexOf('*') == 0 && Number.isInteger(+word.slice(1)))
+    {
+      offset = +word.slice(1);
+    }
+    else
+    {
+      let element = document.createElement('span');
 
-    return span;
+      element.classList.add('word');
+      element.classList.add('pending')
+      element.innerHTML = word + '&nbsp;';
+
+      let data = {element, offset};
+
+      offset = 0;
+      spans.push(data);
+    }
   });
 
   return spans;
 }
+
+
 
 
 function render_text( data, state )
@@ -87,22 +174,23 @@ function render_text( data, state )
   state.transitioning = true;
   state.story.stage.blur = 0.3;
   state.story.stage.opacity = 1;
-  let parent = document.getElementById('story-container');
+
+  let parent = state.story.stage.container;
   parent.innerHTML = '';
   parent.setAttribute('style', `opacity:${state.story.stage.opacity}; filter:blur(${state.story.stage.blur}px);`)
 
+  // (optionally) add a process to precompile rests and stops into the data.
   let elements = preprocess_text_as_words(data);
 
-  elements.forEach((e, i, a) => {
-    parent.appendChild(e);
-    data.transition(e, i, a);
+  elements.forEach((d, i, a) => {
+    parent.appendChild(d.element);
+    data.in(d, data, i, a);
   });
 
-  console.log(acc);
   window.setTimeout(() => {
     state.transitioning = false;
     console.log('done transitioning')
-    document.onmousewheel = scroll_to_next_state;
+    document.onmousewheel = do_transition_for_mousewheel(data, state);
   }, acc + padding)
 
   acc = 0;
@@ -110,61 +198,3 @@ function render_text( data, state )
 
 
 render_text(texts[0], state);
-
-
-
-
-//
-// document.addEventListener("mousewheel", event => {
-//   let words = document.getElementsByClassName('word');
-//
-//   // if (event.deltaY > 0)
-//   // {
-//   //   blur += 1.0 / (blur + 0.5);
-//   // }
-//   // else
-//   // {
-//   //   blur -= 1.0 / (blur + 0.5);
-//   // }
-//
-//   // blur = Math.max(Math.min(blur, 100), 0);
-//
-//   scale += 10;
-//
-//   console.log(words);
-//
-//   Array.from(words).forEach((el, i) => {
-//     el.setAttribute('style', `transform:translateZ(${scale}px);`);
-//   });
-//
-//
-//   //
-//   // filter:blur(${blur}px);
-//   // console.log(event);
-// })
-
-const scroll_to_next_state = event => {
-  if (!state.transitioning)
-  {
-    let parent = document.getElementById('story-container');
-    const max_blur = 40;
-
-    let blur = state.story.stage.blur;
-    blur += (event.deltaY > 0) ? 1.0 / (blur + 0.5) : -1.0 / (blur + 0.5);
-    blur = Math.max(Math.min(blur, max_blur), 0);
-    state.story.stage.blur = blur;
-
-    state.story.stage.opacity = -1 / (max_blur / 4) * blur + 1;
-
-    parent.setAttribute('style', `opacity:${state.story.stage.opacity}; filter:blur(${state.story.stage.blur}px);`)
-
-
-    // console.log(opacity);
-    if (state.story.stage.opacity < 0) {
-      document.onmousewheel = null;
-      render_text(texts[1], state);
-    }
-  }
-};
-
-document.onmousewheel = scroll_to_next_state
