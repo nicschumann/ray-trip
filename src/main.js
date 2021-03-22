@@ -46,7 +46,7 @@ function do_transition_for_mousewheel(story, state)
   return event => {
     if (!state.transitioning)
     {
-      story.animations.state += event.deltaY;
+      story.animations.state += event.deltaY / 4;
 
       if (story.animations.state > 0)
       {
@@ -111,7 +111,7 @@ const blur_to_next_state = (event, story, state) => {
   let words = document.getElementsByClassName('word');
 
   // normal version
-  let bl = t => Math.exp(t / 20);
+  let bl = t => Math.exp(t / 55);
   let op = t => -1 / (55 / 4) * t + 1;
 
   // bonkers version
@@ -168,11 +168,38 @@ function random_story(story_ids)
   return stories[story_index];
 }
 
+// valid color opacities:
+// 1, 1, 1 (white)
+// 0.92, 0, 0.54 (magenta-ish)
+// 0.149, 0.66, 0.878 (blue-ish)
+// 0.254, 1, 0.956 (cyan-ish)
+// 1, 0.945, 0 (yellow)
+function random_color()
+{
+  let choices = [
+    {r: 1, g: 1, b: 1},
+    {r: 0.92, g: 0, b: 0.54},
+    {r: 0.149, g: 0.66, b: 0.878},
+    {r: 0.254, g: 1, b: 0.956},
+    {r: 1, g: 0.945, b: 0}
+  ]
+  return choices[Math.floor(Math.random() * choices.length)];
+}
+
+
+
 const stories = [
   {
     id: 'desk',
-    text: `When my desk is empty, my mind is empty. * When my desk is full, my mind is – * * not full, but chaotic.`,
-    marginalia: [],
+    text: `As Gregor Samsa awoke one morning from uneasy dreams *450 he found himself transformed in his bed into a gigantic insect. * *  Gregor Samsa awoke one morning from uneasy dreams he found himself transformed in his bed into a gigantic insect.`,
+    marginalia: [
+      "U.S. to send millions of vaccines doses to Mexico and Canada. U.S. to send millions of vaccines doses to Mexico and Canada. U.S. to send millions of vaccines doses to Mexico and Canada.",
+      "U.S. to send millions of vaccines doses to Mexico and Canada.",
+      "U.S. to send millions of vaccines doses to Mexico and Canada.",
+      "U.S. to send millions of vaccines doses to Mexico and Canada.",
+      "U.S. to send millions of vaccines doses to Mexico and Canada.",
+      "U.S. to send millions of vaccines doses to Mexico and Canada.",
+    ],
 
     animations: {
       state: 0,
@@ -193,7 +220,14 @@ const stories = [
   {
     id: 'joshua-clover',
     text: `In 2015, *400 Joshua Clover wrote "Once fire is the form of the spectacle the problem *750 / becomes how to set fire to fire."`,
-    marginalia: [],
+    marginalia: [
+      "U.S. to send millions of vaccines doses to Mexico and Canada.",
+      "U.S. to send millions of vaccines doses to Mexico and Canada.",
+      "U.S. to send millions of vaccines doses to Mexico and Canada.",
+      "U.S. to send millions of vaccines doses to Mexico and Canada.",
+      "U.S. to send millions of vaccines doses to Mexico and Canada.",
+      "U.S. to send millions of vaccines doses to Mexico and Canada.",
+    ],
 
     animations: {
       state: 0,
@@ -218,10 +252,11 @@ let story_lookup = stories_to_lookup_table(stories);
 let state = {
   story: {
     stage: {
-      container: document.getElementById('story-container'),
-      blur: 0.3,
-      opacity: 1
+      container: document.getElementById('story-container')
     }
+  },
+  marginalia: {
+    stage: { container: document.getElementById('margin-container') }
   }
 };
 
@@ -234,12 +269,50 @@ let state = {
  *  4. Transition text in with a custom transition function.
  */
 
+function make_channel_data(word, offset, color={})
+{
+
+  let element = document.createElement('span');
+  element.classList.add('word');
+  element.classList.add('channeled-word');
+  element.classList.add('pending');
+
+  let static_channel = document.createElement('span');
+  static_channel.classList.add('static-channel');
+  static_channel.innerHTML = word + '&nbsp;';
+  element.append(static_channel);
+
+  let r_channel = document.createElement('span');
+  r_channel.classList.add('channel');
+  r_channel.classList.add('r-channel');
+  r_channel.innerHTML = word + '&nbsp;';
+  if (typeof color.r !== 'undefined') { r_channel.setAttribute('style', `opacity:${color.r};`); }
+  element.append(r_channel);
+
+  let g_channel = document.createElement('span');
+  g_channel.classList.add('channel');
+  g_channel.classList.add('g-channel');
+  g_channel.innerHTML = word + '&nbsp;';
+  if (typeof color.g !== 'undefined') { g_channel.setAttribute('style', `opacity:${color.g};`); }
+  element.append(g_channel);
+
+  let b_channel = document.createElement('span');
+  b_channel.classList.add('channel');
+  b_channel.classList.add('b-channel');
+  b_channel.innerHTML = word + '&nbsp;';
+  if (typeof color.b !== 'undefined') { b_channel.setAttribute('style', `opacity:${color.b};`); }
+  element.append(b_channel);
+
+  return {element, offset};
+}
 
 
-function preprocess_text_as_words(data)
+
+function preprocess_text_as_RGB_words(data)
 {
   let words = data.text.split(' ').filter(word => word.length > 0);
-  let spans = [];
+  let text = [];
+  let marginalia = [];
   let offset = 0;
 
   words.forEach((word, i) => {
@@ -252,102 +325,49 @@ function preprocess_text_as_words(data)
     }
     else
     {
-      let element = document.createElement('span');
-
-      element.classList.add('word');
-      element.classList.add('pending')
-      element.innerHTML = word + '&nbsp;';
-
-      let data = {element, offset};
-
+      let data = make_channel_data(word, offset);
       offset = 0;
-      spans.push(data);
+      text.push(data);
     }
   });
 
-  return spans;
-}
-
-function preprocess_text_as_words_with_color_channels(data)
-{
-  let words = data.text.split(' ').filter(word => word.length > 0);
-  let spans = [];
-  let offset = 0;
-
-  words.forEach((word, i) => {
-    if (word == '*') {
-      offset = 600;
-    }
-    else if ( word.indexOf('*') == 0 && Number.isInteger(+word.slice(1)))
-    {
-      offset = +word.slice(1);
-    }
-    else
-    {
-      let element = document.createElement('span');
-      element.classList.add('word');
-      element.classList.add('channeled-word');
-      element.classList.add('pending');
-
-      let static_channel = document.createElement('span');
-      static_channel.classList.add('static-channel');
-      static_channel.innerHTML = word + '&nbsp;';
-      element.append(static_channel);
-
-      let r_channel = document.createElement('span');
-      r_channel.classList.add('channel');
-      r_channel.classList.add('r-channel');
-      r_channel.innerHTML = word + '&nbsp;';
-      element.append(r_channel);
-
-      let g_channel = document.createElement('span');
-      g_channel.classList.add('channel');
-      g_channel.classList.add('g-channel');
-      g_channel.innerHTML = word + '&nbsp;';
-      element.append(g_channel);
-
-      let b_channel = document.createElement('span');
-      b_channel.classList.add('channel');
-      b_channel.classList.add('b-channel');
-      b_channel.innerHTML = word + '&nbsp;';
-      element.append(b_channel);
-
-      let data = {element, offset};
-
-      offset = 0;
-      spans.push(data);
-    }
+  data.marginalia.forEach((text, i) => {
+    let color = random_color();
+    let data = make_channel_data(text, offset, color);
+    marginalia.push(data);
   });
 
-  return spans;
+  return {text, marginalia};
 }
-
-
-
 
 
 function render_text( data, state )
 {
   state.transitioning = true;
-  state.story.stage.blur = 0.3;
-  state.story.stage.opacity = 1;
   data.animations.state = 0;
 
-  let parent = state.story.stage.container;
-  parent.innerHTML = '';
-  parent.setAttribute('style', `opacity:${state.story.stage.opacity}; filter:blur(${state.story.stage.blur}px);`)
+  let story_parent = state.story.stage.container;
+  let margin_parent = state.marginalia.stage.container;
+
+  // comment this for a palimpsest effect...
+  story_parent.innerHTML = '';
+  margin_parent.innerHTML = '';
 
   // (optionally) add a process to precompile rests and stops into the data.
-  let elements = preprocess_text_as_words_with_color_channels(data);
+  let {text, marginalia} = preprocess_text_as_RGB_words(data);
 
-  elements.forEach((d, i, a) => {
-    parent.appendChild(d.element);
+  text.forEach((d, i, a) => {
+    story_parent.appendChild(d.element);
     data.animations.in(d, data, i, a);
   });
 
+  marginalia.forEach((d, i, a) => {
+    margin_parent.appendChild(d.element);
+    data.animations.in(d, data, i + text.length, a);
+  })
+
   window.setTimeout(() => {
     state.transitioning = false;
-    console.log('done transitioning')
     document.onmousewheel = do_transition_for_mousewheel(data, state);
   }, acc + padding)
 
