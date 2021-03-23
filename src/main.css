@@ -1,3 +1,4 @@
+@import "./reset.css";
 @import "./fonts/fonts.css";
 
 html
@@ -13,7 +14,6 @@ body
   font-weight: 300;
   box-sizing: border-box;
 	height:100%;
-	overflow:auto;
 }
 
 /* Debugging text frames */
@@ -27,13 +27,22 @@ body
 	border:1px solid red;
 } */
 
+#primary-text-frame
+{
+	display: block;
+	border: 1px solid red;
+	height: 80vh;
+	margin:1rem;
+}
+
 .story-frame
 {
-	position: relative;
+	display: block;
   color:white;
-  font-size:3em;
-  height:80vh;
-	margin:1rem;
+  font-size:60px;
+  height:fit-content;
+
+	border:1px solid orange;
 
 	-webkit-backface-visibility: hidden;
 	-webkit-perspective: 1000;
@@ -45,6 +54,7 @@ body
 
 .margin-text-frame
 {
+	font-family: "Ray";
 	position: absolute;
 	bottom:0vh;
   color:white;

@@ -1,4 +1,5 @@
 require('./main.css');
+import fitty from 'fitty';
 
 let acc = 0;
 let base = 35;
@@ -118,7 +119,7 @@ const blur_to_next_state = (event, story, state) => {
   // let bl = t => Math.exp(Math.random() * t / 20);
   // let op = t => -1 / (55 / 4) * bl(t) + 1;
 
-  console.log(`blur: ${bl(t)}px, op: ${op(t)}`);
+  // console.log(`blur: ${bl(t)}px, op: ${op(t)}`);
 
   Array.from(words).forEach(el => el.setAttribute('style', `transition:all 2ms; opacity:${op(t)};filter:blur(${bl(t)}px);`));
 };
@@ -189,6 +190,34 @@ function random_color()
 
 
 const stories = [
+  {
+    id: 'woods',
+    text: `The door is stuck again. I look directly into camera and gaze into it, unblinking, while the LEDs increase their intensity, trying their best to wash out my complexion. My face appears in the display, but it resolve with the version of my face in the door's database. I twist the handle, gently, not wanting to set off the forced-entry sensors, but the door doesn't give. The other entry option included in my plan is a blood sample. I roll up my sleeve. I had hoped to draw tonight, but my energy is spent.`,
+    marginalia: [
+      "U.S. to send millions of vaccines doses to Mexico and Canada.",
+      "U.S. to send millions of vaccines doses to Mexico and Canada.",
+      "U.S. to send millions of vaccines doses to Mexico and Canada.",
+      "U.S. to send millions of vaccines doses to Mexico and Canada.",
+      "U.S. to send millions of vaccines doses to Mexico and Canada.",
+      "U.S. to send millions of vaccines doses to Mexico and Canada.",
+    ],
+
+    animations: {
+      state: 0,
+      upper_limit: 80,
+      lower_limit: -100,
+
+      in: standard_transition_function,
+      up: blur_to_prev_state,
+      down: blur_to_next_state,
+      ambient: () => {},
+    },
+
+    transitions: {
+      next: ['desk'],
+      prev: []
+    }
+  },
   {
     id: 'desk',
     text: `As Gregor Samsa awoke one morning from uneasy dreams *450 he found himself transformed in his bed into a gigantic insect. * *  Gregor Samsa awoke one morning from uneasy dreams he found himself transformed in his bed into a gigantic insect.`,
@@ -340,6 +369,38 @@ function preprocess_text_as_RGB_words(data)
   return {text, marginalia};
 }
 
+function fit2d(element)
+{
+
+  let ph = element.parentNode.clientHeight;
+  let h = element.clientHeight;
+  let iterations = 0;
+  let delta = 5;
+  let error = 50;
+  let seen = {}
+
+  let size = 60;
+  let leading = 1.1;
+
+  while ((ph - h <= error || ph - h >= error) && iterations <= 1000)
+  {
+    h = element.clientHeight;
+    if (seen[h] && delta < 0.5) { break; }
+    if (seen[h] && delta > 0.5) { delta *= 0.5; }
+
+    seen[h] = true;
+
+    let dir = Math.sign((ph - h) - error);
+    size += dir * delta;
+
+    element.setAttribute('style',
+      `font-size:${size}px;
+       line-height: ${leading}em;`
+    );
+
+    iterations += 1;
+  }
+}
 
 function render_text( data, state )
 {
@@ -350,6 +411,9 @@ function render_text( data, state )
   let margin_parent = state.marginalia.stage.container;
 
   // comment this for a palimpsest effect...
+  let parent_test_span = document.createElement('span');
+
+  story_parent.setAttribute('style', '');
   story_parent.innerHTML = '';
   margin_parent.innerHTML = '';
 
@@ -358,11 +422,20 @@ function render_text( data, state )
 
   text.forEach((d, i, a) => {
     story_parent.appendChild(d.element);
+  });
+
+  // fit text to content.
+  fit2d(story_parent);
+
+  marginalia.forEach((d, i, a) => {
+    margin_parent.appendChild(d.element);
+  });
+
+  text.forEach((d, i, a) => {
     data.animations.in(d, data, i, a);
   });
 
   marginalia.forEach((d, i, a) => {
-    margin_parent.appendChild(d.element);
     data.animations.in(d, data, i + text.length, a);
   })
 
