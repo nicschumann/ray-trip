@@ -4,6 +4,7 @@ import fitty from 'fitty';
 let acc = 0;
 let base = 35;
 let padding = 1000;
+let timers = []
 
 
 /**
@@ -14,11 +15,13 @@ const standard_transition_function = (data, story,  i) => {
 
   let offset = (i % 3 == 0) ? 0 : 100;
 
-  window.setTimeout(() => {
+  let timer = window.setTimeout(() => {
     data.element.classList.remove('pending');
-  }, acc + base + offset + data.offset);
+  }, (i == 0) ? 0 : acc + base + offset + data.offset);
 
   acc += base + offset + data.offset;
+
+  return timer;
 }
 
 const trippy_transition_function = (data, story, i) => {
@@ -26,15 +29,17 @@ const trippy_transition_function = (data, story, i) => {
   let offset = (i % 3 == 0) ? 0 : 20;
   let random_timing = Math.random();
 
-  window.setTimeout(() => {
+  let timer = window.setTimeout(() => {
     // random angle:
     // let angle = Math.floor(Math.random() * 360);
     // data.element.setAttribute('style', `transform:rotate(${angle}deg);`);
 
     data.element.classList.remove('pending');
-  }, 25 * random_timing + acc + offset);
+  }, (i == 0) ? 0 : 25 * random_timing + acc + offset);
 
   acc += base * random_timing * offset + random_timing + data.offset;
+
+  return timer;
 }
 
 
@@ -201,6 +206,10 @@ const stories = [
       "U.S. to send millions of vaccines doses to Mexico and Canada.",
       "U.S. to send millions of vaccines doses to Mexico and Canada.",
     ],
+    sidelines: [],
+    font: {
+      weight: 900
+    },
 
     animations: {
       state: 0,
@@ -228,6 +237,11 @@ const stories = [
       "U.S. to send millions of vaccines doses to Mexico and Canada.",
       "U.S. to send millions of vaccines doses to Mexico and Canada.",
       "U.S. to send millions of vaccines doses to Mexico and Canada.",
+    ],
+    sidelines: [
+      "U.S. to send millions of vaccines doses to Mexico and Canada.",
+      "U.S. to send millions of vaccines doses to Mexico and Canada.",
+      "U.S. to send millions of vaccines doses to Mexico and Canada."
     ],
 
     animations: {
@@ -257,6 +271,7 @@ const stories = [
       "U.S. to send millions of vaccines doses to Mexico and Canada.",
       "U.S. to send millions of vaccines doses to Mexico and Canada.",
     ],
+    sidelines: [],
 
     animations: {
       state: 0,
@@ -286,7 +301,11 @@ let state = {
   },
   marginalia: {
     stage: { container: document.getElementById('margin-container') }
-  }
+  },
+  sidelines: {
+    stage: { container: document.getElementById('sidelines-container') }
+  },
+  timers: []
 };
 
 
@@ -342,6 +361,7 @@ function preprocess_text_as_RGB_words(data)
   let words = data.text.split(' ').filter(word => word.length > 0);
   let text = [];
   let marginalia = [];
+  let sidelines = [];
   let offset = 0;
 
   words.forEach((word, i) => {
@@ -366,37 +386,87 @@ function preprocess_text_as_RGB_words(data)
     marginalia.push(data);
   });
 
-  return {text, marginalia};
+  data.sidelines.forEach((text, i) => {
+    let color = random_color();
+    let data = make_channel_data(text, offset, color);
+    sidelines.push(data);
+  });
+
+  return {text, marginalia, sidelines};
 }
 
-function fit2d(element)
-{
 
-  let ph = element.parentNode.clientHeight;
+function fit2d_binsearch(element)
+{
+  let ph = element.parentNode.clientHeight - 32; // margin hardcoded
+  let h = element.clientHeight;
+
+
+  let iterations = 0;
+  let min_size = 12;
+  let size = 60;
+  let max_size = 100;
+  let leading = 1.1;
+  let error = 20;
+
+  while ((ph - h > error || ph - h <= 0) && iterations < 50)
+  {
+
+    h = element.clientHeight;
+
+    console.log('iteration', iterations);
+    console.log('height', h);
+
+    console.log('minsize', min_size);
+    console.log('size', size);
+    console.log('maxsize', max_size);
+
+    if (h < ph)
+    {
+      min_size = size;
+      size = (size + max_size) / 2;
+    }
+    else
+    {
+      max_size = size;
+      size = (min_size + size) / 2;
+    }
+
+    element.style.fontSize = `${size}px`;
+    element.style.lineHeight = `${leading}em`;
+
+    h = element.clientHeight;
+
+    if (max_size - min_size < 1) break;
+    iterations++;
+  }
+}
+
+function fit2d_linear(element, percentage_of_container)
+{
+  let ph = element.parentNode.clientHeight - 32;
   let h = element.clientHeight;
   let iterations = 0;
-  let delta = 5;
-  let error = 50;
+  let delta = 2;
+  let error = 20 * percentage_of_container;
   let seen = {}
 
   let size = 60;
   let leading = 1.1;
 
-  while ((ph - h <= error || ph - h >= error) && iterations <= 1000)
+  while ((ph - h <= 0 || ph - h >= error) && iterations <= 20)
   {
     h = element.clientHeight;
-    if (seen[h] && delta < 0.5) { break; }
-    if (seen[h] && delta > 0.5) { delta *= 0.5; }
+    if (seen[h] && delta < 0.125) { break; }
+    if (seen[h] && delta > 0.125) { delta *= 0.5; }
 
     seen[h] = true;
 
     let dir = Math.sign((ph - h) - error);
     size += dir * delta;
 
-    element.setAttribute('style',
-      `font-size:${size}px;
-       line-height: ${leading}em;`
-    );
+    element.style.fontSize = `${size}px`;
+    element.style.lineHeight = `${leading}em`;
 
     iterations += 1;
   }
@@ -409,43 +479,75 @@ function render_text( data, state )
 
   let story_parent = state.story.stage.container;
   let margin_parent = state.marginalia.stage.container;
+  let sidelines_parent = state.sidelines.stage.container;
 
   // comment this for a palimpsest effect...
   let parent_test_span = document.createElement('span');
+  story_parent.setAttribute('style', ``);
+  story_parent.parentNode.setAttribute('style', '');
+  if (typeof data.font !== 'undefined')
+  {
+    story_parent.style.fontWeight = `${data.font.weight}`;
+  }
 
-  story_parent.setAttribute('style', '');
   story_parent.innerHTML = '';
   margin_parent.innerHTML = '';
 
+  sidelines_parent.parentNode.setAttribute('style', '');
+  sidelines_parent.innerHTML = '';
+
+  if (data.sidelines.length == 0)
+  {
+    sidelines_parent.parentNode.setAttribute('style', 'display:none;');
+    story_parent.parentNode.setAttribute('style', 'left:0;width:calc(100vw - 2rem);');
+  }
+
   // (optionally) add a process to precompile rests and stops into the data.
-  let {text, marginalia} = preprocess_text_as_RGB_words(data);
+  let {text, marginalia, sidelines} = preprocess_text_as_RGB_words(data);
 
   text.forEach((d, i, a) => {
     story_parent.appendChild(d.element);
   });
 
   // fit text to content.
-  fit2d(story_parent);
+  fit2d_binsearch(story_parent, 1);
 
   marginalia.forEach((d, i, a) => {
     margin_parent.appendChild(d.element);
   });
 
+  sidelines.forEach((d, i, a) => {
+    sidelines_parent.appendChild(d.element);
+  });
+
   text.forEach((d, i, a) => {
-    data.animations.in(d, data, i, a);
+    let timer = data.animations.in(d, data, i, a);
+    // timers.push({timer, fn: () => {data.animations.in(d, data, 0, a)}});
   });
 
   marginalia.forEach((d, i, a) => {
-    data.animations.in(d, data, i + text.length, a);
+    let timer = data.animations.in(d, data, i + text.length, a);
+    // timers.push({timer, fn: () => {data.animations.in(d, data, 0, a)}});
   })
 
-  window.setTimeout(() => {
+  sidelines.reverse().forEach((d, i, a) => {
+    let timer = data.animations.in(d, data, i + text.length, a);
+    // timers.push({timer, fn: () => {data.animations.in(d, data, 0, a)}});
+  });
+
+  let timer = window.setTimeout(() => {
     state.transitioning = false;
     document.onmousewheel = do_transition_for_mousewheel(data, state);
-  }, acc + padding)
+    timers = [];
+  }, acc + padding);
+
 
   acc = 0;
 }
 
 
 render_text(stories[0], state);
+
+window.addEventListener('resize', () => {
+  fit2d_binsearch(state.story.stage.container, 1);
+})
