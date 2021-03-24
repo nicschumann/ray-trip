@@ -89,7 +89,7 @@ body
 	margin:1rem;
 
   font-weight: 100;
-  /* width:fit-content; */
+  width:calc(100vw - 2rem);
 }
 
 .margin-text-frame .word,
