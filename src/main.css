@@ -18,21 +18,44 @@ body
 
 /* Debugging text frames */
 
-/*
-.story-frame {
-	border:1px solid red;
+#margin-container.debug
+{
+	border-top: 1px solid red;
 }
-
-.margin-text-frame {
-	border:1px solid red;
-} */
 
 #primary-text-frame
 {
 	display: block;
-	border: 1px solid red;
-	height: 80vh;
+	top:0;
+	height:80vh;
 	margin:1rem;
+}
+#primary-text-frame.debug
+{
+	border-bottom:2px solid red;
+}
+
+.sidebar-text-frame
+{
+
+	font-family: "Ray";
+
+	display:none;
+	position: relative;
+	width:25vw;
+	height:80vh;
+	margin:1rem;
+}
+.sidebar-text-frame.debug
+{
+
+	border-bottom:1px solid red;
+}
+
+.sidebar-text-bottom-anchor {
+	position: absolute;
+	bottom:0;
+	width:100%;
 }
 
 .story-frame
@@ -42,8 +65,6 @@ body
   font-size:60px;
   height:fit-content;
 
-	border:1px solid orange;
-
 	-webkit-backface-visibility: hidden;
 	-webkit-perspective: 1000;
   backface-visibility: hidden;
@@ -51,12 +72,17 @@ body
 	perspective: 550px;
 	overflow: visible;
 }
+.story-frame.debug
+{
+	border-bottom:2px solid orange;
+}
 
 .margin-text-frame
 {
 	font-family: "Ray";
+
 	position: absolute;
-	bottom:0vh;
+	top:85vh;
   color:white;
   display:flex;
   flex-wrap: wrap;
@@ -73,6 +99,21 @@ body
 	width: 29vw;
 	margin-right: 2vw;
 }
+
+.sidebar-text-frame .word,
+.sidebar-text-frame .channel
+{
+	white-space: normal;
+	width: 100%;
+	margin-bottom: 2vw;
+}
+
+.sidebar-text-frame .word:last-child,
+.sidebar-text-frame .channel:last-child
+{
+	margin-bottom:0;
+}
+
 
 
 .word
@@ -138,6 +179,8 @@ body
 
 /* Marginalia Sizes across screen widths */
 
+/* Sidebar visible */
+
 @media screen and (min-width:1250px) {
 	.margin-text-frame .word,
 	.margin-text-frame .channel
@@ -150,6 +193,21 @@ body
 	.margin-text-frame .word:nth-child(n+6)
 	{
 		display: none;
+	}
+
+	#sidebar-text-frame
+	{
+		width:17vw;
+		margin-right: 2vw;
+		display:block;
+	}
+
+	#primary-text-frame
+	{
+		position:absolute;
+		left:19vw;
+
+		width:calc(81vw - 2rem);
 	}
 }
 
@@ -167,8 +225,26 @@ body
 	{
 		display: none;
 	}
+
+	#sidebar-text-frame
+	{
+		width:20vw;
+		margin-right: 2vw;
+		display:block;
+	}
+
+	#primary-text-frame
+	{
+		position:absolute;
+		left:23vw;
+
+		width:calc(77vw - 2rem);
+	}
 }
 
+
+
+/* No sidebar visible */
 
 @media screen and (min-width:750px) and (max-width:1000px) {
 	.margin-text-frame .word,
