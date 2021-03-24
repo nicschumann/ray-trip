@@ -1,5 +1,6 @@
 require('./main.css');
 import fitty from 'fitty';
+import {fit2d_binsearch} from './fit2d.js';
 
 let acc = 0;
 let base = 35;
@@ -52,7 +53,7 @@ function do_transition_for_mousewheel(story, state)
   return event => {
     if (!state.transitioning)
     {
-      story.animations.state += event.deltaY / 4;
+      story.animations.state += event.deltaY / 6;
 
       if (story.animations.state > 0)
       {
@@ -68,8 +69,9 @@ function do_transition_for_mousewheel(story, state)
         story.transitions.next.length > 0
       ) {
         document.onmousewheel = null;
-        let next_story = random_story(story.transitions.next);
-        render_text(next_story, state);
+        let next_story = random_story_id(story.transitions.next);
+        state.current = next_story;
+        render_text(state);
       }
 
       if (
@@ -77,8 +79,9 @@ function do_transition_for_mousewheel(story, state)
         story.transitions.prev.length > 0
       ) {
         document.onmousewheel = null;
-        let prev_story = random_story(story.transitions.prev);
-        render_text(prev_story, state);
+        let prev_story = random_story_id(story.transitions.next);
+        state.current = prev_story;
+        render_text(state);
       }
     }
   };
@@ -166,11 +169,15 @@ function stories_to_lookup_table(stories)
   return lookup;
 }
 
-function random_story(story_ids)
+function random_story_id(story_ids)
 {
-  let index = Math.floor(Math.random() * story_ids.length);
-  let story_id = story_ids[index];
-  let story_index = story_lookup[story_id];
+  return Math.floor(Math.random() * story_ids.length);
+}
+
+function story_from_id(id)
+{
+  let story_index = story_lookup[id];
+  console.log(id, story_index);
   return stories[story_index];
 }
 
@@ -196,7 +203,7 @@ function random_color()
 
 const stories = [
   {
-    id: 'woods',
+    id: 'door',
     text: `The door is stuck again. I look directly into camera and gaze into it, unblinking, while the LEDs increase their intensity, trying their best to wash out my complexion. My face appears in the display, but it resolve with the version of my face in the door's database. I twist the handle, gently, not wanting to set off the forced-entry sensors, but the door doesn't give. The other entry option included in my plan is a blood sample. I roll up my sleeve. I had hoped to draw tonight, but my energy is spent.`,
     marginalia: [
       "U.S. to send millions of vaccines doses to Mexico and Canada.",
@@ -207,8 +214,9 @@ const stories = [
       "U.S. to send millions of vaccines doses to Mexico and Canada.",
     ],
     sidelines: [],
+
     font: {
-      weight: 900
+      weight: 800
     },
 
     animations: {
@@ -257,7 +265,7 @@ const stories = [
 
     transitions: {
       next: ['joshua-clover'],
-      prev: []
+      prev: ['door']
     }
   },
   {
@@ -272,6 +280,10 @@ const stories = [
       "U.S. to send millions of vaccines doses to Mexico and Canada.",
     ],
     sidelines: [],
+
+    font: {
+      size: 36
+    },
 
     animations: {
       state: 0,
@@ -297,7 +309,8 @@ let state = {
   story: {
     stage: {
       container: document.getElementById('story-container')
-    }
+    },
+    current: 'door'
   },
   marginalia: {
     stage: { container: document.getElementById('margin-container') }
@@ -396,84 +409,9 @@ function preprocess_text_as_RGB_words(data)
 }
 
 
-function fit2d_binsearch(element)
+function render_text(state)
 {
-  let ph = element.parentNode.clientHeight - 32; // margin hardcoded
-  let h = element.clientHeight;
-
-
-  let iterations = 0;
-  let min_size = 12;
-  let size = 60;
-  let max_size = 100;
-  let leading = 1.1;
-  let error = 20;
-
-  while ((ph - h > error || ph - h <= 0) && iterations < 50)
-  {
-
-    h = element.clientHeight;
-
-    console.log('iteration', iterations);
-    console.log('height', h);
-
-    console.log('minsize', min_size);
-    console.log('size', size);
-    console.log('maxsize', max_size);
-
-    if (h < ph)
-    {
-      min_size = size;
-      size = (size + max_size) / 2;
-    }
-    else
-    {
-      max_size = size;
-      size = (min_size + size) / 2;
-    }
-
-    element.style.fontSize = `${size}px`;
-    element.style.lineHeight = `${leading}em`;
-
-    h = element.clientHeight;
-
-    if (max_size - min_size < 1) break;
-    iterations++;
-  }
-}
-
-function fit2d_linear(element, percentage_of_container)
-{
-  let ph = element.parentNode.clientHeight - 32;
-  let h = element.clientHeight;
-  let iterations = 0;
-  let delta = 2;
-  let error = 20 * percentage_of_container;
-  let seen = {}
-
-  let size = 60;
-  let leading = 1.1;
-
-  while ((ph - h <= 0 || ph - h >= error) && iterations <= 20)
-  {
-    h = element.clientHeight;
-    if (seen[h] && delta < 0.125) { break; }
-    if (seen[h] && delta > 0.125) { delta *= 0.5; }
-
-    seen[h] = true;
-
-    let dir = Math.sign((ph - h) - error);
-    size += dir * delta;
-
-    element.style.fontSize = `${size}px`;
-    element.style.lineHeight = `${leading}em`;
-
-    iterations += 1;
-  }
-}
-
-function render_text( data, state )
-{
+  let data = story_from_id(state.story.current);
   state.transitioning = true;
   data.animations.state = 0;
 
@@ -510,7 +448,15 @@ function render_text( data, state )
   });
 
   // fit text to content.
-  fit2d_binsearch(story_parent, 1);
+  if (typeof data.font !== 'undefined' && typeof data.font.size !== "undefined")
+  {
+    story_parent.style.fontSize = data.font.size;
+  }
+  else
+  {
+    fit2d_binsearch(story_parent, 1);
+  }
+
 
   marginalia.forEach((d, i, a) => {
     margin_parent.appendChild(d.element);
@@ -546,8 +492,14 @@ function render_text( data, state )
 }
 
 
-render_text(stories[0], state);
+render_text(state);
 
-window.addEventListener('resize', () => {
-  fit2d_binsearch(state.story.stage.container, 1);
-})
+let timer_id = null;
+const ro = new ResizeObserver(entries => {
+  window.clearTimeout(timer_id);
+  timer_id = window.setTimeout(() => {
+    fit2d_binsearch(state.story.stage.container, 1);
+  }, 100);
+});
+
+ro.observe(document.querySelector('#story-container').parentNode);
