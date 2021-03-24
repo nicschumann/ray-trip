@@ -68,9 +68,11 @@ function do_transition_for_mousewheel(story, state)
         story.animations.state > story.animations.upper_limit &&
         story.transitions.next.length > 0
       ) {
+        window.clearInterval(state.ambient_interval);
         document.onmousewheel = null;
+
         let next_story = random_story_id(story.transitions.next);
-        state.current = next_story;
+        state.story.current = next_story;
         render_text(state);
       }
 
@@ -78,9 +80,11 @@ function do_transition_for_mousewheel(story, state)
         story.animations.state < story.animations.lower_limit &&
         story.transitions.prev.length > 0
       ) {
+        window.clearInterval(state.ambient_interval);
         document.onmousewheel = null;
-        let prev_story = random_story_id(story.transitions.next);
-        state.current = prev_story;
+
+        let prev_story = random_story_id(story.transitions.prev);
+        state.story.current = prev_story;
         render_text(state);
       }
     }
@@ -129,7 +133,12 @@ const blur_to_next_state = (event, story, state) => {
 
   // console.log(`blur: ${bl(t)}px, op: ${op(t)}`);
 
-  Array.from(words).forEach(el => el.setAttribute('style', `transition:all 2ms; opacity:${op(t)};filter:blur(${bl(t)}px);`));
+  Array.from(words).forEach(el => {
+    // el.setAttribute('style', `transition:all 2ms; opacity:${op(t)};filter:blur(${bl(t)}px);`
+    el.style.transition = `all 2ms`;
+    el.style.opacity = op(t);
+    el.style.filter = `blur(${bl(t)}px)`;
+  });
 };
 
 // const blur_to_next_state = (event, story, state) => {
@@ -146,6 +155,28 @@ const blur_to_next_state = (event, story, state) => {
 //
 //   parent.setAttribute('style', `opacity:${state.story.stage.opacity}; filter:blur(${state.story.stage.blur}px);`)
 // };
+
+
+const glyph_snow = () => {
+  let glyphs = ['$', '&', '*', '@', '#', '%'];
+
+  let span = document.createElement('span');
+  span.classList.add('word');
+  span.classList.add('ambient');
+
+  span.style.position = 'absolute';
+  span.style.left = `${Math.random() * window.innerWidth}px`;
+  span.style.top = `${Math.random() * window.innerHeight}px`;
+
+  span.style.fontSize = `18px`;
+  let c = random_color();
+  span.style.color = `rgb(${c.r * 255}, ${c.g * 255}, ${c.b * 255})`
+
+  span.style.transform = `rotate(${Math.random()*360}deg)`;
+  span.innerHTML = glyphs[Math.floor(Math.random() * glyphs.length)];
+
+  return span;
+};
 
 
 /**
@@ -171,7 +202,7 @@ function stories_to_lookup_table(stories)
 
 function random_story_id(story_ids)
 {
-  return Math.floor(Math.random() * story_ids.length);
+  return story_ids[Math.floor(Math.random() * story_ids.length)];
 }
 
 function story_from_id(id)
@@ -227,7 +258,7 @@ const stories = [
       in: standard_transition_function,
       up: blur_to_prev_state,
       down: blur_to_next_state,
-      ambient: () => {},
+      ambient: glyph_snow,
     },
 
     transitions: {
@@ -260,7 +291,7 @@ const stories = [
       in: standard_transition_function,
       up: blur_to_prev_state,
       down: blur_to_next_state,
-      ambient: () => {},
+      // ambient: () => {},
     },
 
     transitions: {
@@ -293,7 +324,7 @@ const stories = [
       in: standard_transition_function,
       up: blur_to_prev_state,
       down: blur_to_next_state,
-      ambient: () => {},
+      // ambient: () => {},
     },
 
     transitions: {
@@ -448,8 +479,10 @@ function render_text(state)
   });
 
   // fit text to content.
-  if (typeof data.font !== 'undefined' && typeof data.font.size !== "undefined")
-  {
+  if (
+    typeof data.font !== 'undefined' &&
+    typeof data.font.size !== 'undefined'
+  ) {
     story_parent.style.fontSize = data.font.size;
   }
   else
@@ -481,8 +514,21 @@ function render_text(state)
     // timers.push({timer, fn: () => {data.animations.in(d, data, 0, a)}});
   });
 
+
   let timer = window.setTimeout(() => {
     state.transitioning = false;
+
+    if (typeof data.animations.ambient !== 'undefined')
+    {
+      state.ambient_interval = window.setInterval(() => {
+        if (data.animations.state == 0)
+        {
+          let span = data.animations.ambient();
+          story_parent.appendChild(span);
+        }
+      }, 250);
+    }
+
     document.onmousewheel = do_transition_for_mousewheel(data, state);
     timers = [];
   }, acc + padding);
