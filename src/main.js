@@ -1,6 +1,8 @@
 require('./main.css');
-import fitty from 'fitty';
+import stories_2 from './stories.js';
 import {fit2d_binsearch} from './fit2d.js';
+
+console.log(stories_2);
 
 let acc = 0;
 let base = 35;
@@ -14,7 +16,7 @@ let timers = []
 
 const standard_transition_function = (data, story,  i) => {
 
-  let offset = (i % 3 == 0) ? 0 : 100;
+  let offset = story.animations.in.offset(i);
 
   let timer = window.setTimeout(() => {
     data.element.classList.remove('pending');
@@ -25,23 +27,23 @@ const standard_transition_function = (data, story,  i) => {
   return timer;
 }
 
-const trippy_transition_function = (data, story, i) => {
-
-  let offset = (i % 3 == 0) ? 0 : 20;
-  let random_timing = Math.random();
-
-  let timer = window.setTimeout(() => {
-    // random angle:
-    // let angle = Math.floor(Math.random() * 360);
-    // data.element.setAttribute('style', `transform:rotate(${angle}deg);`);
-
-    data.element.classList.remove('pending');
-  }, (i == 0) ? 0 : 25 * random_timing + acc + offset);
-
-  acc += base * random_timing * offset + random_timing + data.offset;
-
-  return timer;
-}
+// const trippy_transition_function = (data, story, i) => {
+//
+//   let offset = (i % 3 == 0) ? 0 : 20;
+//   let random_timing = Math.random();
+//
+//   let timer = window.setTimeout(() => {
+//     // random angle:
+//     // let angle = Math.floor(Math.random() * 360);
+//     // data.element.setAttribute('style', `transform:rotate(${angle}deg);`);
+//
+//     data.element.classList.remove('pending');
+//   }, (i == 0) ? 0 : 25 * random_timing + acc + offset);
+//
+//   acc += base * random_timing * offset + random_timing + data.offset;
+//
+//   return timer;
+// }
 
 
 /**
@@ -57,11 +59,11 @@ function do_transition_for_mousewheel(story, state)
 
       if (story.animations.state > 0)
       {
-        story.animations.down(event, story, state);
+        blur_to_next_state(event, story, state);
       }
       else if (story.animations.state < 0)
       {
-        story.animations.up(event, story, state);
+        blur_to_prev_state(event, story, state);
       }
 
       if (
@@ -95,11 +97,57 @@ function do_transition_for_mousewheel(story, state)
  * Ups
  */
 
+const get_function = (animations, channel, axis) =>
+{
+  return (typeof animations[channel] !== 'undefined' && typeof animations[channel][axis] !== 'undefined') ?
+          animations[channel][axis] :
+          () => 0;
+}
+
 const blur_to_prev_state = (event, story, state) => {
   let t = story.animations.state;
 
-  let rs = document.getElementsByClassName('r-channel');
+
   let bs = document.getElementsByClassName('b-channel');
+
+  if (typeof story.animations.up.r !== 'undefined')
+  {
+    let color = {
+      top: get_function(story.animations.up, 'r', 'top'),
+      left: get_function(story.animations.up, 'r', 'left')
+    }
+
+    let rs = document.getElementsByClassName('r-channel');
+
+    Array.from(rs).forEach(el => el.setAttribute('style', `transition:all 2ms;top:${color.top(t)}px;left:${color.left(t)}px;`));
+  }
+
+  if (typeof story.animations.up.g !== 'undefined')
+  {
+    let color = {
+      top: get_function(story.animations.up, 'g', 'top'),
+      left: get_function(story.animations.up, 'g', 'left')
+    }
+
+    let gs = document.getElementsByClassName('g-channel');
+
+    Array.from(gs).forEach(el => el.setAttribute('style', `transition:all 2ms;top:${color.top(t)}px;left:${color.left(t)}px;`));
+  }
+
+  if (typeof story.animations.up.b !== 'undefined')
+  {
+    let color = {
+      top: get_function(story.animations.up, 'b', 'top'),
+      left: get_function(story.animations.up, 'b', 'left')
+    }
+
+    let bs = document.getElementsByClassName('b-channel');
+
+    Array.from(bs).forEach(el => el.setAttribute('style', `transition:all 2ms;top:${color.top(t)}px;left:${color.left(t)}px;`));
+  }
+
+
+
 
   // quasi-sane version
   let r = t => t * Math.sin(t) / 18;
@@ -109,7 +157,7 @@ const blur_to_prev_state = (event, story, state) => {
   // let r = t => t * Math.sin(Math.random() * t) / 20;
   // let b = t => t * Math.cos(Math.random() * -t) / 20;
 
-  Array.from(rs).forEach(el => el.setAttribute('style', `transition:all 2ms;top:${b(t)}px;left:${r(t)}px;`));
+
   Array.from(bs).forEach(el => el.setAttribute('style', `transition:all 2ms;top:${r(t)}px;left:${b(t)}px;`));
 };
 
@@ -124,8 +172,8 @@ const blur_to_next_state = (event, story, state) => {
   let words = document.getElementsByClassName('word');
 
   // normal version
-  let bl = t => Math.exp(t / 55);
-  let op = t => -1 / (55 / 4) * t + 1;
+  let bl = story.animations.down.blur(t);
+  let op = story.animations.down.opacity(t);
 
   // bonkers version
   // let bl = t => Math.exp(Math.random() * t / 20);
@@ -136,8 +184,8 @@ const blur_to_next_state = (event, story, state) => {
   Array.from(words).forEach(el => {
     // el.setAttribute('style', `transition:all 2ms; opacity:${op(t)};filter:blur(${bl(t)}px);`
     el.style.transition = `all 2ms`;
-    el.style.opacity = op(t);
-    el.style.filter = `blur(${bl(t)}px)`;
+    el.style.opacity = op;
+    el.style.filter = `blur(${bl}px)`;
   });
 };
 
@@ -252,13 +300,27 @@ const stories = [
 
     animations: {
       state: 0,
-      upper_limit: 80,
+      upper_limit: 40,
       lower_limit: -100,
 
-      in: standard_transition_function,
-      up: blur_to_prev_state,
-      down: blur_to_next_state,
-      ambient: glyph_snow,
+      in: {
+        offset: i => (i % 3 == 0) ? 0 : 100
+      },
+      up: {
+        r: {
+          top: t => t * Math.sin(t) / 18,
+          left: t => t * Math.cos(-t) / 18
+        },
+        b: {
+          top: t => t * Math.cos(-t) / 18,
+          left: t => t * Math.sin(t) / 18
+        }
+      },
+      down: {
+        blur: t => Math.exp(t / 55),
+        opacity: t => -1 / (55 / 4) * t + 1
+      },
+      // ambient: glyph_snow,
     },
 
     transitions: {
@@ -288,9 +350,23 @@ const stories = [
       upper_limit: 80,
       lower_limit: -100,
 
-      in: standard_transition_function,
-      up: blur_to_prev_state,
-      down: blur_to_next_state,
+      in: {
+        offset: i => (i % 3 == 0) ? 0 : 100
+      },
+      up: {
+        r: {
+          top: t => t * Math.sin(t) / 18,
+          left: t => t * Math.cos(-t) / 18
+        },
+        b: {
+          top: t => t * Math.cos(-t) / 18,
+          left: t => t * Math.sin(t) / 18
+        }
+      },
+      down: {
+        blur: t => Math.exp(t / 55),
+        opacity: t => -1 / (55 / 4) * t + 1
+      },
       // ambient: () => {},
     },
 
@@ -321,9 +397,23 @@ const stories = [
       upper_limit: 80,
       lower_limit: -100,
 
-      in: standard_transition_function,
-      up: blur_to_prev_state,
-      down: blur_to_next_state,
+      in: {
+        offset: i => (i % 3 == 0) ? 0 : 100
+      },
+      up: {
+        r: {
+          top: t => t * Math.sin(t) / 18,
+          left: t => t * Math.cos(-t) / 18
+        },
+        b: {
+          top: t => t * Math.cos(-t) / 18,
+          left: t => t * Math.sin(t) / 18
+        }
+      },
+      down: {
+        blur: t => Math.exp(t / 55),
+        opacity: t => -1 / (55 / 4) * t + 1
+      },
       // ambient: () => {},
     },
 
@@ -452,7 +542,7 @@ function render_text(state)
 
   // comment this for a palimpsest effect...
   let parent_test_span = document.createElement('span');
-  story_parent.setAttribute('style', ``);
+  story_parent.setAttribute('style', '');
   story_parent.parentNode.setAttribute('style', '');
   if (typeof data.font !== 'undefined')
   {
@@ -500,17 +590,17 @@ function render_text(state)
   });
 
   text.forEach((d, i, a) => {
-    let timer = data.animations.in(d, data, i, a);
+    let timer = standard_transition_function(d, data, i, a);
     // timers.push({timer, fn: () => {data.animations.in(d, data, 0, a)}});
   });
 
   marginalia.forEach((d, i, a) => {
-    let timer = data.animations.in(d, data, i + text.length, a);
+    let timer = standard_transition_function(d, data, i + text.length, a);
     // timers.push({timer, fn: () => {data.animations.in(d, data, 0, a)}});
   })
 
   sidelines.reverse().forEach((d, i, a) => {
-    let timer = data.animations.in(d, data, i + text.length, a);
+    let timer = standard_transition_function(d, data, i + text.length, a);
     // timers.push({timer, fn: () => {data.animations.in(d, data, 0, a)}});
   });
 

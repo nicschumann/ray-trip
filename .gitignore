@@ -5,6 +5,7 @@
 
 # compiled files
 pub/bundle*
+src/stories.js
 
 # node-specific ignores
 node_modules
