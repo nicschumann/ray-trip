@@ -1,0 +1,28 @@
+@import "../reset.css";
+@import "../fonts/fonts.css";
+svg {
+  background-color:black;
+}
+
+.graph-title
+{
+  fill:white;
+  font-size:32px;
+}
+
+.links line {
+  stroke: #fff;
+}
+
+.nodes circle {
+  stroke: #000;
+  stroke-width: 1.5px;
+}
+
+text {
+  font-family: "Ray", sans-serif;
+  font-size: 20px;
+  font-weight: 300;
+  fill: cyan;
+
+}

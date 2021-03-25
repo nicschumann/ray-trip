@@ -97,6 +97,7 @@ stories_watcher.on('ready', async () => {
 
   stories_watcher.on('add', buildstories);
   stories_watcher.on('change', buildstories);
+  stories_watcher.on('unlink', buildstories);
 })
 
 
