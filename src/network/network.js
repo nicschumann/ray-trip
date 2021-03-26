@@ -59,9 +59,10 @@ svg.append('defs').append('marker')
   .style('stroke', 'none');
 
 var simulation = d3.forceSimulation()
-  .force('link', d3.forceLink().id(d => d.id).distance(100).strength(2))
+  .force('link', d3.forceLink().id(d => d.id).distance(50).strength(2))
   .force('charge', d3.forceManyBody())
-  .force('center', d3.forceCenter(width / 2, height / 2));
+  .force('center', d3.forceCenter(width / 2, height / 2))
+  .alphaTarget(0.4);
 
 let edges = get_edges_from_nodes(stories)
 
