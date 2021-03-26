@@ -46,6 +46,8 @@ const buildstories = async () => {
 
   fs.readdir(compile_path, (err, files) => {
     files.forEach((file, i) => {
+      if (file.indexOf('.js') == -1) { return; }
+      let name = file.slice(0, file.indexOf('.js'));
       // add consistency checks.
       let require_path = '.' + path.sep + path.join(compile_path, file);
       let data = fs
@@ -105,5 +107,6 @@ stories_watcher.on('ready', async () => {
 liveserver.start({
   open: true,
   port: +process.env.PORT || 8080,
-  root: "pub"
+  root: "pub",
+  logLevel: 0
 });
