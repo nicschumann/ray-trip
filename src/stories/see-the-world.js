@@ -37,7 +37,7 @@
   },
 
   transitions: {
-    next: [],
+    next: ['zeitgeist'],
     prev: []
   }
 }

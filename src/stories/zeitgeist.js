@@ -1,13 +1,14 @@
 {
-  id: 'velvety-cap',
-  text: `At home, I took the mushroom out of my pocket. *750 I noticed how light it was; *450 the cap had a velvety feel to it. *1000 I placed it gently on top of my desk. *750 The glow was still there, *350 only it seemed a lot brighter — *500 or my room was darker. *1000 For reasons I can’t explain, *1000 I took a bite.`,
+  id: 'zeitgeist',
+  text: `The works capture the zeitgeist of 2018. Black backgrounds and type from the latest indie foundries. Sometimes stretched and distorted. Almost always dressed in metallic or reflective skins. The high definition media allows for thin and long serifs nailing the word into your memories. All of it is a fair reflection of the dystopian narratives shoved down our throats through news.`,
   marginalia: [
   ],
   sidelines: [
   ],
 
   font: {
-    size: 36
+    size: 36,
+    leading: 1.1
   },
 
   animations: {
@@ -36,7 +37,7 @@
   },
 
   transitions: {
-    next: ['high-part-one'],
-    prev: ['see-the-world']
+    next: [],
+    prev: []
   }
 }

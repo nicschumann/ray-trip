@@ -1,6 +1,6 @@
 {
-  id: 'velvety-cap',
-  text: `At home, I took the mushroom out of my pocket. *750 I noticed how light it was; *450 the cap had a velvety feel to it. *1000 I placed it gently on top of my desk. *750 The glow was still there, *350 only it seemed a lot brighter — *500 or my room was darker. *1000 For reasons I can’t explain, *1000 I took a bite.`,
+  id: 'high-part-two',
+  text: `I reached forward *350 and touched a thought. *1000 It flinched, *350 shuddering briefly, *350 recoiling from my body, *150 the body, *350 its origin. *1000 In that moment, *350 I felt its connection to me, *350 the thin wire *150 of emotional *150 filament *350 that anchored it *150 in my mind. *1500 The projection, *350 I realized, *350 had not undone me; *500 so much as it had *350 unfolded *350 me. *1000 I saw the multiplicity of my thoughts; *500 their connections.`,
   marginalia: [
   ],
   sidelines: [
@@ -36,7 +36,7 @@
   },
 
   transitions: {
-    next: ['high-part-one'],
-    prev: ['see-the-world']
+    next: ['high-part-three'],
+    prev: []
   }
 }

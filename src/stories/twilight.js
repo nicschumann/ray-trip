@@ -1,6 +1,6 @@
 {
   id: 'twilight',
-  text: `The light was between civil and nautical twilight. *1000 I knelt *150 to pick up the translucent mushroom. *1000 The instinct to touch it overwhelmed me, *350 but my brainstem interrupted my muscles. *1500 Will it burn my skin? *1500 My eyes recognized the mushroom’s dim glow before I was able to process what was happening.`,
+  text: `The light was between civil and nautical twilight. *1000 I knelt *150 to pick it up – *500 the translucent mushroom. *1000 The instinct to touch it overwhelmed me, *350 but my brainstem interrupted my muscles. *1500 Will it burn my skin? *1500 My eyes recognized the mushroom’s dim glow before I was able to process what was happening. *1000 I leaned in *350 and broke it off at the stem.`,
   marginalia: [
   ],
   sidelines: [

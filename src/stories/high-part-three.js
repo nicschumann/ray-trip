@@ -1,6 +1,6 @@
 {
-  id: 'velvety-cap',
-  text: `At home, I took the mushroom out of my pocket. *750 I noticed how light it was; *450 the cap had a velvety feel to it. *1000 I placed it gently on top of my desk. *750 The glow was still there, *350 only it seemed a lot brighter — *500 or my room was darker. *1000 For reasons I can’t explain, *1000 I took a bite.`,
+  id: 'high-part-three',
+  text: `For once, *350 I had no urge to click on any of my thoughts.`,
   marginalia: [
   ],
   sidelines: [
@@ -36,7 +36,7 @@
   },
 
   transitions: {
-    next: ['high-part-one'],
-    prev: ['see-the-world']
+    next: [],
+    prev: []
   }
 }
