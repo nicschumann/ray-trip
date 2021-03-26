@@ -10,8 +10,13 @@ svg {
   font-size:32px;
 }
 
-.links line {
+.links path {
   stroke: #fff;
+  fill:transparent;
+}
+
+.links .prev {
+  stroke-dasharray: 2;
 }
 
 .nodes circle {
@@ -24,5 +29,9 @@ text {
   font-size: 20px;
   font-weight: 300;
   fill: cyan;
+}
 
+.text-info
+{
+  font-size:10px;
 }

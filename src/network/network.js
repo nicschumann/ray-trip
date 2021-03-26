@@ -1,8 +1,7 @@
 require('./network.css');
 const d3 = require('d3');
 import stories from '../stories.js';
-
-const INITIAL = 'door';
+import INITIAL_STORY_ID from '../initial.js';
 
 function get_edges_from_nodes(nodes)
 {
@@ -26,6 +25,14 @@ document.body.appendChild(svg_node);
 
 let width = window.innerWidth;
 let height = window.innerHeight;
+
+function linkArc(d) {
+  const r = Math.hypot(d.target.x - d.source.x, d.target.y - d.source.y);
+  return `
+    M${d.source.x},${d.source.y}
+    A${r},${r} 0 0,1 ${d.target.x},${d.target.y}
+  `;
+}
 
 var svg = d3.select("svg")
   .attr('width', width)
@@ -52,7 +59,7 @@ svg.append('defs').append('marker')
   .style('stroke', 'none');
 
 var simulation = d3.forceSimulation()
-  .force('link', d3.forceLink().id(d => d.id).distance(150).strength(1))
+  .force('link', d3.forceLink().id(d => d.id).distance(100).strength(2))
   .force('charge', d3.forceManyBody())
   .force('center', d3.forceCenter(width / 2, height / 2));
 
@@ -60,11 +67,13 @@ let edges = get_edges_from_nodes(stories)
 
 var link = svg.append('g')
   .attr('class', 'links')
-  .selectAll('line')
+  .selectAll('path')
   .data(edges)
   .enter()
-  .append('line')
-  .attr('class', 'link')
+  .append('path')
+  .classed('link', true)
+  .classed('prev', d => d.type == 'prev')
+  .classed('next', d => d.type == 'next')
   .attr('marker-end', 'url(#arrowhead)')
 
 var node = svg.append('g')
@@ -76,16 +85,23 @@ var node = svg.append('g')
 
 var circles = node.append('circle')
   .attr('r', 8)
-  .attr('fill', d => d.id === INITIAL ? '#ff0' : '#fff')
+  .attr('fill', d => d.id === INITIAL_STORY_ID ? '#ff0' : '#fff')
   .call(d3.drag()
     .on('start', dragstarted)
     .on('drag', dragged)
     .on('end', dragended));
 
 var labels = node.append('text')
+  .classed('text-id', true)
   .text(d => d.id)
   .attr('x', 20)
   .attr('y', 10);
+
+// var sublabels = node.append('text')
+//   .classed('text-info', true)
+//   .text(d => d.text.slice(0,50) + '...')
+//   .attr('x', 20)
+//   .attr('y', 30);
 
 node.append('title')
   .text(d => d.id);
@@ -101,10 +117,7 @@ simulation
 function ticked ()
 {
   link
-    .attr('x1', d => d.source.x)
-    .attr('y1', d => d.source.y)
-    .attr('x2', d => d.target.x)
-    .attr('y2', d => d.target.y)
+    .attr('d', linkArc);
 
   node
     .attr('transform', d => `translate(${d.x}, ${d.y})`);
@@ -112,28 +125,34 @@ function ticked ()
 
 function dragstarted(event, d)
 {
-  if (!event.active) simulation.alphaTarget(0.3).restart();
+  if (!event.active) simulation.alphaTarget(0.5).restart();
 
-  d.fx = d.x;
-  d.fy = d.y;
+  event.subject.fx = event.subject.x;
+  event.subject.fy = event.subject.y;
 }
 
 function dragged(event, d)
 {
-  d.fx = event.x;
-  d.fy = event.y;
+  event.subject.fx = event.x;
+  event.subject.fy = event.y;
 }
 
 function dragended(event, d)
 {
   if (!event.active) simulation.alphaTarget(0);
 
-  d.fx = null;
-  d.fy = null;
+  event.subject.fx = null;
+  event.subject.fy = null;
 }
 
 console.log(edges);
 
 window.addEventListener('resize', () => {
-  simulation.force('center', d3.forceCenter(window.innerWidth / 2, window.innerHeight / 2));
+  width = window.innerWidth;
+  height = window.innerHeight
+  svg
+    .attr('width', width)
+    .attr('height', height);
+
+  simulation.force('center', d3.forceCenter( width / 2,  height / 2));
 })

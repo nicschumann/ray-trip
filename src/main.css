@@ -71,6 +71,8 @@ body
 	transform-style: preserve-3d;
 	perspective: 550px;
 	overflow: visible;
+
+	line-height: 1.1em;
 }
 .story-frame.debug
 {
@@ -168,9 +170,9 @@ body
 
 	mix-blend-mode: color-dodge;
 	transition:
-		opacity 1000ms cubic-bezier(0.7, 0, 0.84, 0),
-		filter 1000ms cubic-bezier(0.7, 0, 0.84, 0),
-		color 1000ms cubic-bezier(0.7, 0, 0.84, 0);
+		opacity 1250ms cubic-bezier(0.7, 0, 0.84, 0),
+		filter 1250ms cubic-bezier(0.7, 0, 0.84, 0),
+		color 1250ms cubic-bezier(0.7, 0, 0.84, 0);
 }
 
 .static-channel {

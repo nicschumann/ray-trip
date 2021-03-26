@@ -1,6 +1,7 @@
 require('./main.css');
 import stories from './stories.js';
 import {fit2d_binsearch} from './fit2d.js';
+import INITIAL_STORY_ID from './initial.js';
 
 let acc = 0;
 let base = 35;
@@ -283,7 +284,7 @@ let state = {
     stage: {
       container: document.getElementById('story-container')
     },
-    current: 'door'
+    current: INITIAL_STORY_ID
   },
   marginalia: {
     stage: { container: document.getElementById('margin-container') }
@@ -396,9 +397,16 @@ function render_text(state)
   let parent_test_span = document.createElement('span');
   story_parent.setAttribute('style', '');
   story_parent.parentNode.setAttribute('style', '');
+
   if (typeof data.font !== 'undefined')
   {
+    if (typeof data.font.family !== 'undefined')
+    {
+      story_parent.style.fontFamily = `${data.font.family}`;
+    }
+
     story_parent.style.fontWeight = `${data.font.weight}`;
+    story_parent.style.lineHeight = `${data.font.leading}em`;
   }
 
   story_parent.innerHTML = '';
@@ -425,7 +433,8 @@ function render_text(state)
     typeof data.font !== 'undefined' &&
     typeof data.font.size !== 'undefined'
   ) {
-    story_parent.style.fontSize = data.font.size;
+    console.log('triggerd size')
+    story_parent.style.fontSize = `${data.font.size}px`;
   }
   else
   {
@@ -486,7 +495,13 @@ let timer_id = null;
 const ro = new ResizeObserver(entries => {
   window.clearTimeout(timer_id);
   timer_id = window.setTimeout(() => {
-    fit2d_binsearch(state.story.stage.container, 1);
+    var story = story_from_id(state.story.current);
+    if (
+      typeof story.font == 'undefined' ||
+      typeof story.font.size === 'undefined'
+    ) {
+      fit2d_binsearch(state.story.stage.container, 1);
+    }
   }, 100);
 });
 
