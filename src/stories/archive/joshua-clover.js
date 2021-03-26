@@ -1,19 +1,19 @@
 {
-  id: 'desk',
-  text: `As Gregor Samsa awoke one morning from uneasy dreams *450 he found himself transformed in his bed into a gigantic insect. * *  Gregor Samsa awoke one morning from uneasy dreams he found himself transformed in his bed into a gigantic insect.`,
+  id: 'joshua-clover',
+  text: `In 2015, *4000 Joshua Clover wrote "Once fire is the form of the spectacle the problem *750 / becomes how to set fire to fire."`,
   marginalia: [
-    "U.S. to send millions of vaccines doses to Mexico and Canada. U.S. to send millions of vaccines doses to Mexico and Canada. U.S. to send millions of vaccines doses to Mexico and Canada.",
+    "U.S. to send millions of vaccines doses to Mexico and Canada.",
     "U.S. to send millions of vaccines doses to Mexico and Canada.",
     "U.S. to send millions of vaccines doses to Mexico and Canada.",
     "U.S. to send millions of vaccines doses to Mexico and Canada.",
     "U.S. to send millions of vaccines doses to Mexico and Canada.",
     "U.S. to send millions of vaccines doses to Mexico and Canada.",
   ],
-  sidelines: [
-    "U.S. to send millions of vaccines doses to Mexico and Canada.",
-    "U.S. to send millions of vaccines doses to Mexico and Canada.",
-    "U.S. to send millions of vaccines doses to Mexico and Canada."
-  ],
+  sidelines: [],
+
+  font: {
+    size: 36
+  },
 
   animations: {
     state: 0,
@@ -36,12 +36,12 @@
     down: {
       blur: t => Math.exp(t / 55),
       opacity: t => -1 / (55 / 4) * t + 1
-    }
+    },
     // ambient: () => {},
   },
 
   transitions: {
-    next: ['joshua-clover'],
-    prev: ['door']
+    next: [],
+    prev: []
   }
 }

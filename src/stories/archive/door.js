@@ -1,6 +1,6 @@
 {
-  id: 'joshua-clover',
-  text: `In 2015, *400 Joshua Clover wrote "Once fire is the form of the spectacle the problem *750 / becomes how to set fire to fire."`,
+  id: 'door',
+  text: `The door is stuck again. I look directly into camera and gaze into it, unblinking, while the LEDs increase their intensity, trying their best to wash out my complexion. My face appears in the display, but it doesn't resolve with the version of my face in the door's database. I twist the handle, gently, not wanting to set off the forced-entry sensors, but the door doesn't give. The other entry option included in my plan is a blood sample. I roll up my sleeve. I had hoped to draw tonight, but my energy is spent.`,
   marginalia: [
     "U.S. to send millions of vaccines doses to Mexico and Canada.",
     "U.S. to send millions of vaccines doses to Mexico and Canada.",
@@ -12,12 +12,12 @@
   sidelines: [],
 
   font: {
-    size: 36
+    weight: 800
   },
 
   animations: {
     state: 0,
-    upper_limit: 80,
+    upper_limit: 40,
     lower_limit: -100,
 
     in: {
@@ -37,11 +37,11 @@
       blur: t => Math.exp(t / 55),
       opacity: t => -1 / (55 / 4) * t + 1
     },
-    // ambient: () => {},
+    // ambient: glyph_snow,
   },
 
   transitions: {
-    next: [],
-    prev: ['desk']
+    next: ['joshua-clover'],
+    prev: []
   }
 }
