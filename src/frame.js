@@ -5,7 +5,7 @@ import INITIAL_STORY_ID from './initial.js';
 
 let acc = 0;
 let base = 35;
-let padding = 1000;
+let padding = 1750;
 let timers = []
 
 
@@ -72,9 +72,16 @@ function do_transition_for_mousewheel(story, state)
         window.clearInterval(state.ambient_interval);
         document.onmousewheel = null;
 
-        let next_story = random_story_id(story.transitions.next);
-        state.story.current = next_story;
-        render_text(state);
+        let indicator = document.getElementById('state-indicator');
+        indicator.innerText = '↓'
+        indicator.classList.add('transition');
+        console.log(indicator)
+        window.setTimeout(() => {
+          indicator.classList.remove('transition');
+          let next_story = random_story_id(story.transitions.next);
+          state.story.current = next_story;
+          render_text(state);
+        }, 250);
       }
 
       if (
@@ -84,9 +91,15 @@ function do_transition_for_mousewheel(story, state)
         window.clearInterval(state.ambient_interval);
         document.onmousewheel = null;
 
-        let prev_story = random_story_id(story.transitions.prev);
-        state.story.current = prev_story;
-        render_text(state);
+        let indicator = document.getElementById('state-indicator');
+        indicator.innerText = '↑'
+        indicator.classList.add('transition');
+        window.setTimeout(() => {
+          indicator.classList.remove('transition');
+          let prev_story = random_story_id(story.transitions.prev);
+          state.story.current = prev_story;
+          render_text(state);
+        }, 250);
       }
     }
   };
@@ -392,9 +405,26 @@ function render_text(state)
   let story_parent = state.story.stage.container;
   let margin_parent = state.marginalia.stage.container;
   let sidelines_parent = state.sidelines.stage.container;
+  let indicator = document.getElementById('state-indicator');
+
+  if (data.transitions.next.length > 0 && data.transitions.prev.length > 0)
+  {
+    indicator.innerText = '↕';
+  }
+  else if (data.transitions.next.length > 0)
+  {
+    indicator.innerText = '↓';
+  }
+  else if (data.transitions.prev.length > 0)
+  {
+    indicator.innerText = '↑';
+  }
+
 
   // comment this for a palimpsest effect...
   let parent_test_span = document.createElement('span');
+  indicator.classList.remove('active');
+  indicator.classList.remove('done');
   story_parent.setAttribute('style', '');
   story_parent.parentNode.setAttribute('style', '');
 
@@ -433,7 +463,6 @@ function render_text(state)
     typeof data.font !== 'undefined' &&
     typeof data.font.size !== 'undefined'
   ) {
-    console.log('triggerd size')
     story_parent.style.fontSize = `${data.font.size}px`;
   }
   else
@@ -468,6 +497,13 @@ function render_text(state)
 
   let timer = window.setTimeout(() => {
     state.transitioning = false;
+
+    indicator.classList.add('active');
+
+    window.setTimeout(() => {
+      indicator.classList.add('done');
+    }, 250)
+
 
     if (typeof data.animations.ambient !== 'undefined')
     {
