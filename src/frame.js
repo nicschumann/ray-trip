@@ -71,17 +71,9 @@ function do_transition_for_mousewheel(story, state)
       ) {
         window.clearInterval(state.ambient_interval);
         document.onmousewheel = null;
-
-        let indicator = document.getElementById('state-indicator');
-        indicator.innerText = '↓'
-        indicator.classList.add('transition');
-        console.log(indicator)
-        window.setTimeout(() => {
-          indicator.classList.remove('transition');
-          let next_story = random_story_id(story.transitions.next);
-          state.story.current = next_story;
-          render_text(state);
-        }, 250);
+        let next_story = random_story_id(story.transitions.next);
+        state.story.current = next_story;
+        render_text(state);
       }
 
       if (
@@ -90,16 +82,9 @@ function do_transition_for_mousewheel(story, state)
       ) {
         window.clearInterval(state.ambient_interval);
         document.onmousewheel = null;
-
-        let indicator = document.getElementById('state-indicator');
-        indicator.innerText = '↑'
-        indicator.classList.add('transition');
-        window.setTimeout(() => {
-          indicator.classList.remove('transition');
-          let prev_story = random_story_id(story.transitions.prev);
-          state.story.current = prev_story;
-          render_text(state);
-        }, 250);
+        let prev_story = random_story_id(story.transitions.prev);
+        state.story.current = prev_story;
+        render_text(state);
       }
     }
   };
