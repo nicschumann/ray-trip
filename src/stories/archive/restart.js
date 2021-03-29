@@ -36,7 +36,7 @@
   },
 
   transitions: {
-    next: ['spring'],
+    next: [{id: 'spring'}],
     prev: []
   }
 }

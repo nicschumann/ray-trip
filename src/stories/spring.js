@@ -45,7 +45,7 @@
   },
 
   transitions: {
-    next: ['morels'],
+    next: [{id: 'morels'}],
     prev: []
   }
 }

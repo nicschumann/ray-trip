@@ -36,7 +36,7 @@
   },
 
   transitions: {
-    next: ['high-part-two'],
+    next: [{id: 'high-part-two'}],
     prev: []
   }
 }

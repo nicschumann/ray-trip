@@ -38,7 +38,7 @@
   },
 
   transitions: {
-    next: ['velvety-cap'],
+    next: [{id: 'velvety-cap'}],
     prev: []
   }
 }

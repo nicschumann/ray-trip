@@ -36,7 +36,7 @@
   },
 
   transitions: {
-    next: ['high-part-one'],
-    prev: ['see-the-world']
+    next: [{id: 'high-part-one'}],
+    prev: [{id: 'see-the-world'}]
   }
 }

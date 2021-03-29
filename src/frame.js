@@ -262,13 +262,13 @@ function stories_to_lookup_table(stories)
 
 function random_story_id(story_ids)
 {
-  return story_ids[Math.floor(Math.random() * story_ids.length)];
+  let next_obj = story_ids[Math.floor(Math.random() * story_ids.length)];
+  return next_obj.id;
 }
 
 function story_from_id(id)
 {
   let story_index = story_lookup[id];
-  console.log(id, story_index);
   return stories[story_index];
 }
 

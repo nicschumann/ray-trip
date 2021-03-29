@@ -8,12 +8,12 @@ function get_edges_from_nodes(nodes)
   let edges = [];
 
   nodes.forEach(node => {
-    node.transitions.next.forEach(id => {
-      edges.push({parent: node.id, type: 'next', source: node.id, target: id});
+    node.transitions.next.forEach(data => {
+      edges.push({parent: node.id, type: 'next', source: node.id, target: data.id});
     });
 
-    node.transitions.prev.forEach(id => {
-      edges.push({parent: node.id, type: 'prev', source: node.id, target: id});
+    node.transitions.prev.forEach(data => {
+      edges.push({parent: node.id, type: 'prev', source: node.id, target: data.id});
     })
   })
 

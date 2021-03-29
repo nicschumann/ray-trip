@@ -36,7 +36,7 @@
   },
 
   transitions: {
-    next: ['start'],
+    next: [{id: 'start'}],
     prev: []
   }
 }

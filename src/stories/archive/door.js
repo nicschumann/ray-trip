@@ -41,7 +41,7 @@
   },
 
   transitions: {
-    next: ['joshua-clover'],
+    next: [{id: 'joshua-clover'}],
     prev: []
   }
 }

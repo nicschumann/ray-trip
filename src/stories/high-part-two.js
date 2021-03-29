@@ -36,7 +36,7 @@
   },
 
   transitions: {
-    next: ['high-part-three'],
+    next: [{id: 'high-part-three'}],
     prev: []
   }
 }
