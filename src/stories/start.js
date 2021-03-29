@@ -16,7 +16,7 @@
 
   animations: {
     state: 0,
-    upper_limit: 80,
+    upper_limit: 10,
     lower_limit: -100,
 
     in: {
