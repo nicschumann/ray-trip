@@ -1,8 +1,10 @@
 const fs = require('fs');
 const path = require('path');
+const util = require('util');
 const esbuild = require('esbuild');
 const chokidar = require('chokidar');
 const liveserver = require('live-server');
+const solve_paths = require('./paths.js');
 
 const buildjs = async path => {
   console.log('changed', path);
@@ -39,10 +41,11 @@ const buildjs = async path => {
 
 
 const buildstories = async () => {
-  const compile_path = './src/stories';
-  const target_path = './src/stories.js';
+  const compile_path = './src/stories/2016';
+  const target_stories_path = './src/stories.js';
+  const target_pathways_path = './src/paths.js';
 
-  let src_lines = ['export default ['];
+  let src_lines = ['module.exports = ['];
 
   fs.readdir(compile_path, (err, files) => {
     files.forEach((file, i) => {
@@ -68,7 +71,21 @@ const buildstories = async () => {
 
     let stories = src_lines.join('\n');
 
-    fs.writeFileSync(target_path, stories);
+    console.log('writing src/stories.js file.');
+    fs.writeFileSync(target_stories_path, stories);
+
+    // now, solve for paths on the stories
+    // delete require cache entries, so we can actually rebuild.
+    delete require.cache[require.resolve(target_stories_path)];
+    delete require.cache[require.resolve('./src/initial.js')];
+
+    const story_data = require(target_stories_path);
+    const initial = require('./src/initial.js');
+
+    let paths = solve_paths(story_data, initial);
+
+    console.log('writing src/paths.js file.');
+    fs.writeFileSync(target_pathways_path, `module.exports = ${util.inspect(paths, {depth: null})};`);
   });
 }
 
@@ -77,7 +94,9 @@ const buildstories = async () => {
 
 
 let src_watcher = chokidar.watch('src/**/*.*', {
-  ignored: ["src/**/bundle*", "src/stories/**/*"],
+  // ignore 'src/stories.js' because we're writing 'src/paths.js'
+  // right afterward, and we don't need to double trigger
+  ignored: ["src/**/bundle*", "src/stories/**/*", "src/stories.js"],
   persistent: true
 });
 
@@ -90,7 +109,7 @@ src_watcher.on('ready', async () => {
 
 
 
-let stories_watcher = chokidar.watch('src/stories/**/*', {
+let stories_watcher = chokidar.watch(['src/stories/**/*', 'src/initial.js'], {
   persistent: true
 });
 
