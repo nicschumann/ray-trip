@@ -1,6 +1,6 @@
 {
   id: 'high-part-three',
-  text: `For once, *350 I had no urge to click on any of my thoughts.`,
+  text: `I let them move *350 and watched them *150 assume *150 form. *1500 There was a sharpness; *750 my gut carried the oblique sense of a threat. *1500 While the anxiety held me still, *450 I felt a softness, *450 like that threat was annealed by an invitation.`,
   marginalia: [
   ],
   sidelines: [
@@ -10,33 +10,8 @@
     size: 36
   },
 
-  animations: {
-    state: 0,
-    upper_limit: 10,
-    lower_limit: -100,
-
-    in: {
-      offset: i => (i % 3 == 0) ? 0 : 100
-    },
-    up: {
-      r: {
-        top: t => t * Math.sin(t) / 18,
-        left: t => t * Math.cos(-t) / 18
-      },
-      b: {
-        top: t => t * Math.cos(-t) / 18,
-        left: t => t * Math.sin(t) / 18
-      }
-    },
-    down: {
-      blur: t => Math.exp(t / 55),
-      opacity: t => -1 / (55 / 4) * t + 1
-    }
-    // ambient: () => {},
-  },
-
   transitions: {
-    next: [],
+    next: [{id: 'high-part-four'}],
     prev: []
   }
 }
