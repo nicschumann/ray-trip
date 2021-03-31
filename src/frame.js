@@ -1,7 +1,10 @@
 require('./main.css');
-import stories from './stories.js';
+const stories = require( './stories.js');
+const paths = require('./paths.js');
 import {fit2d_binsearch} from './fit2d.js';
-import INITIAL_STORY_ID from './initial.js';
+const INITIAL_STORY_ID = require('./initial.js');
+
+console.log(paths);
 
 let acc = 0;
 let base = 35;
@@ -266,6 +269,27 @@ function story_from_id(id)
   return stories[story_index];
 }
 
+function get_path_index(sequence)
+{
+  // console.log(sequence);
+  for (let i = 0; i < paths.length; i++)
+  {
+    // console.log(paths[i]);
+    if (paths[i].length !== sequence.length) continue;
+
+    for (let j = 0; j < paths[i].length; j++)
+    {
+      // console.log(paths[i][j], sequence[j].id);
+      if (typeof sequence[j] === 'undefined') break;
+      if (sequence[j].id !== paths[i][j]) break;
+
+      if (j == paths[i].length - 1) { return i; }
+    }
+  }
+
+  return -1;
+}
+
 // valid color opacities:
 // 1, 1, 1 (white)
 // 0.92, 0, 0.54 (magenta-ish)
@@ -284,8 +308,9 @@ function random_color()
   return choices[Math.floor(Math.random() * choices.length)];
 }
 
-let story_lookup = stories_to_lookup_table(stories);
 
+
+let story_lookup = stories_to_lookup_table(stories);
 
 let history = {
   frames: {},
@@ -403,7 +428,7 @@ function render_frame(state, direction)
 {
   let data = story_from_id(state.story.current);
 
-  history.sequence.push({id: data.id, direction})
+  history.sequence.push({id: state.story.current, direction})
   history.frames[data.id] = {index: history.sequence.length - 1};
 
   console.log(history);
@@ -538,6 +563,7 @@ function render_end(state) {
   let margin_parent = state.marginalia.stage.container;
   let sidelines_parent = state.sidelines.stage.container;
   let end_parent = state.end.stage.container;
+  let path_index = get_path_index(history.sequence) + 1;
 
   story_parent.classList.add('ended');
   story_parent.parentNode.classList.add('ended');
@@ -554,10 +580,14 @@ function render_end(state) {
   let resolution = document.getElementById('story-resolution');
   resolution.innerHTML = `“Mantar” is a story in ${stories.length} parts. You just read ${history.sequence.length} of them.`;
 
+  let edition_number = document.getElementById('story-title-box');
+  edition_number.innerHTML = `# ${path_index} / ${paths.length}`;
+
+  document.onmousewheel = null;
 }
 
 
-// render_frame(state, 'start');
+// render_frame(state, INITIAL_STORY_ID);
 render_end(state);
 
 let timer_id = null;

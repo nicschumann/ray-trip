@@ -157,6 +157,11 @@ body
 	margin-bottom:0.5em;
 }
 
+.end-text-frame #edition-number
+{
+	font-size: 36px;
+}
+
 
 .end-text-frame .meta-box
 {
