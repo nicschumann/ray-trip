@@ -1,7 +1,7 @@
 {
-  "name": "mycology",
+  "name": "ray-trip",
   "version": "1.0.0",
-  "description": "Let your garden grow",
+  "description": "A non-linear journey through the construction of Ray.",
   "main": "src/main.js",
   "scripts": {
     "serve": "node serve.js"

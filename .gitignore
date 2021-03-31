@@ -5,7 +5,10 @@
 
 # compiled files
 pub/bundle*
+# compiled by the preprocessor to represent all story data
 src/stories.js
+# compiled by the preprocessor to represent all story pathways
+src/paths.js
 
 # node-specific ignores
 node_modules
