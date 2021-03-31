@@ -168,7 +168,7 @@ body
 	font-size: calc(max(2vh, 18px));
 	display:flex;
   flex-wrap: wrap;
-	border-top: 2px solid white;
+	/* border-top: 1px dotted white; */
 	padding-top:1em;
 	font-weight:100;
 
@@ -191,10 +191,18 @@ body
 }
 
 
+
 .end-text-frame .story-column p
 {
 	margin-bottom:1em;
 }
+
+.end-text-frame .story-column a
+{
+	color:inherit;
+	/* border-bottom:1px solid white; */
+}
+
 
 #state-indicator
 {

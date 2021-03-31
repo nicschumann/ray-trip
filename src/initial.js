@@ -1,1 +1,1 @@
-module.exports = 'inside';
+module.exports = 'high-part-one';

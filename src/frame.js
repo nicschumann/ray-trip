@@ -12,6 +12,32 @@ let padding = 1750;
 let timers = []
 
 
+const default_animation = {
+  state: 0,
+  upper_limit: 10,
+  lower_limit: -100,
+
+  in: {
+    offset: i => (i % 3 == 0) ? 0 : 100
+  },
+  up: {
+    r: {
+      top: t => t * Math.sin(t) / 18,
+      left: t => t * Math.cos(-t) / 18
+    },
+    b: {
+      top: t => t * Math.cos(-t) / 18,
+      left: t => t * Math.sin(t) / 18
+    }
+  },
+  down: {
+    blur: t => Math.exp(t / 55),
+    opacity: t => -1 / (55 / 4) * t + 1
+  }
+  // ambient: () => {},
+};
+
+
 /**
  * transitions
  */
@@ -244,6 +270,10 @@ function stories_to_lookup_table(stories)
 {
   let lookup = {};
   stories.forEach((story, i) => {
+
+    let animations = Object.assign({}, default_animation);
+    story.animations = Object.assign(animations, story.animations);
+
     if (typeof lookup[story.id] === 'undefined')
     {
       lookup[story.id] = i;
@@ -299,7 +329,7 @@ function get_path_index(sequence)
 function random_color()
 {
   let choices = [
-    {r: 1, g: 1, b: 1},
+    // {r: 1, g: 1, b: 1},
     {r: 0.92, g: 0, b: 0.54},
     {r: 0.149, g: 0.66, b: 0.878},
     {r: 0.254, g: 1, b: 0.956},
@@ -578,17 +608,25 @@ function render_end(state) {
   }, 100); // 2 * period space = 3000
 
   let resolution = document.getElementById('story-resolution');
-  resolution.innerHTML = `“Mantar” is a story in ${stories.length} parts. You just read ${history.sequence.length} of them.`;
+  resolution.innerHTML = `“Mantar” is a story in ${stories.length} interlocking parts. You just read ${history.sequence.length} of them.`;
 
   let edition_number = document.getElementById('story-title-box');
-  edition_number.innerHTML = `# ${path_index} / ${paths.length}`;
+  edition_number.innerHTML = `${path_index} / ${paths.length}`;
+
+  let story_header = document.getElementById('story-header');
+  let typeface_header = document.getElementById('typeface-header');
+  let sc = random_color();
+  let tc = random_color();
+
+  story_header.style.color = `rgb(${sc.r * 255}, ${sc.g * 255}, ${sc.b * 255})`;
+  typeface_header.style.color = `rgb(${tc.r * 255}, ${tc.g * 255}, ${tc.b * 255})`;
 
   document.onmousewheel = null;
 }
 
 
-// render_frame(state, INITIAL_STORY_ID);
-render_end(state);
+render_frame(state, INITIAL_STORY_ID);
+// render_end(state);
 
 let timer_id = null;
 const ro = new ResizeObserver(entries => {

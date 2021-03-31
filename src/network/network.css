@@ -1,5 +1,6 @@
 @import "../reset.css";
 @import "../fonts/fonts.css";
+
 svg {
   background-color:black;
 }
@@ -34,4 +35,10 @@ text {
 .text-info
 {
   font-size:10px;
+}
+
+
+#end-container
+{
+  display:none;
 }

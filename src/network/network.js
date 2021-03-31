@@ -1,7 +1,7 @@
 require('./network.css');
 const d3 = require('d3');
 const stories = require( '../stories.js');
-const INITIAL_STORY_ID = require('./initial.js');
+const INITIAL_STORY_ID = require('../initial.js');
 
 function get_edges_from_nodes(nodes)
 {
