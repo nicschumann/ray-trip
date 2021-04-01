@@ -665,3 +665,17 @@ ro.observe(document.querySelector('#story-container').parentNode);
 //   document.onmousewheel = do_transition_for_mousewheel(data, state);
 //   timers = [];
 // });
+
+
+window.addEventListener('keyup', event => {
+  if (event.key == 'Escape')
+  {
+    let specimen = document.getElementById('specimen-frame');
+    let story_frame = document.getElementById('story-stage');
+
+    specimen.classList.toggle('active');
+    story_frame.classList.toggle('deactivated');
+
+    // disable scroll listener;
+  }
+})

@@ -1,0 +1,93 @@
+#specimen-frame {
+  position:absolute;
+  top:100vh;
+  left:0;
+  width:100vw;
+  height:80vh;
+
+  color:white;
+  font-family:"Ray";
+
+  background-color: black;
+
+  transition:top 350ms;
+
+  z-index: 1000;
+}
+
+#specimen-frame.active {
+  position:absolute;
+  top:20vh;
+  left:0;
+
+  border-top:1px dashed #fff;
+
+}
+
+#specimen-frame .typeface-row
+{
+  width:100vw;
+  font-size:calc(min(9vw, 5vh));
+  text-align:  center;
+  margin-bottom:calc(min(4vw, 4vh));
+}
+
+#specimen-frame .typeface-row:first-child
+{
+  margin-top:calc(min(4vw, 4vh));
+}
+
+#specimen-frame .typeface-meta
+{
+  width:100vw;
+  font-size:calc(min(2.5vw, 2vh));
+  text-align:  center;
+  padding-left:calc(min(8vw, 2.5vh));
+  margin-bottom:0.4em;
+}
+
+#specimen-frame .typeface-italic
+{
+  font-style: italic;
+}
+
+
+#specimen-frame .typeface-ultralight
+{
+  font-weight: 200;
+}
+
+
+/* colors */
+
+.yellow {
+  color: rgb(255, 241, 0);
+}
+
+.red {
+  color: rgb(236, 28, 36);
+}
+
+.blue {
+  color: rgb(0, 173, 238);
+}
+
+.magenta {
+  color: rgb(255, 3, 249);
+}
+
+.teal {
+  color: rgb(65, 255, 244);
+}
+
+.green {
+  color: rgb(12, 248, 1);
+}
+
+
+#story-stage {
+  transition:filter 500ms, top 350ms;
+}
+#story-stage.deactivated {
+  filter:blur(10px);
+}

@@ -7,6 +7,15 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "Ray";
+  src: url("./Ray-UltraItalic.woff") format('woff'),
+       url("./Ray-UltraItalic.eot") format('eot');
+
+  font-weight: 900;
+  font-style: italic;
+}
+
 
 @font-face {
   font-family: "Ray";
@@ -19,12 +28,32 @@
 
 @font-face {
   font-family: "Ray";
+  src: url("./Ray-BlackItalic.woff") format('woff'),
+       url("./Ray-BlackItalic.eot") format('eot');
+
+  font-weight: 800;
+  font-style: italic;
+}
+
+
+@font-face {
+  font-family: "Ray";
   src: url("Ray-Bold.woff") format('woff'),
        url("Ray-Bold.eot") format('eot');
 
   font-weight: 600;
   font-style: normal;
 }
+
+@font-face {
+  font-family: "Ray";
+  src: url("Ray-BoldItalic.woff") format('woff'),
+       url("Ray-BoldItalic.eot") format('eot');
+
+  font-weight: 600;
+  font-style: italic;
+}
+
 
 @font-face {
   font-family: "Ray";
@@ -37,6 +66,16 @@
 
 @font-face {
   font-family: "Ray";
+  src: url("Ray-Italic.woff") format('woff'),
+       url("Ray-Italic.eot") format('eot');
+
+  font-weight: 400;
+  font-style: italic;
+}
+
+
+@font-face {
+  font-family: "Ray";
   src: url("Ray-Light.woff") format('woff'),
        url("Ray-Light.eot") format('eot');
 
@@ -46,11 +85,30 @@
 
 @font-face {
   font-family: "Ray";
+  src: url("Ray-LightItalic.woff") format('woff'),
+       url("Ray-LightItalic.eot") format('eot');
+
+  font-weight: 300;
+  font-style: italic;
+}
+
+
+@font-face {
+  font-family: "Ray";
   src: url("Ray-ExtraLight.woff") format('woff'),
        url("Ray-ExtraLight.eot") format('eot');
 
   font-weight: 200;
   font-style: normal;
+}
+
+@font-face {
+  font-family: "Ray";
+  src: url("Ray-ExtraLightItalic.woff") format('woff'),
+       url("Ray-ExtraLightItalic.eot") format('eot');
+
+  font-weight: 200;
+  font-style: italic;
 }
 
 
@@ -84,4 +142,8 @@
 
 .ultra {
   font-weight: 900;
+}
+
+.italic {
+  font-style: italic;
 }
