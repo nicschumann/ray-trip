@@ -103,6 +103,7 @@
   font-weight:100;
   font-size:36px;
 
+  /* color:red; */
   color:#353535;
 
   transition:bottom 250ms, color 250ms;
