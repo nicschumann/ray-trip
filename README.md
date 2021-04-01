@@ -36,6 +36,12 @@ This will install all of the dependencies you need for this project. Once this i
 | `Ray-Regular` | `.eot`, `.woff` |
 | `Ray-Light` | `.eot`, `.woff`|
 | `Ray-ExtraLight` | `.eot`, `.woff` |
+| `Ray-UltraItalic` | `.eot`, `.woff` |
+| `Ray-BlackItalic` | `.eot`, `.woff`|
+| `Ray-BoldItalic` | `.eot`, `.woff` |
+| `Ray-Italic` | `.eot`, `.woff` |
+| `Ray-LightItalic` | `.eot`, `.woff`|
+| `Ray-ExtraLightItalic` | `.eot`, `.woff` |
 
 Finally, run
 
