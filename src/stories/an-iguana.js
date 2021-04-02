@@ -12,6 +12,6 @@
 
   transitions: {
     next: [{id: 'faint-letterforms'}],
-    prev: []
+    prev: [{id: 'day-100'}]
   }
 }

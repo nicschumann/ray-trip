@@ -12,6 +12,6 @@
 
   transitions: {
     next: [{id: 'sour-aftertaste'}],
-    prev: []
+    prev: [{id: 'students-part-one'}]
   }
 }

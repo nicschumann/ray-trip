@@ -11,7 +11,7 @@
   },
 
   transitions: {
-    next: [],
-    prev: []
+    next: [{id: 'dream-of-georgia'}],
+    prev: [{id: 'cloud-of-punctuation'}]
   }
 }
