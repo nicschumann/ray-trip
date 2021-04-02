@@ -91,7 +91,7 @@ function do_transition_for_mousewheel(story, state)
       }
       else if (story.animations.state < 0)
       {
-        blur_to_prev_state(event, story, state);
+        blur_to_next_state(event, story, state);
       }
 
       if (
@@ -383,31 +383,37 @@ function make_channel_data(word, offset, color={})
   element.classList.add('channeled-word');
   element.classList.add('pending');
 
-  let static_channel = document.createElement('span');
-  static_channel.classList.add('static-channel');
-  static_channel.innerHTML = word + '&nbsp;';
-  element.append(static_channel);
+  element.innerHTML = word + '&nbsp;';
 
-  let r_channel = document.createElement('span');
-  r_channel.classList.add('channel');
-  r_channel.classList.add('r-channel');
-  r_channel.innerHTML = word + '&nbsp;';
-  if (typeof color.r !== 'undefined') { r_channel.setAttribute('style', `opacity:${color.r};`); }
-  element.append(r_channel);
+  // this adds channeled data for RGB layering effects.
+  // we discovered that this doesn't work on lower resolution
+  // monitors, so we turned it off.
 
-  let g_channel = document.createElement('span');
-  g_channel.classList.add('channel');
-  g_channel.classList.add('g-channel');
-  g_channel.innerHTML = word + '&nbsp;';
-  if (typeof color.g !== 'undefined') { g_channel.setAttribute('style', `opacity:${color.g};`); }
-  element.append(g_channel);
+  // let static_channel = document.createElement('span');
+  // static_channel.classList.add('static-channel');
+  // static_channel.innerHTML = word + '&nbsp;';
+  // element.append(static_channel);
 
-  let b_channel = document.createElement('span');
-  b_channel.classList.add('channel');
-  b_channel.classList.add('b-channel');
-  b_channel.innerHTML = word + '&nbsp;';
-  if (typeof color.b !== 'undefined') { b_channel.setAttribute('style', `opacity:${color.b};`); }
-  element.append(b_channel);
+  // let r_channel = document.createElement('span');
+  // r_channel.classList.add('channel');
+  // r_channel.classList.add('r-channel');
+  // r_channel.innerHTML = word + '&nbsp;';
+  // if (typeof color.r !== 'undefined') { r_channel.setAttribute('style', `opacity:${color.r};`); }
+  // element.append(r_channel);
+  //
+  // let g_channel = document.createElement('span');
+  // g_channel.classList.add('channel');
+  // g_channel.classList.add('g-channel');
+  // g_channel.innerHTML = word + '&nbsp;';
+  // if (typeof color.g !== 'undefined') { g_channel.setAttribute('style', `opacity:${color.g};`); }
+  // element.append(g_channel);
+  //
+  // let b_channel = document.createElement('span');
+  // b_channel.classList.add('channel');
+  // b_channel.classList.add('b-channel');
+  // b_channel.innerHTML = word + '&nbsp;';
+  // if (typeof color.b !== 'undefined') { b_channel.setAttribute('style', `opacity:${color.b};`); }
+  // element.append(b_channel);
 
   return {element, offset};
 }

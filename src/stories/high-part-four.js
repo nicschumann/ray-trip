@@ -11,7 +11,7 @@
   },
 
   transitions: {
-    next: [],
+    next: [{id: 'glyphs-part-one'}],
     prev: []
   }
 }

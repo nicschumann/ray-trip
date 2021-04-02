@@ -253,6 +253,11 @@ body
 	backface-visibility: hidden;
 	-webkit-perspective: 1000;
 	transform: translateZ(0);
+
+	transition:
+		opacity 1250ms cubic-bezier(0.7, 0, 0.84, 0),
+		filter 1250ms cubic-bezier(0.7, 0, 0.84, 0),
+		color 1250ms cubic-bezier(0.7, 0, 0.84, 0);
 }
 
 .channeled-word
@@ -263,7 +268,7 @@ body
 .word.pending, .channeled-word.pending
 {
   color:transparent;
-	filter: blur(10px);
+	filter: blur(20px);
 }
 
 
@@ -277,11 +282,13 @@ body
 .word.pending .channel,
 .word.pending .r-channel,
 .word.pending .g-channel,
-.word.pending .b-channel
+.word.pending .b-channel,
+.word.pending .static-channel
 {
 	color:transparent;
 	filter: blur(10px);
-	mix-blend-mode: normal;
+	opacity: 0;
+	/* mix-blend-mode: color-dodge; */
 }
 
 
@@ -293,16 +300,18 @@ body
 	top:0;
 	left:0;
 
-	mix-blend-mode: color-dodge;
+	/* mix-blend-mode: color-dodge; */
 	transition:
 		opacity 1250ms cubic-bezier(0.7, 0, 0.84, 0),
 		filter 1250ms cubic-bezier(0.7, 0, 0.84, 0),
 		color 1250ms cubic-bezier(0.7, 0, 0.84, 0);
 }
 
-.static-channel {
-	opacity: 0;
-}
+/* .word .static-channel
+{
+	opacity: 1;
+} */
+
 
 /* Marginalia Sizes across screen widths */
 
