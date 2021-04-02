@@ -25,6 +25,13 @@ function dfs(stories, story_lookup, path, paths)
 {
   let start_id = path[path.length - 1];
   let story = story_from_id(start_id, story_lookup, stories);
+
+  if (typeof story === 'undefined')
+  {
+    console.log(story_lookup);
+    return;
+  }
+
   let neighbors = story.transitions.prev.map(x => x.id)
     .concat(story.transitions.next.map(x => x.id));
 
