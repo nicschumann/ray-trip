@@ -1,6 +1,6 @@
 {
   id: 'velvety-cap',
-  text: `At home, *350 I took the musroom out of my pocket. *1500 I noticed how light it was. *1500 I examined its skin: *500 the cap had a velvety feel to it. *1500 I placed it gently on top of my desk. *1500 The glow was still there, *350 only it seemed a lot brighter — *350 or my room was darker. *1500 For reasons I can’t explain, *350 I took a bite.`,
+  text: `At home, *350 I take the mushroom out of my pocket. *1500 It’s light, *350 and the cap has a velvety texture. *1500 I place it on top of my desk. *1500 The glow was still there, *350 only brighter. *1500 For reasons I can’t explain, *350 I take a bite.`,
   marginalia: [
   ],
   sidelines: [

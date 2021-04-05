@@ -1,6 +1,6 @@
 {
   id: 'sour-aftertaste',
-  text: `A faint sour aftertaste settles in my mouth like a gloomy summer afternoon. *1500 I rush to the computer to read articles on luminescent mushrooms—its particles, *350 flash into the tissue of my blood. *1500 I focus as my palms dampen: *450 mushroom, *350 toadstool, *350 fungi, *350 basidiomycota.`,
+  text: `A sour aftertaste settles in my mouth. *1500 At the computer, *350 I read articles on luminescent mushrooms. *1500 I focus as my palms dampen.`,
   marginalia: [
   ],
   sidelines: [

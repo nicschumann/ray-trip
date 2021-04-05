@@ -11,7 +11,7 @@
   },
 
   transitions: {
-    next: [{id: 'aura'}],
+    next: [],
     prev: []
   }
 }

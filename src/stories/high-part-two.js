@@ -1,6 +1,6 @@
 {
   id: 'high-part-two',
-  text: `I reached forward *350 and touched a thought. *1000 It flinched *150 and recoiled from my body, *250 its projector. *1000 In that moment, *350 I felt the thin wire *150 of emotional *150 filament *350 that anchored it *150 in my mind. *1750 The projection had not undone me, *500 so much as it had *350 unfolded *350 me. *1000 At once, *350 I saw the multiplicity of my thoughts; *500 their connections.`,
+  text: `I reach forward *350 and touch a thought. *1500 I feel the thin wire *150 of emotional *150 filament *350 that anchors it *150 in my mind. *1500 I am unfolded. *1500 At once, *350 I see the multiplicity of my thoughts *500 and their connections. *1500 The landscape of Hyper-Georgia is spread out before me.`,
   marginalia: [
   ],
   sidelines: [

@@ -1,6 +1,6 @@
 {
   id: 'remaining-mushroom',
-  text: `I place the remaining mushroom in my mouth. *1500 It tastes like a dusty old photograph, *350 left behind inside a dark archival box.`,
+  text: `I put the remaining mushroom in my mouth. *1500 It tastes like a dusty old photograph, *350 left behind an archival box.`,
   marginalia: [
   ],
   sidelines: [

@@ -1,6 +1,6 @@
 {
   id: 'glyphs-part-one',
-  text: `I launch Glyphs.app as the cursor melts onto my fingertips. *1500 I want to begin the hunt before the mushroom releases me from its captivity. *1500 I fire up the Georgia specimen and get to work. *1500 The sound of a wave of light breaking tickles my eardrum. *1500 The wave reaches me softly, *350 as my bare feet sink into the warm sand of glitter. *1750 I smell the sea. *1500 Heat from sun rays make their way into my body through the pores of my skin. *1500 My pupils expand in response to the bright darkness.`,
+  text: `I launch Glyphs.app. *1500 The cursor melts onto my fingertips. *1500 I want to begin the hunt before the mushroom releases me. *1500 The sound of a wave of light breaking tickles my eardrum. *1750 I smell the sea. *1500 Heat from sun rays carries me, *350 as my pupils expand, *350 responding to the bright dark.`,
   marginalia: [
   ],
   sidelines: [
@@ -11,7 +11,7 @@
   },
 
   transitions: {
-    next: [{id:'glyphs-part-two'}],
+    next: [],
     prev: []
   }
 }
