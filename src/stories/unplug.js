@@ -14,7 +14,7 @@
   },
 
   transitions: {
-    next: [{id: 'half-past-sunset'}],
+    next: [{id: 'act-ii-intertitle'}],
     prev: []
   }
 }
