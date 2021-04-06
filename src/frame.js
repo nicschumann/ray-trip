@@ -84,6 +84,7 @@ const standard_transition_function = (data, story,  i) => {
 function do_transition_for_mousewheel(story, state)
 {
   return event => {
+    console.log(event.deltaY)
     if (!state.transitioning)
     {
       if (
@@ -117,7 +118,7 @@ function do_transition_for_mousewheel(story, state)
         story.transitions.next.length > 0
       ) {
         window.clearInterval(state.ambient_interval);
-        document.onmousewheel = null;
+        document.onwheel = null;
         let next_story = random_story_id(story.transitions.next);
         state.story.current = next_story;
         render_frame(state, 'down');
@@ -128,7 +129,7 @@ function do_transition_for_mousewheel(story, state)
         story.transitions.prev.length > 0
       ) {
         window.clearInterval(state.ambient_interval);
-        document.onmousewheel = null;
+        document.onwheel = null;
         let prev_story = random_story_id(story.transitions.prev);
         state.story.current = prev_story;
         render_frame(state, 'up');
@@ -657,7 +658,7 @@ function render_frame(state, direction)
       }, 250);
     }
 
-    document.onmousewheel = do_transition_for_mousewheel(data, state);
+    document.onwheel = do_transition_for_mousewheel(data, state);
     timers = [];
   }, acc + padding);
 
@@ -698,7 +699,7 @@ function render_end(state) {
   story_header.style.color = `rgb(${sc.r * 255}, ${sc.g * 255}, ${sc.b * 255})`;
   typeface_header.style.color = `rgb(${tc.r * 255}, ${tc.g * 255}, ${tc.b * 255})`;
 
-  document.onmousewheel = null;
+  document.onwheel = null;
 }
 
 
@@ -739,7 +740,7 @@ ro.observe(document.querySelector('#story-container').parentNode);
 //     indicator.classList.add('done');
 //   }, 250);
 //   let data = story_from_id(state.story.current);
-//   document.onmousewheel = do_transition_for_mousewheel(data, state);
+//   document.onwheel = do_transition_for_mousewheel(data, state);
 //   timers = [];
 // });
 
@@ -753,11 +754,11 @@ function toggle_specimen_frame()
   if (specimen.classList.contains('active'))
   {
     let data = story_from_id(state.story.current);
-    document.onmousewheel = do_transition_for_mousewheel(data, state)
+    document.onwheel = do_transition_for_mousewheel(data, state)
   }
   else
   {
-    document.onmousewheel = null;
+    document.onwheel = null;
   }
 
   specimen.classList.toggle('active');
