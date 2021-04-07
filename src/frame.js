@@ -95,6 +95,10 @@ function do_transition_for_mousewheel(story, state)
         (
           story.transitions.prev.length > 0 &&
           event.deltaY < 0
+        ) ||
+        (
+          story.transitions.prev.length == 0 &&
+          story.transitions.next.length == 0
         )
       ) {
         story.animations.state += event.deltaY / 6;
