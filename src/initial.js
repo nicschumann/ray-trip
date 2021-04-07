@@ -1,1 +1,1 @@
-module.exports = 'typographic-abnormality';
+module.exports = 'prelude-i';

@@ -12,7 +12,7 @@ html
 body
 {
   background-color: black;
-  font-weight: 400;
+  font-weight: 300;
   box-sizing: border-box;
 	height:100%;
 }
@@ -63,7 +63,7 @@ body
 {
 	display: block;
   color:white;
-  font-size:38px;
+  font-size:40px;
   height:fit-content;
 	max-width: 1000px;
 
