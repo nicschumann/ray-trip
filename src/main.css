@@ -63,8 +63,9 @@ body
 {
 	display: block;
   color:white;
-  font-size:60px;
+  font-size:38px;
   height:fit-content;
+	max-width: 1000px;
 
 	-webkit-backface-visibility: hidden;
 	-webkit-perspective: 1000;
@@ -73,7 +74,7 @@ body
 	perspective: 550px;
 	overflow: visible;
 
-	line-height: 1.1em;
+	line-height: calc(min(max(1.1em, 6vw), 1.15em));
 }
 .story-frame.debug
 {

@@ -499,8 +499,16 @@ function extract_control_words(text, data)
 
     for (let j = 0; j < split_subword.length; j++)
     {
-      if (i == 0 && j == 0) { word = split_subword[0]; }
-      else if (j > 0) {
+      if (i == 0 && j == 0) {
+        let c = split_subword[0]
+        if (c.length == 0 && split_subword.length > 1) {
+          word = '#' + split_subword[1];
+        }
+        else
+        {
+          word = split_subword[0];
+        }
+      } else if (j > 0) {
         // we split out a '#', do a lookup.
         let id = split_subword[j]
         if (
@@ -607,8 +615,6 @@ function render_frame(state, direction)
   history.sequence.push({id: state.story.current, direction})
   history.frames[data.id] = {index: history.sequence.length - 1};
 
-  console.log(history);
-
   state.transitioning = true;
   data.animations.state = 0;
 
@@ -638,27 +644,41 @@ function render_frame(state, direction)
   story_parent.setAttribute('style', '');
   story_parent.parentNode.setAttribute('style', '');
 
+  // if (typeof data.font !== 'undefined')
+  // {
+  //   if (typeof data.font.family !== 'undefined')
+  //   {
+  //     story_parent.style.fontFamily = `${data.font.family}`;
+  //   }
+  //
+  //   story_parent.style.fontWeight = `${data.font.weight}`;
+  //   story_parent.style.lineHeight = `${data.font.leading}em`;
+  // }
+  console.log(story_parent.style);
+
   if (typeof data.font !== 'undefined')
   {
-    if (typeof data.font.family !== 'undefined')
+    for (const key in data.font)
     {
-      story_parent.style.fontFamily = `${data.font.family}`;
+      console.log(key);
+      if (data.font.hasOwnProperty(key))
+      {
+        console.log(data.font[key]);
+        story_parent.style[key] = data.font[key];
+      }
     }
-
-    story_parent.style.fontWeight = `${data.font.weight}`;
-    story_parent.style.lineHeight = `${data.font.leading}em`;
   }
 
-  if (
-    typeof data.font !== 'undefined' &&
-    typeof data.font.size !== 'undefined' &&
-    data.font.centered
-  ) {
-    story_parent.style.position = 'absolute';
-    story_parent.style.top = '50%';
-    story_parent.style.transform = 'translateY(-50%)';
-    story_parent.style.textAlign = 'center';
-  }
+  // if (
+  //   typeof data.font !== 'undefined' &&
+  //   typeof data.font.size !== 'undefined' &&
+  //   data.font.centered
+  // ) {
+  //   story_parent.style.position = 'absolute';
+  //   story_parent.style.top = '50%';
+  //   story_parent.style.transform = 'translateY(-50%)';
+  //   story_parent.style.textAlign = 'center';
+  // }
 
   story_parent.innerHTML = '';
   margin_parent.innerHTML = '';
@@ -680,16 +700,16 @@ function render_frame(state, direction)
   });
 
   // fit text to content.
-  if (
-    typeof data.font !== 'undefined' &&
-    typeof data.font.size !== 'undefined'
-  ) {
-    story_parent.style.fontSize = `${data.font.size}px`;
-  }
-  else
-  {
-    fit2d_binsearch(story_parent, 1);
-  }
+  // if (
+  //   typeof data.font !== 'undefined' &&
+  //   typeof data.font.size !== 'undefined'
+  // ) {
+  //   story_parent.style.fontSize = `${data.font.size}px`;
+  // }
+  // else
+  // {
+  //   fit2d_binsearch(story_parent, 1);
+  // }
 
 
   marginalia.forEach((d, i, a) => {
@@ -785,21 +805,21 @@ function render_end(state) {
 render_frame(state, INITIAL_STORY_ID);
 // render_end(state);
 
-let timer_id = null;
-const ro = new ResizeObserver(entries => {
-  window.clearTimeout(timer_id);
-  timer_id = window.setTimeout(() => {
-    var story = story_from_id(state.story.current);
-    if (
-      typeof story.font == 'undefined' ||
-      typeof story.font.size === 'undefined'
-    ) {
-      fit2d_binsearch(state.story.stage.container, 1);
-    }
-  }, 100);
-});
-
-ro.observe(document.querySelector('#story-container').parentNode);
+// let timer_id = null;
+// const ro = new ResizeObserver(entries => {
+//   window.clearTimeout(timer_id);
+//   timer_id = window.setTimeout(() => {
+//     var story = story_from_id(state.story.current);
+//     if (
+//       typeof story.font == 'undefined' ||
+//       typeof story.font.fontSize === 'undefined'
+//     ) {
+//       fit2d_binsearch(state.story.stage.container, 1);
+//     }
+//   }, 100);
+// });
+//
+// ro.observe(document.querySelector('#story-container').parentNode);
 
 // uncomment this for a janky transition function
 // we might need to do some book-keeping to clear the timers.
