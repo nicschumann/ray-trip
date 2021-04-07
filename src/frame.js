@@ -444,6 +444,8 @@ function make_channel_data(word, offset, color={})
   element.classList.add('channeled-word');
   element.classList.add('pending');
 
+  element.setAttribute('content', word + '&nbsp;');
+
   element.innerHTML = word + '&nbsp;';
 
   // this adds channeled data for RGB layering effects.
@@ -479,7 +481,45 @@ function make_channel_data(word, offset, color={})
   return {element, offset};
 }
 
+function extract_control_words(text, data)
+{
+  let word = '';
+  let controls = {}; // $
+  let lookups = []; // #
 
+  let split_words = text.split('$');
+
+  for (let i = 0; i < split_words.length; i++)
+  {
+    let split_subword = split_words[i].split('#');
+
+    for (let j = 0; j < split_subword.length; j++)
+    {
+      if (i == 0 && j == 0) { word = split_subword[0]; }
+      else if (j > 0) {
+        // we split out a '#', do a lookup.
+        let id = split_subword[j]
+        if (
+          typeof data.definitions !== 'undefined' &&
+          typeof data.definitions[id] !== 'undefined'
+        ) {
+          lookups.push(data.definitions[id]);
+        }
+      }
+      else
+      {
+        // we split out a '$', set a command.
+        controls[split_subword[j]] = true;
+      }
+    }
+  }
+
+  return {
+    word,
+    lookups,
+    controls
+  }
+}
 
 function preprocess_text_as_RGB_words(data)
 {
@@ -490,18 +530,53 @@ function preprocess_text_as_RGB_words(data)
   let offset = 0;
 
   words.forEach((word, i) => {
+
+
+    let parse = extract_control_words(word, data);
+    word = parse.word;
+
+    // deal with timing marks
     if (word == '*') {
       offset = 600;
     }
-    else if ( word.indexOf('*') == 0 && Number.isInteger(+word.slice(1)))
-    {
+    else if (
+      word.indexOf('*') == 0 &&
+      Number.isInteger(+word.slice(1))
+    ) {
       offset = +word.slice(1);
     }
+
+    // deal with content
     else
     {
-      let data = make_channel_data(word, offset);
+      let element_data = make_channel_data(word, offset);
+
+      // handle custom style lookups
+      if (parse.lookups.length > 0)
+      {
+        for (const data of parse.lookups)
+        {
+          for (const key in data)
+          {
+            if (data.hasOwnProperty(key))
+            {
+              element_data.element.style[key] = data[key];
+            }
+          }
+        }
+      }
+
+      // handle custom commands
+      if (parse.controls.trim)
+      {
+        console.log('do trim');
+        console.log(element_data.element.innerHTML);
+        let idx = element_data.element.innerHTML.indexOf('&nbsp;');
+        element_data.element.innerHTML = element_data.element.innerHTML.slice(0, idx);
+      }
+
       offset = 0;
-      text.push(data);
+      text.push(element_data);
     }
   });
 
