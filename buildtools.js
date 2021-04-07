@@ -38,7 +38,7 @@ const buildjs = async path => {
 };
 
 const buildstories = async () => {
-  const compile_path = './src/stories/trailer';
+  const compile_path = './src/stories';
   const target_stories_path = './src/stories.js';
   const target_pathways_path = './src/paths.js';
 

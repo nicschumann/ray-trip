@@ -28,8 +28,8 @@ function dfs(stories, story_lookup, path, paths)
 
   if (typeof story === 'undefined')
   {
-    console.log(story_lookup);
-    return;
+    console.log(`Undefined ID: ${start_id}`);
+    return [];
   }
 
   let neighbors = story.transitions.prev.map(x => x.id)
