@@ -16,8 +16,17 @@
     i: {
       fontStyle: 'italic',
       fontFamily: 'Ray',
-      fontSize: '1.1em'
+      fontSize: '1.1em',
+    },
+
+    red: {
+      color: 'red'
+    },
+
+    blue: {
+      backgroundColor: 'blue'
     }
+
   },
 
   transitions: {

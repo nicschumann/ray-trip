@@ -14,7 +14,7 @@
   },
 
   transitions: {
-    next: [{id: 'sour-aftertaste'}],
+    next: [],
     prev: []
   }
 }
