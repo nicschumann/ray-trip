@@ -4,7 +4,66 @@ const paths = require('./paths.js');
 import {fit2d_binsearch} from './fit2d.js';
 const INITIAL_STORY_ID = require('./initial.js');
 
-console.log(paths);
+
+// Sim Instantiation
+
+import * as R from './sim-states.js';
+import {run_simulation} from './sim.js';
+
+let sim_parameters = {
+	// dt: this is the length of the timestep for the simulation.
+	// This is NOT the framerate of the simulation (which tries to stick to 60)
+	// a range from 4 - 0.01 creates an
+	// interesting range of effects here.
+	dt: 0.2,
+
+	// dt: 0.01 - 0.025, v.r: 0.001, v.m: 1, v.theta: PI / 2 is a good combination for pressure images
+	// dt: 0.25, v.r: 0.001, v.m: 0.075 - 0.001, v.theta: PI is a good combination for ink images
+
+	velocity: {
+		// dissipation: 0.18,
+		dissipation: 0.25,
+		radius: 0.001,
+		magnitude: 1,
+		theta: Math.PI / 2
+	},
+
+	pressure: {
+		dissipation: 0.25,
+		// --- v these might not be used v ---
+		radius: 0.001,
+		magnitude: 0.06
+		// --- ^ these might not be used ^  ---
+	},
+
+	force: {
+		radius: 0.001,
+		magnitude: 0.1
+	},
+
+	ink: {
+		radius: 0.001,
+		color: [1.0, 1.0, 1.0, 1.0]
+	}
+};
+
+
+let sim_state = {
+	simulating: true,
+	interactable: false,
+	render: R.RENDER_PRESSURE,
+	capture: false,
+
+	added_colors: [],
+	reset_colors: [],
+	added_forces: [],
+	reset_forces: [],
+};
+
+// run_simulation(sim_parameters, sim_state);
+
+// end sim instantiation
+
 
 let acc = 0;
 let base = 65;
@@ -245,7 +304,7 @@ const blur_to_prev_state_2 = (event, story, state) => {
   // parent.style.filter = `blur(${bl / 2}px)`;
 };
 
-const reset_state =  (event, story, state) =>
+const reset_state = (event, story, state) =>
 {
   let t = story.animations.state;
   let parent = state.story.stage.container;

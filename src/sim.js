@@ -37,56 +37,6 @@ const VELOCITY_GRID_DIVISIONS = 65;
 // Runtime parameters:
 // Tweaking these changes the behavior of the simulation over its lifespan.
 
-let parameters = {
-	// dt: this is the length of the timestep for the simulation.
-	// This is NOT the framerate of the simulation (which tries to stick to 60)
-	// a range from 4 - 0.01 creates an
-	// interesting range of effects here.
-	dt: 0.2,
-
-	// dt: 0.01 - 0.025, v.r: 0.001, v.m: 1, v.theta: PI / 2 is a good combination for pressure images
-	// dt: 0.25, v.r: 0.001, v.m: 0.075 - 0.001, v.theta: PI is a good combination for ink images
-
-	velocity: {
-		// dissipation: 0.18,
-		dissipation: 0.25,
-		radius: 0.001,
-		magnitude: 0.025,
-		theta: Math.PI / 1
-	},
-
-	pressure: {
-		dissipation: 0.25,
-		// --- v these might not be used v ---
-		radius: 0.001,
-		magnitude: 0.06
-		// --- ^ these might not be used ^  ---
-	},
-
-	force: {
-		radius: 0.001,
-		magnitude: 0.1
-	},
-
-	ink: {
-		radius: 0.001,
-		color: [1.0, 1.0, 1.0, 1.0]
-	}
-};
-
-
-let state = {
-	simulating: true,
-	interactable: false,
-	render: R.RENDER_COLOR,
-	capture: false,
-
-	added_colors: [],
-	reset_colors: [],
-	added_forces: [],
-	reset_forces: [],
-};
-
 // parameters = require('./data/01-velocity-parameters.json');
 
 function create_arrow_geometry ()
@@ -550,140 +500,25 @@ const draw_color_picker = regl({
 
 let data = require('./data/glyphs/A_-forces.json');
 
-// create_color_buffer({target: color_buffer.front});
-// create_velocity_buffer({target: velocity_buffer.front});
-draw_color_picker({target: color_picker_buffer});
-clear_buffer({target: color_buffer.front, clearcolor: [0.0, 0.0, 0.0, 1.0]})
-clear_buffer({target: velocity_buffer.front, clearcolor: [0.0, 0.0, 0.0, 1.0]});
+
+export function run_simulation(parameters, state)
+{
+
+	// create_color_buffer({target: color_buffer.front});
+	// create_velocity_buffer({target: velocity_buffer.front});
+	draw_color_picker({target: color_picker_buffer});
+	clear_buffer({target: color_buffer.front, clearcolor: [0.0, 0.0, 0.0, 1.0]})
+	clear_buffer({target: velocity_buffer.front, clearcolor: [0.0, 0.0, 0.0, 1.0]});
 
 
-// create the initial emitter map
-// this depicts persistant emitters that generate
-// velocity for all time. The initial emitters
-// are constructed from the tangent or normal fields
-// to a chosen glyph.
-data.forces.forEach(force => {
-	// directions are given in unit magnitude, which
-	// is way to big for clip space. Scale it down.
-	let dir = force.dir.map(x => x * parameters.velocity.magnitude);
-
-	add_directed_force({
-		target: velocity_emitter_buffer.back,
-		source: velocity_emitter_buffer.front,
-		sourceTexSize: [SIM_TEXEL_SIZE, SIM_TEXEL_SIZE],
-		origin: force.pos,
-		direction: dir,
-		theta: parameters.velocity.theta,
-		radius: parameters.velocity.radius
-	});
-
-	velocity_emitter_buffer.swap();
-});
-
-console.log(parameters);
-
-// simulation
-
-parameters.ink.radius = 0.00005;
-
-regl.frame(() => {
-
-	// handle_events(parameters, state);
-	state.added_colors.push({data:{pos: {x: 0.5, y: 0.5}}});
-	// state.added_colors.push({data:{pos: {x: 0.25, y: 0.25}}});
-
-
-	if (state.render == R.RENDER_EDGES) draw_edges({source: color_buffer.front, target: null});
-	// if (state.render == R.RENDER_COLOR &&  keystate(' ')) draw_edges({source: color_buffer.front, target: null});
-	if (state.render == R.RENDER_COLOR) draw_buffer({source: color_buffer.front, target: null});
-	if (state.render == R.RENDER_VELOCITY) draw_velocity_field({velocity: velocity_buffer.front, target: null, color: [1.0, 1.0, 1.0, 1.0], scale: 1.0});
-	if (state.render == R.RENDER_EMITTER_FIELD) draw_velocity_field({velocity: velocity_emitter_buffer.front, target: null, color: [1.0, 0.0, 0.1, 1.0], scale: 25.0});
-	if (state.render == R.RENDER_PRESSURE) draw_pressure_field({pressure: pressure_buffer.front, target: null});
-	if (state.render == R.RENDER_COLOR_PICKER) draw_buffer({source: color_picker_buffer, target: null});
-	if (state.render == R.RENDER_RADIUS_PICKER) draw_radius_picker({radius: parameters.force.radius * 10, target: null});
-
-	// save the canvas data if required
-
-	// if (state.capture)
-	// {
-	// 	let a = document.createElement('a');
-	// 	let canvas = document.getElementsByTagName('canvas')[0];
-	// 	let data = canvas.toDataURL('image/png');
-	//
-	// 	console.log('downloading image');
-	//
-	// 	a.setAttribute('download', 'canvas-image.png');
-	// 	a.setAttribute('href', data);
-	// 	a.click();
-	//
-	// 	state.capture = false;
-	// }
-
-
-	// add_directed_force
-	state.added_forces.forEach(event => {
-		if (state.render == R.RENDER_EMITTER_FIELD)
-		{
-			add_directed_force({
-				target: velocity_emitter_buffer.back,
-				source: velocity_emitter_buffer.front,
-				sourceTexSize: [SIM_TEXEL_SIZE, SIM_TEXEL_SIZE],
-				origin: [event.data.pos.x, event.data.pos.y],
-				direction: [
-					event.data.dir.x * parameters.force.magnitude * 0.1,
-					event.data.dir.y * parameters.force.magnitude * 0.1
-				],
-				theta: 0.0,
-				radius: parameters.force.radius
-			});
-
-			velocity_emitter_buffer.swap();
-		}
-		else
-		{
-			add_directed_force({
-				target: velocity_buffer.back,
-				source: velocity_buffer.front,
-				sourceTexSize: [SIM_TEXEL_SIZE, SIM_TEXEL_SIZE],
-				origin: [event.data.pos.x, event.data.pos.y],
-				direction: [
-					event.data.dir.x * parameters.force.magnitude,
-					event.data.dir.y * parameters.force.magnitude
-				],
-				theta: 0.0,
-				radius: parameters.force.radius
-			});
-
-			velocity_buffer.swap();
-		}
-	});
-
-	state.added_forces = [];
-
-
-	// add_color
-	state.added_colors.forEach(event => {
-		add_color({
-			target: color_buffer.back,
-			source: color_buffer.front,
-			sourceTexSize: [COLOR_TEXEL_SIZE, COLOR_TEXEL_SIZE],
-			origin: [event.data.pos.x, event.data.pos.y],
-			color: parameters.ink.color,
-			radius: parameters.ink.radius
-		});
-
-		color_buffer.swap();
-	});
-
-	state.added_colors = [];
-
-	// reset_forces
-	if (state.reset_forces.length > 0)
-	{
-		clear_buffer({target: velocity_emitter_buffer.front, clearcolor: [0.0, 0.0, 0.0, 1.0]});
-	}
-
-	state.reset_forces.forEach(force => {
+	// create the initial emitter map
+	// this depicts persistant emitters that generate
+	// velocity for all time. The initial emitters
+	// are constructed from the tangent or normal fields
+	// to a chosen glyph.
+	data.forces.forEach(force => {
+		// directions are given in unit magnitude, which
+		// is way to big for clip space. Scale it down.
 		let dir = force.dir.map(x => x * parameters.velocity.magnitude);
 
 		add_directed_force({
@@ -699,66 +534,197 @@ regl.frame(() => {
 		velocity_emitter_buffer.swap();
 	});
 
+	console.log(parameters);
 
-	state.reset_forces = [];
+	// simulation
+
+	regl.frame(() => {
+
+		// handle_events(parameters, state);
+		state.added_forces.push({data:{pos: {x: 0.5, y: 0.5}, dir: {x: 10, y: 20}}});
+		// state.added_colors.push({data:{pos: {x: 0.25, y: 0.25}}});
 
 
-	// reset_colors
-	state.reset_colors.forEach(event => {
-		color_picker_buffer.use(() => {
-			parameters.ink.color = regl.read({
-				x: event.data.pos.x * COLOR_RESOLUTION,
-				y: event.data.pos.y * COLOR_RESOLUTION,
-				width: 1,
-				height: 1
+		if (state.render == R.RENDER_EDGES) draw_edges({source: color_buffer.front, target: null});
+		// if (state.render == R.RENDER_COLOR &&  keystate(' ')) draw_edges({source: color_buffer.front, target: null});
+		if (state.render == R.RENDER_COLOR) draw_buffer({source: color_buffer.front, target: null});
+		if (state.render == R.RENDER_VELOCITY) draw_velocity_field({velocity: velocity_buffer.front, target: null, color: [1.0, 1.0, 1.0, 1.0], scale: 1.0});
+		if (state.render == R.RENDER_EMITTER_FIELD) draw_velocity_field({velocity: velocity_emitter_buffer.front, target: null, color: [1.0, 0.0, 0.1, 1.0], scale: 25.0});
+		if (state.render == R.RENDER_PRESSURE) draw_pressure_field({pressure: pressure_buffer.front, target: null});
+		if (state.render == R.RENDER_COLOR_PICKER) draw_buffer({source: color_picker_buffer, target: null});
+		if (state.render == R.RENDER_RADIUS_PICKER) draw_radius_picker({radius: parameters.force.radius * 10, target: null});
+
+		// save the canvas data if required
+
+		// if (state.capture)
+		// {
+		// 	let a = document.createElement('a');
+		// 	let canvas = document.getElementsByTagName('canvas')[0];
+		// 	let data = canvas.toDataURL('image/png');
+		//
+		// 	console.log('downloading image');
+		//
+		// 	a.setAttribute('download', 'canvas-image.png');
+		// 	a.setAttribute('href', data);
+		// 	a.click();
+		//
+		// 	state.capture = false;
+		// }
+
+
+		// add_directed_force
+		state.added_forces.forEach(event => {
+			if (state.render == R.RENDER_EMITTER_FIELD)
+			{
+				add_directed_force({
+					target: velocity_emitter_buffer.back,
+					source: velocity_emitter_buffer.front,
+					sourceTexSize: [SIM_TEXEL_SIZE, SIM_TEXEL_SIZE],
+					origin: [event.data.pos.x, event.data.pos.y],
+					direction: [
+						event.data.dir.x * parameters.force.magnitude * 0.1,
+						event.data.dir.y * parameters.force.magnitude * 0.1
+					],
+					theta: 0.0,
+					radius: parameters.force.radius
+				});
+
+				velocity_emitter_buffer.swap();
+			}
+			else
+			{
+				add_directed_force({
+					target: velocity_buffer.back,
+					source: velocity_buffer.front,
+					sourceTexSize: [SIM_TEXEL_SIZE, SIM_TEXEL_SIZE],
+					origin: [event.data.pos.x, event.data.pos.y],
+					direction: [
+						event.data.dir.x * parameters.force.magnitude,
+						event.data.dir.y * parameters.force.magnitude
+					],
+					theta: 0.0,
+					radius: parameters.force.radius
+				});
+
+				velocity_buffer.swap();
+			}
+		});
+
+		state.added_forces = [];
+
+
+		// add_color
+		state.added_colors.forEach(event => {
+			add_color({
+				target: color_buffer.back,
+				source: color_buffer.front,
+				sourceTexSize: [COLOR_TEXEL_SIZE, COLOR_TEXEL_SIZE],
+				origin: [event.data.pos.x, event.data.pos.y],
+				color: parameters.ink.color,
+				radius: parameters.ink.radius
 			});
-		});
-	});
 
-
-	// external forces
-	if (state.simulating)
-	{
-		add_emitter_field({
-			target: velocity_buffer.back,
-			emitters: velocity_emitter_buffer.front,
-			velocity: velocity_buffer.front,
-			sourceTexSize: [SIM_TEXEL_SIZE, SIM_TEXEL_SIZE]
-		});
-		velocity_buffer.swap();
-	}
-
-
-	if (state.simulating)
-	{
-		advect_buffer({
-			target: velocity_buffer.back,
-			source: velocity_buffer.front,
-			velocity: velocity_buffer.front,
-			sourceTexSize: [SIM_TEXEL_SIZE, SIM_TEXEL_SIZE],
-			velocityTexSize: [SIM_TEXEL_SIZE, SIM_TEXEL_SIZE],
-			dissipation: parameters.velocity.dissipation,
-			dt: parameters.dt,
-			iscolor: false
+			color_buffer.swap();
 		});
 
-		calculate_divergence({
-			target: divergence_buffer,
-			velocity: velocity_buffer.back,
-			velocityTexSize: [SIM_TEXEL_SIZE, SIM_TEXEL_SIZE],
-		});
+		state.added_colors = [];
 
-		// create_arrow_geometry initializing pressure from scratch each cycle
-		// note: it doesn't really work that well, and costs more.
-
-		if (PRESSURE_JACOBI_ITERATIONS > 0)
+		// reset_forces
+		if (state.reset_forces.length > 0)
 		{
-			clear_buffer({
-				target: pressure_buffer.front,
-				clearcolor: [0.0, 0.0, 0.0, 1.0]
+			clear_buffer({target: velocity_emitter_buffer.front, clearcolor: [0.0, 0.0, 0.0, 1.0]});
+		}
+
+		state.reset_forces.forEach(force => {
+			let dir = force.dir.map(x => x * parameters.velocity.magnitude);
+
+			add_directed_force({
+				target: velocity_emitter_buffer.back,
+				source: velocity_emitter_buffer.front,
+				sourceTexSize: [SIM_TEXEL_SIZE, SIM_TEXEL_SIZE],
+				origin: force.pos,
+				direction: dir,
+				theta: parameters.velocity.theta,
+				radius: parameters.velocity.radius
 			});
 
-			for (var i = 0; i < PRESSURE_JACOBI_ITERATIONS; i += 1)
+			velocity_emitter_buffer.swap();
+		});
+
+
+		state.reset_forces = [];
+
+
+		// reset_colors
+		state.reset_colors.forEach(event => {
+			color_picker_buffer.use(() => {
+				parameters.ink.color = regl.read({
+					x: event.data.pos.x * COLOR_RESOLUTION,
+					y: event.data.pos.y * COLOR_RESOLUTION,
+					width: 1,
+					height: 1
+				});
+			});
+		});
+
+
+		// external forces
+		if (state.simulating)
+		{
+			add_emitter_field({
+				target: velocity_buffer.back,
+				emitters: velocity_emitter_buffer.front,
+				velocity: velocity_buffer.front,
+				sourceTexSize: [SIM_TEXEL_SIZE, SIM_TEXEL_SIZE]
+			});
+			velocity_buffer.swap();
+		}
+
+
+		if (state.simulating)
+		{
+			advect_buffer({
+				target: velocity_buffer.back,
+				source: velocity_buffer.front,
+				velocity: velocity_buffer.front,
+				sourceTexSize: [SIM_TEXEL_SIZE, SIM_TEXEL_SIZE],
+				velocityTexSize: [SIM_TEXEL_SIZE, SIM_TEXEL_SIZE],
+				dissipation: parameters.velocity.dissipation,
+				dt: parameters.dt,
+				iscolor: false
+			});
+
+			calculate_divergence({
+				target: divergence_buffer,
+				velocity: velocity_buffer.back,
+				velocityTexSize: [SIM_TEXEL_SIZE, SIM_TEXEL_SIZE],
+			});
+
+			// create_arrow_geometry initializing pressure from scratch each cycle
+			// note: it doesn't really work that well, and costs more.
+
+			if (PRESSURE_JACOBI_ITERATIONS > 0)
+			{
+				clear_buffer({
+					target: pressure_buffer.front,
+					clearcolor: [0.0, 0.0, 0.0, 1.0]
+				});
+
+				for (var i = 0; i < PRESSURE_JACOBI_ITERATIONS; i += 1)
+				{
+					calculate_pressure({
+						target: pressure_buffer.back,
+						pressure: pressure_buffer.front,
+						divergence: divergence_buffer,
+						pressureTexSize: [SIM_TEXEL_SIZE, SIM_TEXEL_SIZE],
+						dissipation: parameters.pressure.dissipation,
+						dt: parameters.dt
+					});
+
+					pressure_buffer.swap();
+				}
+			}
+			else
 			{
 				calculate_pressure({
 					target: pressure_buffer.back,
@@ -771,39 +737,28 @@ regl.frame(() => {
 
 				pressure_buffer.swap();
 			}
-		}
-		else
-		{
-			calculate_pressure({
-				target: pressure_buffer.back,
+
+			calculate_velocity_gradient_for_pressure({
+				target: velocity_buffer.front,
 				pressure: pressure_buffer.front,
-				divergence: divergence_buffer,
-				pressureTexSize: [SIM_TEXEL_SIZE, SIM_TEXEL_SIZE],
-				dissipation: parameters.pressure.dissipation,
-				dt: parameters.dt
+				velocity: velocity_buffer.back,
+				velocityTexSize: [SIM_TEXEL_SIZE, SIM_TEXEL_SIZE]
 			});
 
-			pressure_buffer.swap();
+			advect_buffer({
+				target: color_buffer.back,
+				source: color_buffer.front,
+				velocity: velocity_buffer.front,
+				sourceTexSize: [COLOR_TEXEL_SIZE, COLOR_TEXEL_SIZE],
+				velocityTexSize: [SIM_TEXEL_SIZE, SIM_TEXEL_SIZE],
+				dissipation: parameters.velocity.dissipation,
+				dt: parameters.dt,
+				iscolor: true
+			});
+
+			color_buffer.swap()
 		}
+	});
+}
 
-		calculate_velocity_gradient_for_pressure({
-			target: velocity_buffer.front,
-			pressure: pressure_buffer.front,
-			velocity: velocity_buffer.back,
-			velocityTexSize: [SIM_TEXEL_SIZE, SIM_TEXEL_SIZE]
-		});
-
-		advect_buffer({
-			target: color_buffer.back,
-			source: color_buffer.front,
-			velocity: velocity_buffer.front,
-			sourceTexSize: [COLOR_TEXEL_SIZE, COLOR_TEXEL_SIZE],
-			velocityTexSize: [SIM_TEXEL_SIZE, SIM_TEXEL_SIZE],
-			dissipation: parameters.velocity.dissipation,
-			dt: parameters.dt,
-			iscolor: true
-		});
-
-		color_buffer.swap()
-	}
-});
+// run_simulation(parameters, state);

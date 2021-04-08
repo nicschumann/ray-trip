@@ -16,6 +16,7 @@
     "live-server": "^1.2.1"
   },
   "dependencies": {
-    "regl": "^2.1.0"
+    "regl": "^2.1.0",
+    "request": "^2.88.2"
   }
 }
