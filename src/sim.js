@@ -541,7 +541,7 @@ export function run_simulation(parameters, state)
 	regl.frame(() => {
 
 		// handle_events(parameters, state);
-		state.added_forces.push({data:{pos: {x: 0.5, y: 0.5}, dir: {x: 10, y: 20}}});
+		// state.added_forces.push({data:{pos: {x: 0.5, y: 0.5}, dir: {x: 10, y: 20}}});
 		// state.added_colors.push({data:{pos: {x: 0.25, y: 0.25}}});
 
 

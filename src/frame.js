@@ -24,8 +24,8 @@ let sim_parameters = {
 		// dissipation: 0.18,
 		dissipation: 0.25,
 		radius: 0.001,
-		magnitude: 1,
-		theta: Math.PI / 2
+		magnitude: 0.01,
+		theta: Math.PI / 1
 	},
 
 	pressure: {
@@ -51,7 +51,7 @@ let sim_parameters = {
 let sim_state = {
 	simulating: true,
 	interactable: false,
-	render: R.RENDER_PRESSURE,
+	render: R.RENDER_COLOR,
 	capture: false,
 
 	added_colors: [],
@@ -108,7 +108,7 @@ const standard_transition_function = (data, story, state, i) => {
 		data.functions.forEach(f => {
 
 			let completion_function = () => {
-				f(data, state);
+				f(data, story, state, i);
 				data.element.removeEventListener('transitionend', completion_function);
 			};
 
@@ -189,7 +189,7 @@ function do_transition_for_mousewheel(story, state)
          story.transitions.prev.length == 0 &&
          story.transitions.next.length == 0
       ) {
-        render_end(state, history);
+        render_end(state);
       }
     }
   };
@@ -397,7 +397,7 @@ function random_story_id(story_ids)
   return next_obj.id;
 }
 
-function story_from_id(id)
+function story_from_id(id, story_lookup, stories)
 {
   let story_index = story_lookup[id];
   return stories[story_index];
@@ -446,11 +446,6 @@ function random_color()
 
 let story_lookup = stories_to_lookup_table(stories);
 
-let history = {
-  frames: {},
-  sequence: []
-};
-
 let state = {
   story: {
     stage: {
@@ -467,6 +462,10 @@ let state = {
   end: {
     stage: { container: document.getElementById('end-container') }
   },
+	history: {
+	  frames: {},
+	  sequence: []
+	},
   timers: [],
 	timing: {
 		acc: 0,
@@ -610,13 +609,21 @@ const control_functions = {
 	  document.body.appendChild(span);
 	},
 
-	enable: (data, state) => {
+	endframe: (data, story, state) => {
+		state.transitioning = false;
+		document.onwheel = do_transition_for_mousewheel(story, state);
+		show_indicator();
+	},
 
+	drip: (data, story, state) => {
+		sim_state.added_colors.push({data:{pos: {x: 0.5, y: 0.5}, dir: {x: 10, y: 20}}});
+		console.log(sim_state);
 	}
 }
 
 function preprocess_text_as_words(data)
 {
+
   let words = data.text.split(' ').filter(word => word.length > 0);
   let text = [];
   let marginalia = [];
@@ -624,6 +631,17 @@ function preprocess_text_as_words(data)
   let offset = 0;
 
   words.forEach((word, i) => {
+		let prefix = '';
+		if (word.indexOf('#') == 0)
+		{
+			word = word.slice(1);
+			prefix = '#';
+		}
+		else if (word.indexOf('$') == 0)
+		{
+			word = word.slice(1);
+			prefix = '$';
+		}
 
 
     let parse = extract_control_words(word, data);
@@ -643,7 +661,7 @@ function preprocess_text_as_words(data)
     // deal with content
     else
     {
-      let element_data = make_channel_data(word, offset);
+      let element_data = make_channel_data(prefix + word, offset);
 
       // handle custom style lookups
       if (parse.lookups.length > 0)
@@ -701,12 +719,13 @@ function preprocess_text_as_words(data)
 }
 
 
+
 function render_frame(state, direction)
 {
-  let data = story_from_id(state.story.current);
+  let data = story_from_id(state.story.current, story_lookup, stories);
 
-  history.sequence.push({id: state.story.current, direction})
-  history.frames[data.id] = {index: history.sequence.length - 1};
+  state.history.sequence.push({id: state.story.current, direction})
+  state.history.frames[data.id] = {index: state.history.sequence.length - 1};
 
   state.transitioning = true;
   data.animations.state = 0;
@@ -767,18 +786,7 @@ function render_frame(state, direction)
     story_parent.appendChild(d.element);
   });
 
-  // fit text to content.
-  // if (
-  //   typeof data.font !== 'undefined' &&
-  //   typeof data.font.size !== 'undefined'
-  // ) {
-  //   story_parent.style.fontSize = `${data.font.size}px`;
-  // }
-  // else
-  // {
-  //   fit2d_binsearch(story_parent, 1);
-  // }
-
+	// fit text to content with fit2d_binsearch
 
   marginalia.forEach((d, i, a) => {
     margin_parent.appendChild(d.element);
@@ -807,12 +815,7 @@ function render_frame(state, direction)
   let timer = window.setTimeout(() => {
     state.transitioning = false;
 
-    indicator.classList.add('active');
-
-    window.setTimeout(() => {
-      indicator.classList.add('done');
-    }, 250)
-
+		show_indicator();
 
     if (typeof data.animations.ambient !== 'undefined')
     {
@@ -833,12 +836,22 @@ function render_frame(state, direction)
   state.timing.acc = 0;
 }
 
+function show_indicator()
+{
+	let indicator = document.getElementById('state-indicator');
+	indicator.classList.add('active');
+
+	window.setTimeout(() => {
+		indicator.classList.add('done');
+	}, 250)
+}
+
 function render_end(state) {
   let story_parent = state.story.stage.container;
   let margin_parent = state.marginalia.stage.container;
   let sidelines_parent = state.sidelines.stage.container;
   let end_parent = state.end.stage.container;
-  let path_index = get_path_index(history.sequence) + 1;
+  let path_index = get_path_index(state.history.sequence) + 1;
 
   story_parent.classList.add('ended');
   story_parent.parentNode.classList.add('ended');
@@ -853,7 +866,7 @@ function render_end(state) {
   }, 100); // 2 * period space = 3000
 
   let resolution = document.getElementById('story-resolution');
-  resolution.innerHTML = `“Mantar” is a story in ${stories.length} interlocking parts. You just read ${history.sequence.length} of them.`;
+  resolution.innerHTML = `“Mantar” is a story in ${stories.length} interlocking parts. You just read ${state.history.sequence.length} of them.`;
 
   let edition_number = document.getElementById('story-title-box');
   edition_number.innerHTML = `${path_index} / ${paths.length}`;
@@ -920,7 +933,7 @@ function toggle_specimen_frame()
 
   if (specimen.classList.contains('active'))
   {
-    let data = story_from_id(state.story.current);
+    let data = story_from_id(state.story.current, story_lookup, stories);
     document.onwheel = do_transition_for_mousewheel(data, state)
   }
   else
