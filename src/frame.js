@@ -64,10 +64,6 @@ let sim_state = {
 
 // end sim instantiation
 
-
-let acc = 0;
-let base = 65;
-let padding = 2750;
 let timers = []
 
 
@@ -101,49 +97,30 @@ const default_animation = {
  * transitions
  */
 
-const standard_transition_function = (data, story,  i) => {
+const standard_transition_function = (data, story, state, i) => {
 
   let offset = story.animations.in.offset(i);
 
   let timer = window.setTimeout(() => {
 		// start the transition animation.
 		data.element.classList.remove('pending');
-
 		// fire any attached inline functions.
 		data.functions.forEach(f => {
-			data.element.addEventListener('transitionend', () => {
-				f(data)
-			});
+
+			let completion_function = () => {
+				f(data, state);
+				data.element.removeEventListener('transitionend', completion_function);
+			};
+
+			data.element.addEventListener('transitionend', completion_function);
 		});
 
-  }, (i == 0) ? 0 : acc + base + offset + data.offset);
+  }, (i == 0) ? 0 : state.timing.acc + state.timing.base + offset + data.offset);
 
-  acc += base + offset + data.offset;
+  state.timing.acc += state.timing.base + offset + data.offset;
 
   return timer;
 }
-
-
-
-
-// const trippy_transition_function = (data, story, i) => {
-//
-//   let offset = (i % 3 == 0) ? 0 : 20;
-//   let random_timing = Math.random();
-//
-//   let timer = window.setTimeout(() => {
-//     // random angle:
-//     // let angle = Math.floor(Math.random() * 360);
-//     // data.element.setAttribute('style', `transform:rotate(${angle}deg);`);
-//
-//     data.element.classList.remove('pending');
-//   }, (i == 0) ? 0 : 25 * random_timing + acc + offset);
-//
-//   acc += base * random_timing * offset + random_timing + data.offset;
-//
-//   return timer;
-// }
-
 
 /**
  * Up/Down Transitions
@@ -152,7 +129,6 @@ const standard_transition_function = (data, story,  i) => {
 function do_transition_for_mousewheel(story, state)
 {
   return event => {
-    console.log(event.deltaY)
     if (!state.transitioning)
     {
       if (
@@ -288,30 +264,9 @@ const blur_to_prev_state = (event, story, state) => {
 };
 
 
- /**
-  * Downs
-  */
-
-const blur_to_prev_state_2 = (event, story, state) => {
-  let t = story.animations.state;
-  let parent = state.story.stage.container;
-  let words = document.getElementsByClassName('word');
-
-  let bl = story.animations.down.blur(Math.abs(t));
-  let op = story.animations.down.opacity(Math.abs(t));
-
-  Array.from(words).forEach(el => {
-    el.style.transform = `matrix(1, ${t/100 + Math.random() / 10}, ${-t/100 + Math.random() / 10}, 1, 0, 0)`;
-    el.style.transition = `all 2ms`;
-    el.style.opacity = op * 2;
-    // el.style.filter = `blur(${bl / 2}px)`;
-  });
-
-  // parent.style.transform = `matrix(1, ${t/100}, ${t/100}, 1, 0, 0)`;
-  // parent.style.transition = `all 2ms`;
-  // parent.style.opacity = op * 5;
-  // parent.style.filter = `blur(${bl / 2}px)`;
-};
+/**
+ * Downs
+ */
 
 const reset_state = (event, story, state) =>
 {
@@ -327,12 +282,28 @@ const reset_state = (event, story, state) =>
 
   Array.from(words).forEach(el => {
     el.style.transform = `matrix(1, 0, 0, 1, 0, 0)`;
-    // el.setAttribute('style', `transition:all 2ms; opacity:${op(t)};filter:blur(${bl(t)}px);`
     el.style.transition = `all 2ms`;
     el.style.opacity = '1';
     el.style.filter = `none`;
   });
 }
+
+
+const blur_to_prev_state_2 = (event, story, state) => {
+  let t = story.animations.state;
+  let parent = state.story.stage.container;
+  let words = document.getElementsByClassName('word');
+
+  let bl = story.animations.down.blur(Math.abs(t));
+  let op = story.animations.down.opacity(Math.abs(t));
+
+  Array.from(words).forEach(el => {
+    el.style.transform = `matrix(1, ${t/100 + Math.random() / 10}, ${-t/100 + Math.random() / 10}, 1, 0, 0)`;
+    el.style.transition = `all 2ms`;
+    el.style.opacity = op * 2;
+  });
+};
+
 
 const blur_to_next_state = (event, story, state) => {
   let t = story.animations.state;
@@ -496,7 +467,12 @@ let state = {
   end: {
     stage: { container: document.getElementById('end-container') }
   },
-  timers: []
+  timers: [],
+	timing: {
+		acc: 0,
+		base: 65,
+		padding: 2750
+	}
 };
 
 
@@ -611,10 +587,35 @@ const control_functions = {
 
 	log: data => {
 		console.log(data.element.innerHTML);
+	},
+
+	flake: data => {
+		let glyphs = ['$', '&', '*', '@', '#', '%'];
+
+	  let span = document.createElement('span');
+	  span.classList.add('word');
+	  span.classList.add('ambient');
+
+	  span.style.position = 'absolute';
+	  span.style.left = `${Math.random() * window.innerWidth}px`;
+	  span.style.top = `${Math.random() * window.innerHeight}px`;
+
+	  span.style.fontSize = `18px`;
+	  let c = random_color();
+	  span.style.color = `rgb(${c.r * 255}, ${c.g * 255}, ${c.b * 255})`
+
+	  span.style.transform = `rotate(${Math.random()*360}deg)`;
+	  span.innerHTML = glyphs[Math.floor(Math.random() * glyphs.length)];
+
+	  document.body.appendChild(span);
+	},
+
+	enable: (data, state) => {
+
 	}
 }
 
-function preprocess_text_as_RGB_words(data)
+function preprocess_text_as_words(data)
 {
   let words = data.text.split(' ').filter(word => word.length > 0);
   let text = [];
@@ -729,30 +730,16 @@ function render_frame(state, direction)
   }
 
 
-  // comment this for a palimpsest effect...
   let parent_test_span = document.createElement('span');
   indicator.classList.remove('active');
   indicator.classList.remove('done');
   story_parent.setAttribute('style', '');
   story_parent.parentNode.setAttribute('style', '');
 
-  // if (typeof data.font !== 'undefined')
-  // {
-  //   if (typeof data.font.family !== 'undefined')
-  //   {
-  //     story_parent.style.fontFamily = `${data.font.family}`;
-  //   }
-  //
-  //   story_parent.style.fontWeight = `${data.font.weight}`;
-  //   story_parent.style.lineHeight = `${data.font.leading}em`;
-  // }
-  console.log(story_parent.style);
-
   if (typeof data.font !== 'undefined')
   {
     for (const key in data.font)
     {
-      console.log(key);
       if (data.font.hasOwnProperty(key))
       {
         console.log(data.font[key]);
@@ -760,17 +747,6 @@ function render_frame(state, direction)
       }
     }
   }
-
-  // if (
-  //   typeof data.font !== 'undefined' &&
-  //   typeof data.font.size !== 'undefined' &&
-  //   data.font.centered
-  // ) {
-  //   story_parent.style.position = 'absolute';
-  //   story_parent.style.top = '50%';
-  //   story_parent.style.transform = 'translateY(-50%)';
-  //   story_parent.style.textAlign = 'center';
-  // }
 
   story_parent.innerHTML = '';
   margin_parent.innerHTML = '';
@@ -785,7 +761,7 @@ function render_frame(state, direction)
   }
 
   // (optionally) add a process to precompile rests and stops into the data.
-  let {text, marginalia, sidelines} = preprocess_text_as_RGB_words(data);
+  let {text, marginalia, sidelines} = preprocess_text_as_words(data);
 
   text.forEach((d, i, a) => {
     story_parent.appendChild(d.element);
@@ -813,17 +789,17 @@ function render_frame(state, direction)
   });
 
   text.forEach((d, i, a) => {
-    let timer = standard_transition_function(d, data, i, a);
+    let timer = standard_transition_function(d, data, state, i, a);
     // timers.push({timer, fn: () => {data.animations.in(d, data, 0, a)}});
   });
 
   marginalia.forEach((d, i, a) => {
-    let timer = standard_transition_function(d, data, i + text.length, a);
+    let timer = standard_transition_function(d, data, state, i + text.length, a);
     // timers.push({timer, fn: () => {data.animations.in(d, data, 0, a)}});
   })
 
   sidelines.reverse().forEach((d, i, a) => {
-    let timer = standard_transition_function(d, data, i + text.length, a);
+    let timer = standard_transition_function(d, data, state, i + text.length, a);
     // timers.push({timer, fn: () => {data.animations.in(d, data, 0, a)}});
   });
 
@@ -851,10 +827,10 @@ function render_frame(state, direction)
 
     document.onwheel = do_transition_for_mousewheel(data, state);
     timers = [];
-  }, acc + padding);
+  }, state.timing.acc + state.timing.padding);
 
 
-  acc = 0;
+  state.timing.acc = 0;
 }
 
 function render_end(state) {
