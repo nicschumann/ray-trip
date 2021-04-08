@@ -1,6 +1,6 @@
 {
   id: 'prelude-iv',
-  text: `That’s the other way. *1500 I think you’re ready to start. *1500 You might not always take the shortest path, *350 but we’ll get there. *1500 In the end.`,
+  text: `That’s the other way. *1500 How you choose to move, *350 and how you follow the story, *350 will determine where you wind up. *1500 You might not always take the shortest path, *350 but we’ll get there. *1500 In the end.`,
   // after transition text: `See you on the flippety-flop..`,
   marginalia: [
   ],
