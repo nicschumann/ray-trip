@@ -3,7 +3,7 @@
 @import "../specimen.css";
 
 svg {
-  background-color:black;
+  background-color:white;
 }
 
 .graph-title
@@ -13,7 +13,7 @@ svg {
 }
 
 .links path {
-  stroke: #fff;
+  stroke: black;
   fill:transparent;
 }
 
@@ -30,7 +30,7 @@ text {
   font-family: "Ray", sans-serif;
   font-size: 14px;
   font-weight: 300;
-  fill: cyan;
+  fill: black;
 }
 
 .text-info
