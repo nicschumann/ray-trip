@@ -3,6 +3,7 @@ const stories = require( './stories.js');
 const paths = require('./paths.js');
 import {fit2d_binsearch} from './fit2d.js';
 const INITIAL_STORY_ID = require('./initial.js');
+import {control_functions, animations} from './narrative-functions.js';
 
 
 // Sim Instantiation
@@ -344,28 +345,6 @@ const blur_to_next_state = (event, story, state) => {
 // };
 
 
-const glyph_snow = () => {
-  let glyphs = ['$', '&', '*', '@', '#', '%'];
-
-  let span = document.createElement('span');
-  span.classList.add('word');
-  span.classList.add('ambient');
-
-  span.style.position = 'absolute';
-  span.style.left = `${Math.random() * window.innerWidth}px`;
-  span.style.top = `${Math.random() * window.innerHeight}px`;
-
-  span.style.fontSize = `18px`;
-  let c = random_color();
-  span.style.color = `rgb(${c.r * 255}, ${c.g * 255}, ${c.b * 255})`
-
-  span.style.transform = `rotate(${Math.random()*360}deg)`;
-  span.innerHTML = glyphs[Math.floor(Math.random() * glyphs.length)];
-
-  return span;
-};
-
-
 /**
  * Texts
  */
@@ -577,50 +556,6 @@ function extract_control_words(text, data)
 }
 
 
-
-const control_functions = {
-	trim: data => {
-		let idx = data.element.innerHTML.indexOf('&nbsp;');
-		data.element.innerHTML = data.element.innerHTML.slice(0, idx);
-	},
-
-	log: data => {
-		console.log(data.element.innerHTML);
-	},
-
-	flake: data => {
-		let glyphs = ['$', '&', '*', '@', '#', '%'];
-
-	  let span = document.createElement('span');
-	  span.classList.add('word');
-	  span.classList.add('ambient');
-
-	  span.style.position = 'absolute';
-	  span.style.left = `${Math.random() * window.innerWidth}px`;
-	  span.style.top = `${Math.random() * window.innerHeight}px`;
-
-	  span.style.fontSize = `18px`;
-	  let c = random_color();
-	  span.style.color = `rgb(${c.r * 255}, ${c.g * 255}, ${c.b * 255})`
-
-	  span.style.transform = `rotate(${Math.random()*360}deg)`;
-	  span.innerHTML = glyphs[Math.floor(Math.random() * glyphs.length)];
-
-	  document.body.appendChild(span);
-	},
-
-	endframe: (data, story, state) => {
-		state.transitioning = false;
-		document.onwheel = do_transition_for_mousewheel(story, state);
-		show_indicator();
-	},
-
-	drip: (data, story, state) => {
-		sim_state.added_colors.push({data:{pos: {x: 0.5, y: 0.5}, dir: {x: 10, y: 20}}});
-		console.log(sim_state);
-	}
-}
-
 function preprocess_text_as_words(data)
 {
 
@@ -761,7 +696,6 @@ function render_frame(state, direction)
     {
       if (data.font.hasOwnProperty(key))
       {
-        console.log(data.font[key]);
         story_parent.style[key] = data.font[key];
       }
     }
@@ -817,19 +751,20 @@ function render_frame(state, direction)
 
 		show_indicator();
 
-    if (typeof data.animations.ambient !== 'undefined')
-    {
+    if (
+			typeof data.animations.ambient !== 'undefined' &&
+			typeof animations[data.animations.ambient] == 'function'
+		) {
       state.ambient_interval = window.setInterval(() => {
         if (data.animations.state == 0)
         {
-          let span = data.animations.ambient();
-          story_parent.appendChild(span);
+          let span = animations[data.animations.ambient](data, state);
         }
       }, 250);
     }
 
     document.onwheel = do_transition_for_mousewheel(data, state);
-    timers = [];
+
   }, state.timing.acc + state.timing.padding);
 
 
@@ -883,7 +818,7 @@ function render_end(state) {
 }
 
 
-render_frame(state, INITIAL_STORY_ID);
+render_frame(state, 'start');
 // render_end(state);
 
 // let timer_id = null;
