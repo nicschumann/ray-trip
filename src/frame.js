@@ -106,7 +106,16 @@ const standard_transition_function = (data, story,  i) => {
   let offset = story.animations.in.offset(i);
 
   let timer = window.setTimeout(() => {
-    data.element.classList.remove('pending');
+		// start the transition animation.
+		data.element.classList.remove('pending');
+
+		// fire any attached inline functions.
+		data.functions.forEach(f => {
+			data.element.addEventListener('transitionend', () => {
+				f(data)
+			});
+		});
+
   }, (i == 0) ? 0 : acc + base + offset + data.offset);
 
   acc += base + offset + data.offset;
@@ -541,7 +550,7 @@ function make_channel_data(word, offset, color={})
   // if (typeof color.b !== 'undefined') { b_channel.setAttribute('style', `opacity:${color.b};`); }
   // element.append(b_channel);
 
-  return {element, offset};
+  return {element, offset, functions: []};
 }
 
 function extract_control_words(text, data)
@@ -589,7 +598,20 @@ function extract_control_words(text, data)
     word,
     lookups,
     controls
-  }
+	}
+}
+
+
+
+const control_functions = {
+	trim: data => {
+		let idx = data.element.innerHTML.indexOf('&nbsp;');
+		data.element.innerHTML = data.element.innerHTML.slice(0, idx);
+	},
+
+	log: data => {
+		console.log(data.element.innerHTML);
+	}
 }
 
 function preprocess_text_as_RGB_words(data)
@@ -644,7 +666,18 @@ function preprocess_text_as_RGB_words(data)
         console.log(element_data.element.innerHTML);
         let idx = element_data.element.innerHTML.indexOf('&nbsp;');
         element_data.element.innerHTML = element_data.element.innerHTML.slice(0, idx);
+				delete parse.controls.trim;
       }
+
+			for (const key in parse.controls)
+			{
+				if (
+					parse.controls.hasOwnProperty(key) &&
+					typeof control_functions[key] === 'function'
+				) {
+					element_data.functions.push(control_functions[key]);
+				}
+			}
 
       offset = 0;
       text.push(element_data);
