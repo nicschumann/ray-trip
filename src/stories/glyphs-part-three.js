@@ -12,6 +12,6 @@
 
   transitions: {
     next: [{id: 'remaining-mushroom'}],
-    prev: [{id: 'cloud-of-punctuation'}]
+    prev: [{id: 'unhigh-part-two'}]
   }
 }

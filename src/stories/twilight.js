@@ -18,6 +18,6 @@
   transitions: {
     next: [{id: 'velvety-cap'}],
     // tangent about curiosity
-    prev: []
+    prev: [{id: 'curiosity-i'}]
   }
 }

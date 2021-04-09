@@ -14,7 +14,7 @@
   },
 
   transitions: {
-    next: [{id: 'velvety-cap'}],
+    next: [{id: 'typographic-abnormality'}],
     prev: []
   }
 }

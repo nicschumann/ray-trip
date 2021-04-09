@@ -55,7 +55,7 @@ svg.append('defs').append('marker')
   .attr('xoverflow', 'visible')
   .append('svg:path')
   .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
-  .attr('fill', '#fff')
+  .attr('fill', '#000')
   .style('stroke', 'none');
 
 var simulation = d3.forceSimulation()

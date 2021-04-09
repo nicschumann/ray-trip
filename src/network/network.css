@@ -8,7 +8,7 @@ svg {
 
 .graph-title
 {
-  fill:white;
+  fill:black;
   font-size:32px;
 }
 
@@ -24,6 +24,7 @@ svg {
 .nodes circle {
   stroke: #000;
   stroke-width: 1.5px;
+  fill: black
 }
 
 text {
