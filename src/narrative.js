@@ -168,7 +168,7 @@ function do_transition_for_mousewheel(story, state)
       ) {
         window.clearInterval(state.ambient_interval);
         document.onwheel = null;
-        let next_story = random_story_id(story.transitions.next);
+        let next_story = make_story_transition(state, story.transitions.next);
         state.story.current = next_story;
         render_frame(state, 'down');
       }
@@ -179,7 +179,7 @@ function do_transition_for_mousewheel(story, state)
       ) {
         window.clearInterval(state.ambient_interval);
         document.onwheel = null;
-        let prev_story = random_story_id(story.transitions.prev);
+        let prev_story = make_story_transition(state, story.transitions.prev);
         state.story.current = prev_story;
         render_frame(state, 'up');
       }
@@ -196,6 +196,19 @@ function do_transition_for_mousewheel(story, state)
   };
 }
 
+
+function make_story_transition(state, candidates)
+{
+	// let scores = candidates.map(c => {
+	// 	if (typeof c.constraints === 'undefined') { return 1; }
+	// 	else {
+	// 		return c.constraints.reduce((total, constraint) => {
+	// 			return total + constraint.
+	// 		}, 1);
+	// 	}
+	// })
+	return random_story_id(candidates);
+}
 /**
  * Ups
  */
