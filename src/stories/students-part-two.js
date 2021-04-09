@@ -1,7 +1,7 @@
 {
   id: 'students-part-two',
 
-  text: `Yesterday wasn't really all that special. The current zeitgeist was in the classroom hiding behind the black backgrounds. *1500 The vectors were streched and the headlines dressed in faux-metallic extrusions. Screens with ever shrinking pixels displayed type with long, aggressive serifs nailing their sound into my memory as I was scanning the room. It was a fair mirror image of the dystopian narratives the news shove down our throats lately. And the students, being hypersenstive to all of it, captured it perfectly.`,
+  text: `The current zeitgeist is always in the classroom, *350 hiding behind the black backgrounds. *1500 The vectors are streched, *350 and the headlines dressed in faux-metallic extrusions. *1500 Screens with ever shrinking pixels displayed type with long, *350 stiletto serifs. *1500 A fair echo of the dystopian narratives *250 drip-fed to all of us through our high-resolution displays.`,
 
   marginalia: [
   ],
@@ -10,7 +10,9 @@
   ],
 
   font: {
-    size: 36
+    fontFamily: "Georgia",
+    fontSize: `35px`,
+    lineHeight: '42px',
   },
 
   transitions: {
