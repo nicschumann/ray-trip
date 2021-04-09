@@ -14,7 +14,7 @@
   },
 
   transitions: {
-    next: [{id: 'mantar'}],
+    next: [],
     prev: []
   }
 }

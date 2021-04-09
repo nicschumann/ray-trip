@@ -11,7 +11,7 @@
   },
 
   transitions: {
-    next: [{id: 'high-part-one'}], // transition to high-state-two
+    next: [{id: 'high-i'}],
     prev: []
   }
 }

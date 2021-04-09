@@ -12,6 +12,6 @@
 
   transitions: {
     next: [{id: 'dream-of-georgia'}],
-    prev: [{id: 'phototypesetting'}]
+    prev: [{id: 'phototypesetting-i'}]
   }
 }

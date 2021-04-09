@@ -13,7 +13,7 @@
   },
 
   transitions: {
-    next: [{id: 'typographic-abnormality'}],
-    prev: [{id: 'students-part-one'}]
+    next: [{id: 'typographic-abnormality-i'}],
+    prev: [{id: 'students-i'}]
   }
 }

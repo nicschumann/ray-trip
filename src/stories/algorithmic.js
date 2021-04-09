@@ -11,7 +11,7 @@
   },
 
   transitions: {
-    next: [{id: 'new-master-part-one'}],
+    next: [{id: 'new-master-i'}],
     prev: []
   }
 }

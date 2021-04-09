@@ -12,6 +12,7 @@
 
   transitions: {
     next: [{id: 'dream-of-georgia'}],
-    prev: [{id: 'unhigh-part-three'}]
+    prev: []
+    // {id: 'unhigh-part-three'}
   }
 }

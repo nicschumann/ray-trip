@@ -82,7 +82,7 @@ const buildstories = async () => {
     let paths = solve_paths(story_data, initial);
 
     console.log('writing src/paths.js file.');
-    fs.writeFileSync(target_pathways_path, `module.exports = ${util.inspect(paths, {depth: null})};`);
+    fs.writeFileSync(target_pathways_path, `module.exports = ${util.inspect(paths, {depth: null, maxArrayLength: null})};`);
   });
 }
 
