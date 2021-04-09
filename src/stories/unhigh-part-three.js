@@ -12,6 +12,6 @@
 
   transitions: {
     next: [{id: 'unhigh-part-four'}],
-    prev: [{id: 'high-part-two'}]
+    prev: []
   }
 }

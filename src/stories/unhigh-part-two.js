@@ -12,6 +12,6 @@
 
   transitions: {
     next: [{id: 'unhigh-part-three'}],
-    prev: [{id: 'high-part-two'}]
+    prev: [{id: 'remaining-mushroom'}]
   }
 }

@@ -12,6 +12,6 @@
 
   transitions: {
     next: [{id: 'glyphs-part-one'}],
-    prev: [] // {id: 'unhigh-part-two'}
+    prev: [{id: 'high-part-two'}]
   }
 }

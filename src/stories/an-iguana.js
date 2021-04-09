@@ -15,6 +15,6 @@
 
   transitions: {
     next: [{id: 'act-ii-intertitle'}],
-    prev: [{id: 'day-100'}]
+    prev: []
   }
 }

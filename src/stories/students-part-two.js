@@ -1,7 +1,7 @@
 {
   id: 'students-part-two',
 
-  text: `The 2018 zeitgeist shines through the black backgrounds *350 and shiny extruded type from the latest indie foundries. *1500 Vectors are stretched for fashion. *1500 Hyperreal metal and glass skins the headlines. *1500 The typefaces are sharp these days, *350 all thanks to high definition media. *1500 Long and aggressive serifs nail the words into your memory as you scan the room. *1500 All of this is a fair mirror image of the dystopian narratives the news shoves down our throats.`,
+  text: `Yesterday wasn't really all that special. The current zeitgeist was in the classroom hiding behind the black backgrounds. *1500 The vectors were streched and the headlines dressed in faux-metallic extrusions. Screens with ever shrinking pixels displayed type with long, aggressive serifs nailing their sound into my memory as I was scanning the room. It was a fair mirror image of the dystopian narratives the news shove down our throats lately. And the students, being hypersenstive to all of it, captured it perfectly.`,
 
   marginalia: [
   ],
@@ -14,7 +14,7 @@
   },
 
   transitions: {
-    next: [],
+    next: [{id: 'students-part-three'}],
     prev: []
   }
 }
