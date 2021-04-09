@@ -1,6 +1,6 @@
 {
   id: 'phototypesetting-ii',
-  text: `The constraints of setting metal type were blurred after the invention of phototypesetting. Designers were able to print type on sizes that fell out of the defaults. Distortion of letters or words through projecting letters on an angle or mapping the projections on warped geometries soon became the fingerprint of this format. But one thing always amazes me about phototypesetting. When light is shined on paper, it is not always as clear where the black stops and the white begins. In the end you produce letters that are warm and soft.`,
+  text: `The constraints of setting metal type were blurred after the invention of phototypesetting. *1500 For the first time, designers were able to scale typographic form. *1500 Distortion of letterforms through projecting onto warped geometries *350 became the fingerprint of this format. *1500 But one thing always amazes me about phototypesetting. *1500 When light is shined on paper, *350 it’s not always clear where the black stops *250 and the white begins. *1500 You end up producing letters that are warm and soft.`,
   marginalia: [
   ],
   sidelines: [

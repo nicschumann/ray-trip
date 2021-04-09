@@ -1,6 +1,7 @@
 {
   id: 'phototypesetting',
-  text: `The photograph is an aftermath of light rays exciting photosensitive cyristals glued on to paper in order to freeze time. It is ironic that the photograph itself needs to be protected from the very rays of ligth responsible of its development in order to protect it from decay. Alphabets also freeze time. They do it through recording thought and logic and math and poetry and the letter to your accountant. Both photographs and printing types are captured in flipped forms as they mirror light, sound and thought. These two storage concepts, photographs and alphabets, were merged through the technology of phototypesetting. In phototypesetting, light is shined through stencils on to photosensitive paper. It’s basically screen printing inside a camera. How fucking cool is that?`,
+  text: `Photographs are matrices of photosensitive crystals. *1500 Through exposure *250 (to light), *550 they freeze time. *2500 Alphabets also freeze time. *1500 They crystalize thought, *250 and logic, *350 and math, *350 and poetry, *350 and the letter to your accountant. *1500 These two storage media, *350 photographs and alphabets, *350 were merged in phototypesetting technology. *1500 In this printing method, *350 light is shined through stencils on to photosensitive paper. *1500 It’s basically screen printing inside a camera.`,
+  // The photograph is an aftermath of light rays exciting photosensitive crystals glued onto paper in order to freeze time.
   marginalia: [
   ],
   sidelines: [
