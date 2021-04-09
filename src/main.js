@@ -1,5 +1,5 @@
 // main
-require('./network/network.js');
+// require('./network/network.js');
 
 // debug
-// require('./narrative.js');
+require('./narrative.js');

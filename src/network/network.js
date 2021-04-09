@@ -59,7 +59,7 @@ svg.append('defs').append('marker')
   .style('stroke', 'none');
 
 var simulation = d3.forceSimulation()
-  .force('link', d3.forceLink().id(d => d.id).distance(65).strength(1))
+  .force('link', d3.forceLink().id(d => d.id).distance(40).strength(1))
   .force('charge', d3.forceManyBody())
   .force('center', d3.forceCenter(width / 2, height / 2))
   .alphaTarget(1);
@@ -85,7 +85,7 @@ var node = svg.append('g')
   .append('g');
 
 var circles = node.append('circle')
-  .attr('r', 8)
+  .attr('r', 5)
   .attr('fill', d => {
     if (d.id == INITIAL_STORY_ID)
     {
