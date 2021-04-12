@@ -1,16 +1,16 @@
 @font-face {
-  font-family: "Ray";
-  src: url("./Ray-Ultra.woff") format('woff'),
-       url("./Ray-Ultra.eot") format('eot');
+  font-family: "Mantar";
+  src: url("./Mantar-Ultra.woff") format('woff'),
+       url("./Mantar-Ultra.eot") format('eot');
 
   font-weight: 900;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Ray";
-  src: url("./Ray-UltraItalic.woff") format('woff'),
-       url("./Ray-UltraItalic.eot") format('eot');
+  font-family: "Mantar";
+  src: url("./Mantar-UltraItalic.woff") format('woff'),
+       url("./Mantar-UltraItalic.eot") format('eot');
 
   font-weight: 900;
   font-style: italic;
@@ -18,18 +18,18 @@
 
 
 @font-face {
-  font-family: "Ray";
-  src: url("./Ray-Black.woff") format('woff'),
-       url("./Ray-Black.eot") format('eot');
+  font-family: "Mantar";
+  src: url("./Mantar-Black.woff") format('woff'),
+       url("./Mantar-Black.eot") format('eot');
 
   font-weight: 800;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Ray";
-  src: url("./Ray-BlackItalic.woff") format('woff'),
-       url("./Ray-BlackItalic.eot") format('eot');
+  font-family: "Mantar";
+  src: url("./Mantar-BlackItalic.woff") format('woff'),
+       url("./Mantar-BlackItalic.eot") format('eot');
 
   font-weight: 800;
   font-style: italic;
@@ -37,18 +37,18 @@
 
 
 @font-face {
-  font-family: "Ray";
-  src: url("Ray-Bold.woff") format('woff'),
-       url("Ray-Bold.eot") format('eot');
+  font-family: "Mantar";
+  src: url("Mantar-Bold.woff") format('woff'),
+       url("Mantar-Bold.eot") format('eot');
 
   font-weight: 600;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Ray";
-  src: url("Ray-BoldItalic.woff") format('woff'),
-       url("Ray-BoldItalic.eot") format('eot');
+  font-family: "Mantar";
+  src: url("Mantar-BoldItalic.woff") format('woff'),
+       url("Mantar-BoldItalic.eot") format('eot');
 
   font-weight: 600;
   font-style: italic;
@@ -56,18 +56,18 @@
 
 
 @font-face {
-  font-family: "Ray";
-  src: url("Ray-Regular.woff") format('woff'),
-       url("Ray-Regular.eot") format('eot');
+  font-family: "Mantar";
+  src: url("Mantar-Regular.woff") format('woff'),
+       url("Mantar-Regular.eot") format('eot');
 
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Ray";
-  src: url("Ray-Italic.woff") format('woff'),
-       url("Ray-Italic.eot") format('eot');
+  font-family: "Mantar";
+  src: url("Mantar-Italic.woff") format('woff'),
+       url("Mantar-Italic.eot") format('eot');
 
   font-weight: 400;
   font-style: italic;
@@ -75,18 +75,18 @@
 
 
 @font-face {
-  font-family: "Ray";
-  src: url("Ray-Light.woff") format('woff'),
-       url("Ray-Light.eot") format('eot');
+  font-family: "Mantar";
+  src: url("Mantar-Light.woff") format('woff'),
+       url("Mantar-Light.eot") format('eot');
 
   font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Ray";
-  src: url("Ray-LightItalic.woff") format('woff'),
-       url("Ray-LightItalic.eot") format('eot');
+  font-family: "Mantar";
+  src: url("Mantar-LightItalic.woff") format('woff'),
+       url("Mantar-LightItalic.eot") format('eot');
 
   font-weight: 300;
   font-style: italic;
@@ -94,18 +94,18 @@
 
 
 @font-face {
-  font-family: "Ray";
-  src: url("Ray-ExtraLight.woff") format('woff'),
-       url("Ray-ExtraLight.eot") format('eot');
+  font-family: "Mantar";
+  src: url("Mantar-ExtraLight.woff") format('woff'),
+       url("Mantar-ExtraLight.eot") format('eot');
 
   font-weight: 200;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Ray";
-  src: url("Ray-ExtraLightItalic.woff") format('woff'),
-       url("Ray-ExtraLightItalic.eot") format('eot');
+  font-family: "Mantar";
+  src: url("Mantar-ExtraLightItalic.woff") format('woff'),
+       url("Mantar-ExtraLightItalic.eot") format('eot');
 
   font-weight: 200;
   font-style: italic;
@@ -116,8 +116,8 @@
   font-family: "Georgia", serif;
 }
 
-.ray {
-  font-family: "Ray", serif;
+.mantar {
+  font-family: "Mantar", serif;
 }
 
 .extra-light {
