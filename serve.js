@@ -39,6 +39,7 @@ stories_watcher.on('ready', async () => {
 
 liveserver.start({
   open: true,
+  host: '0.0.0.0',
   port: +process.env.PORT || 8080,
   root: "pub",
   logLevel: 0

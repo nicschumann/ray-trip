@@ -3,7 +3,7 @@ const regl = require('regl')({
 	extensions: ['OES_texture_float', 'OES_texture_float_linear', 'OES_standard_derivatives']});
 import * as R from './sim-states.js';
 
-
+const SIM_SCALE = 1;
 
 /**
  * Hello, and welcome to this simulator that draws Psychedelic Letters
@@ -525,7 +525,7 @@ export function run_simulation(parameters, state)
 			target: velocity_emitter_buffer.back,
 			source: velocity_emitter_buffer.front,
 			sourceTexSize: [SIM_TEXEL_SIZE, SIM_TEXEL_SIZE],
-			origin: force.pos,
+			origin: [force.pos[0] * SIM_SCALE, force.pos[1] * SIM_SCALE],
 			direction: dir,
 			theta: parameters.velocity.theta,
 			radius: parameters.velocity.radius
@@ -580,7 +580,7 @@ export function run_simulation(parameters, state)
 					target: velocity_emitter_buffer.back,
 					source: velocity_emitter_buffer.front,
 					sourceTexSize: [SIM_TEXEL_SIZE, SIM_TEXEL_SIZE],
-					origin: [event.data.pos.x, event.data.pos.y],
+					origin: [event.data.pos.x * SIM_SCALE, event.data.pos.y * SIM_SCALE],
 					direction: [
 						event.data.dir.x * parameters.force.magnitude * 0.1,
 						event.data.dir.y * parameters.force.magnitude * 0.1

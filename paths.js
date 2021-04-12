@@ -21,6 +21,52 @@ function story_from_id(id, story_lookup, stories)
   return stories[story_index];
 }
 
+
+function make_story_transition(history, id, candidates)
+{
+	let always = candidates.filter(s => {
+		return typeof s.seen == 'undefined' && typeof s.missed == 'undefined';
+	});
+
+	let conditional = candidates.filter(s => {
+		if (typeof s.seen == 'undefined' && typeof s.missed == 'undefined')
+		{
+			return false;
+		}
+
+		let passes = true;
+
+		if (typeof s.seen !== 'undefined' )
+		{
+			passes = s.seen.reduce((acc, id) => {
+					return acc && history.indexOf(id) !== -1;
+			}, true);
+		}
+
+		if (typeof s.missed !== 'undefined')
+		{
+
+			passes = passes && s.missed.reduce((acc, id) => {
+				return acc && history.indexOf(id) === -1
+			}, true);
+
+		}
+
+		return passes;
+	})
+
+	if (conditional.length > 0)
+	{
+		return conditional
+	}
+	else
+	{
+		return always
+	}
+}
+
+
+
 function dfs(stories, story_lookup, path, paths)
 {
   let start_id = path[path.length - 1];
@@ -32,8 +78,13 @@ function dfs(stories, story_lookup, path, paths)
     return [];
   }
 
-  let neighbors = story.transitions.prev.map(x => x.id)
-    .concat(story.transitions.next.map(x => x.id));
+  let neighbors_prime = story.transitions.prev.concat(story.transitions.next);
+	let candidates = make_story_transition(path, start_id, neighbors_prime);
+
+  // let neighbors = story.transitions.prev.map(x => x.id)
+  //   .concat(story.transitions.next.map(x => x.id));
+
+	let neighbors = candidates.map(x => x.id);
 
   if (neighbors.length > 0)
   {

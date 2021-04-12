@@ -36,8 +36,7 @@ export const control_functions = {
 	},
 
 	drip: (data, story, state) => {
-		sim_state.added_colors.push({data:{pos: {x: 0.5, y: 0.5}, dir: {x: 10, y: 20}}});
-		console.log(sim_state);
+		state.sim.state.added_colors.push({data:{pos: {x: 0.5, y: 0.5}, dir: {x: 10, y: 20}}});
 	}
 }
 

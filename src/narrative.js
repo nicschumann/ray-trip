@@ -61,7 +61,7 @@ let sim_state = {
 	reset_forces: [],
 };
 
-// run_simulation(sim_parameters, sim_state);
+run_simulation(sim_parameters, sim_state);
 
 // end sim instantiation
 
@@ -168,9 +168,23 @@ function do_transition_for_mousewheel(story, state)
       ) {
         window.clearInterval(state.ambient_interval);
         document.onwheel = null;
-        let next_story = make_story_transition(state, story.transitions.next);
-        state.story.current = next_story;
-        render_frame(state, 'down');
+        let candidates = make_story_transition(
+					state.history.sequence.map(x => x.id),
+					state.story.current,
+					story.transitions.next
+				);
+
+				if (candidates.length == 0)
+				{
+					render_end(state);
+				}
+				else
+				{
+					let next_story = random_story_id(candidates);
+					console.log('prev_story', next_story);
+	        state.story.current = next_story;
+	        render_frame(state, 'down');
+				}
       }
 
       if (
@@ -179,9 +193,23 @@ function do_transition_for_mousewheel(story, state)
       ) {
         window.clearInterval(state.ambient_interval);
         document.onwheel = null;
-        let prev_story = make_story_transition(state, story.transitions.prev);
-        state.story.current = prev_story;
-        render_frame(state, 'up');
+        let candidates = make_story_transition(
+					state.history.sequence.map(x => x.id),
+					state.story.current,
+					story.transitions.prev
+				);
+
+				if (candidates.length == 0)
+				{
+					render_end(state);
+				}
+				else
+				{
+					let prev_story = random_story_id(candidates);
+					console.log('prev_story', prev_story);
+	        state.story.current = prev_story;
+	        render_frame(state, 'up');
+				}
       }
 
       if (
@@ -197,16 +225,18 @@ function do_transition_for_mousewheel(story, state)
 }
 
 
-function make_story_transition(state, candidates)
+function make_story_transition(history, id, candidates)
 {
-	console.log(state.story.current);
-	let history = state.history.sequence.map(d => d.id);
-
 	let always = candidates.filter(s => {
 		return typeof s.seen == 'undefined' && typeof s.missed == 'undefined';
 	});
 
 	let conditional = candidates.filter(s => {
+		if (typeof s.seen == 'undefined' && typeof s.missed == 'undefined')
+		{
+			return false;
+		}
+
 		let passes = true;
 
 		if (typeof s.seen !== 'undefined' )
@@ -218,30 +248,26 @@ function make_story_transition(state, candidates)
 
 		if (typeof s.missed !== 'undefined')
 		{
-			console.log(history);
 
 			passes = passes && s.missed.reduce((acc, id) => {
 				return acc && history.indexOf(id) === -1
 			}, true);
 
-			console.log(passes);
 		}
 
 		return passes;
 	})
 
-	console.log(always);
-	console.log(conditional)
-
 	if (conditional.length > 0)
 	{
-		return random_story_id(conditional);
+		return conditional
 	}
 	else
 	{
-		return random_story_id(always);
+		return always
 	}
 }
+
 /**
  * Ups
  */
@@ -496,6 +522,10 @@ let state = {
 		acc: 0,
 		base: 65,
 		padding: 2750
+	},
+	sim: {
+		state: sim_state,
+		parameters: sim_parameters
 	}
 };
 
