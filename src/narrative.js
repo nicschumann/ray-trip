@@ -199,15 +199,48 @@ function do_transition_for_mousewheel(story, state)
 
 function make_story_transition(state, candidates)
 {
-	// let scores = candidates.map(c => {
-	// 	if (typeof c.constraints === 'undefined') { return 1; }
-	// 	else {
-	// 		return c.constraints.reduce((total, constraint) => {
-	// 			return total + constraint.
-	// 		}, 1);
-	// 	}
-	// })
-	return random_story_id(candidates);
+	console.log(state.story.current);
+	let history = state.history.sequence.map(d => d.id);
+
+	let always = candidates.filter(s => {
+		return typeof s.seen == 'undefined' && typeof s.missed == 'undefined';
+	});
+
+	let conditional = candidates.filter(s => {
+		let passes = true;
+
+		if (typeof s.seen !== 'undefined' )
+		{
+			passes = s.seen.reduce((acc, id) => {
+					return acc && history.indexOf(id) !== -1;
+			}, true);
+		}
+
+		if (typeof s.missed !== 'undefined')
+		{
+			console.log(history);
+
+			passes = passes && s.missed.reduce((acc, id) => {
+				return acc && history.indexOf(id) === -1
+			}, true);
+
+			console.log(passes);
+		}
+
+		return passes;
+	})
+
+	console.log(always);
+	console.log(conditional)
+
+	if (conditional.length > 0)
+	{
+		return random_story_id(conditional);
+	}
+	else
+	{
+		return random_story_id(always);
+	}
 }
 /**
  * Ups

@@ -1,1 +1,1 @@
-module.exports = 'new-master-ii';
+module.exports = 'prelude-i';

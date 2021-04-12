@@ -8,9 +8,7 @@
   ],
 
   transitions: {
-    next: [
-      {id: 'act-i-intertitle'}
-    ],
+    next: [{id: 'act-i-intertitle'}],
     prev: []
   }
 }
