@@ -78,7 +78,7 @@ function dfs(stories, story_lookup, path, paths)
     return [];
   }
 
-  let neighbors_prime = story.transitions.prev.concat(story.transitions.next);
+  let neighbors_prime = story.transitions.next.concat(story.transitions.prev);
 	let candidates = make_story_transition(path, start_id, neighbors_prime);
 
   // let neighbors = story.transitions.prev.map(x => x.id)
