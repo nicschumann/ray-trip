@@ -6,10 +6,6 @@
   sidelines: [
   ],
 
-  font: {
-    size: 36
-  },
-
   transitions: {
     next: [{id: 'unhigh-iii'}],
     prev: [{id: 'remaining-mushroom'}]

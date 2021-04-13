@@ -1,6 +1,6 @@
 {
   id: 'high-iii',
-  text: `There was a sharpness; *750 my gut carried the oblique sense of a threat. *1500 While the anxiety held me still, *450 I felt a softness, *450 like that threat was annealed by an invitation.`,
+  text: `There’s a sharpness; *750 my gut still carries that oblique sense of a threat. *1500 The anxiety holds me, *450 but I also feel a softness, *450 like the threat is annealed by an invitation.`,
   marginalia: [
   ],
   sidelines: [

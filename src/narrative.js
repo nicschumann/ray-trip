@@ -16,7 +16,7 @@ let sim_parameters = {
 	// This is NOT the framerate of the simulation (which tries to stick to 60)
 	// a range from 4 - 0.01 creates an
 	// interesting range of effects here.
-	dt: 0.2,
+	dt: 1,
 
 	// dt: 0.01 - 0.025, v.r: 0.001, v.m: 1, v.theta: PI / 2 is a good combination for pressure images
 	// dt: 0.25, v.r: 0.001, v.m: 0.075 - 0.001, v.theta: PI is a good combination for ink images
@@ -24,7 +24,7 @@ let sim_parameters = {
 	velocity: {
 		// dissipation: 0.18,
 		dissipation: 0.25,
-		radius: 0.001,
+		radius: 0.01,
 		magnitude: 0.01,
 		theta: Math.PI / 1
 	},
@@ -43,7 +43,7 @@ let sim_parameters = {
 	},
 
 	ink: {
-		radius: 0.001,
+		radius: 0.1,
 		color: [1.0, 1.0, 1.0, 1.0]
 	}
 };
@@ -61,7 +61,7 @@ let sim_state = {
 	reset_forces: [],
 };
 
-run_simulation(sim_parameters, sim_state);
+// run_simulation(sim_parameters, sim_state);
 
 // end sim instantiation
 
@@ -521,7 +521,7 @@ let state = {
 	timing: {
 		acc: 0,
 		base: 65,
-		padding: 2750
+		padding: 1000
 	},
 	sim: {
 		state: sim_state,
@@ -548,7 +548,7 @@ function make_channel_data(word, offset, color={})
 
   element.setAttribute('content', word + '&nbsp;');
 
-  element.innerHTML = word + '&nbsp;';
+  element.innerHTML = word + '&#160;';
 
   // this adds channeled data for RGB layering effects.
   // we discovered that this doesn't work on lower resolution
@@ -748,7 +748,7 @@ function render_frame(state, direction)
 
   if (data.transitions.next.length > 0 && data.transitions.prev.length > 0)
   {
-    indicator.innerText = '↑↓';
+    indicator.innerText = '↕';
   }
   else if (data.transitions.next.length > 0)
   {

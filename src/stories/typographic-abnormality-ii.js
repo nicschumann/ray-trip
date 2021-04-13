@@ -6,11 +6,6 @@
   sidelines: [
   ],
 
-  font: {
-    size: 52,
-    weight:300
-  },
-
   transitions: {
     next: [{id: 'an-iguana'}],
     prev: []
