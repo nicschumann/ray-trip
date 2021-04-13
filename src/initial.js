@@ -1,1 +1,1 @@
-module.exports = 'overview-point-at-infinity-i';
+module.exports = 'overview-point-at-infinity-ii';
