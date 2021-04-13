@@ -1,1 +1,1 @@
-module.exports = 'overview-point-at-infinity-ii';
+module.exports = 'prelude-i';
