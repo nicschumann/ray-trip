@@ -5,7 +5,7 @@ import {fit2d_binsearch} from './fit2d.js';
 const INITIAL_STORY_ID = require('./initial.js');
 import {control_functions, animations} from './narrative-functions.js';
 
-
+const SPECIMEN_BASE_STORY_ID = 'specimen-i';
 // Sim Instantiation
 
 import * as R from './sim-states.js';
@@ -520,6 +520,8 @@ function random_color()
 
 let story_lookup = stories_to_lookup_table(stories);
 
+let specimen_toggle = document.getElementById('specimen-toggle');
+
 let state = {
   story: {
     stage: {
@@ -544,6 +546,7 @@ let state = {
 	timing: {
 		acc: 0,
 		base: 65, // should be 65
+		default: 65,
 		padding: 1000
 	},
 	sim: {
@@ -663,6 +666,7 @@ function preprocess_text_as_words(data)
   let marginalia = [];
   let sidelines = [];
   let offset = 0;
+	let speed_ratio = state.timing.base / state.timing.default;
 
   words.forEach((word, i) => {
 		let prefix = '';
@@ -683,13 +687,13 @@ function preprocess_text_as_words(data)
 
     // deal with timing marks
     if (word == '*') {
-      offset = 600;
+      offset = 600 * speed_ratio;
     }
     else if (
       word.indexOf('*') == 0 &&
       Number.isInteger(+word.slice(1))
     ) {
-      offset = +word.slice(1);
+      offset = +word.slice(1) * speed_ratio;
     }
 
     // deal with content
@@ -715,8 +719,6 @@ function preprocess_text_as_words(data)
       // handle custom commands
       if (parse.controls.trim)
       {
-        console.log('do trim');
-        console.log(element_data.element.innerHTML);
         let idx = element_data.element.innerHTML.indexOf('&nbsp;');
         element_data.element.innerHTML = element_data.element.innerHTML.slice(0, idx);
 				delete parse.controls.trim;
@@ -754,14 +756,20 @@ function preprocess_text_as_words(data)
 
 
 
-function render_frame(state, direction)
+function render_frame(state, direction, ignore, ondone)
 {
   let data = story_from_id(state.story.current, story_lookup, stories);
 
-  state.history.sequence.push({id: state.story.current, direction})
-  state.history.frames[data.id] = {index: state.history.sequence.length - 1};
+	if (
+		(typeof data.ignore === 'undefined' || !data.ignore) ||
+		(typeof ignore === 'undefined' || !ignore)
+	) {
+		state.history.sequence.push({id: state.story.current, direction})
+	  state.history.frames[data.id] = {index: state.history.sequence.length - 1};
+	}
 
   state.transitioning = true;
+	specimen_toggle.classList.add('transitioning');
   data.animations.state = 0;
 
   let story_parent = state.story.stage.container;
@@ -863,6 +871,12 @@ function render_frame(state, direction)
     }
 
     document.onwheel = do_transition_for_mousewheel(data, state);
+		specimen_toggle.classList.remove('transitioning');
+
+		if (typeof ondone === 'function')
+		{
+			ondone(data, state);
+		}
 
   }, state.timing.acc + state.timing.padding);
 
@@ -958,34 +972,41 @@ render_frame(state, 'start');
 //   timers = [];
 // });
 
-
-function toggle_specimen_frame()
+function if_esc(f)
 {
-  let specimen = document.getElementById('specimen-frame');
-  let specimen_toggle = document.getElementById('specimen-toggle');
-  let story_frame = document.getElementById('story-stage');
-
-  if (specimen.classList.contains('active'))
-  {
-    let data = story_from_id(state.story.current, story_lookup, stories);
-    document.onwheel = do_transition_for_mousewheel(data, state)
-  }
-  else
-  {
-    document.onwheel = null;
-  }
-
-  specimen.classList.toggle('active');
-  specimen_toggle.classList.toggle('active');
-  story_frame.classList.toggle('deactivated');
+	return event => {
+		if (event.key == 'Escape') { f(event); }
+	}
 }
 
-let specimen_toggle = document.getElementById('specimen-toggle');
-specimen_toggle.addEventListener('click', toggle_specimen_frame);
+function render_resume_story(previous_id)
+{
+	let previous_speed = state.timing.base;
+	return event => {
+		if (!state.transitioning)
+		{
+			state.story.current = previous_id;
+			state.timing.base = 1;
 
-window.addEventListener('keyup', event => {
-  if (event.key == 'Escape')
-  {
-    toggle_specimen_frame();
-  }
-})
+			render_frame(state, 'esc', true, function() {
+				state.timing.base = previous_speed;
+				specimen_toggle.onclick = render_specimen;
+				window.onkeyup = if_esc(render_specimen);
+			});
+		}
+	}
+}
+
+function render_specimen()
+{
+	if (!state.transitioning) {
+		let previous_id = state.story.current;
+
+		state.story.current = SPECIMEN_BASE_STORY_ID;
+		render_frame(state, 'esc', true);
+
+		specimen_toggle.onclick = render_resume_story(previous_id);
+	}
+}
+
+specimen_toggle.onclick = render_specimen;

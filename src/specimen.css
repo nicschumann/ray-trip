@@ -6,7 +6,7 @@
   height:80vh;
 
   color:white;
-  font-family:"Ray";
+  font-family:"Mantar";
 
   background-color: black;
 
@@ -99,25 +99,24 @@
   bottom:1vh;
   left:1.5vh;
 
-  font-family: "Ray";
+  font-family: "Mantar";
   font-weight:100;
   font-size:36px;
 
   /* color:red; */
-  color:#353535;
+  color:#fff;
 
   transition:bottom 250ms, color 250ms;
   cursor:pointer;
 }
 #specimen-toggle.active {
-  bottom:81vh;
+  /* bottom:81vh; */
   font-weight:900;
-  color:#555555;
 }
 
 #specimen-toggle:hover
 {
-  bottom:1.5vh;
+  /* bottom:1.5vh; */
   animation: hover-specimen-toggle 400ms;
   font-weight: 900;
 }
@@ -126,6 +125,12 @@
   animation: hover-specimen-toggle reverse 400ms;
   bottom:80.5vh;
   font-weight: 100;
+}
+
+#specimen-toggle.transitioning
+{
+  color:#555;
+  cursor:pointer;
 }
 
 @keyframes hover-specimen-toggle {

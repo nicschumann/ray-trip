@@ -41,7 +41,7 @@
   src: url("Mantar-Bold.woff") format('woff'),
        url("Mantar-Bold.eot") format('eot');
 
-  font-weight: 600;
+  font-weight: 700;
   font-style: normal;
 }
 
@@ -50,7 +50,7 @@
   src: url("Mantar-BoldItalic.woff") format('woff'),
        url("Mantar-BoldItalic.eot") format('eot');
 
-  font-weight: 600;
+  font-weight: 700;
   font-style: italic;
 }
 
@@ -98,7 +98,7 @@
   src: url("Mantar-ExtraLight.woff") format('woff'),
        url("Mantar-ExtraLight.eot") format('eot');
 
-  font-weight: 200;
+  font-weight: 280;
   font-style: normal;
 }
 
@@ -107,7 +107,7 @@
   src: url("Mantar-ExtraLightItalic.woff") format('woff'),
        url("Mantar-ExtraLightItalic.eot") format('eot');
 
-  font-weight: 200;
+  font-weight: 280;
   font-style: italic;
 }
 
@@ -121,7 +121,7 @@
 }
 
 .extra-light {
-  font-weight: 200;
+  font-weight: 280;
 }
 
 .light {
@@ -133,7 +133,7 @@
 }
 
 .bold {
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .black {
