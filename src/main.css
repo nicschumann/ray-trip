@@ -66,6 +66,7 @@ body
   color:white;
   font-size:40px;
   height:fit-content;
+	/* TODO: figure out the right max width */
 	max-width: 1000px;
 
 	-webkit-backface-visibility: hidden;
@@ -244,6 +245,10 @@ body
 	transition:opacity 50ms;
 }
 
+::selection {
+	color:black;
+	background: white;
+}
 
 
 .word
@@ -258,20 +263,9 @@ body
 	-webkit-perspective: 1000;
 	transform: translateZ(0);
 
-  -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Edge, Opera and Firefox */
-
 	--curve: cubic-bezier(1,.33,.73,.71);
 	--time: 850ms;
-	/* transition:
-		opacity 500ms cubic-bezier(0.7, 0, 0.84, 0),
-		filter 2500ms cubic-bezier(0.7, 0, 0.84, 0),
-		color 2500ms cubic-bezier(0.7, 0, 0.84, 0); */
+
 	transition:
 		opacity var(--time) var(--curve),
 		filter var(--time) var(--curve),
@@ -287,14 +281,6 @@ body
 {
   color:transparent;
 	filter: blur(30px);
-
-	-webkit-touch-callout: none; /* iOS Safari */
-		-webkit-user-select: none; /* Safari */
-		 -khtml-user-select: none; /* Konqueror HTML */
-			 -moz-user-select: none; /* Old versions of Firefox */
-				-ms-user-select: none; /* Internet Explorer/Edge */
-						user-select: none; /* Non-prefixed version, currently
-																	supported by Chrome, Edge, Opera and Firefox */
 }
 
 
