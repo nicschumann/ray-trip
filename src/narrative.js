@@ -71,7 +71,7 @@ let timers = []
 const default_animation = {
   state: 0,
   upper_limit: 10,
-  lower_limit: -30,
+  lower_limit: -50,
 
   in: {
     offset: i => (i % 3 == 0) ? 0 : 100
@@ -362,19 +362,41 @@ const reset_state = (event, story, state) =>
 }
 
 
+// const blur_to_prev_state_2 = (event, story, state) => {
+//   let t = story.animations.state;
+//   let words = document.getElementsByClassName('word');
+//
+//   let bl = story.animations.down.blur(Math.abs(t));
+//   let op = story.animations.down.opacity(Math.abs(t));
+//
+//   Array.from(words).forEach(el => {
+//     el.style.transform = `matrix(1, ${t/100 + Math.random() / 10}, ${-t/100 + Math.random() / 10}, 1, 0, 0)`;
+//     el.style.transition = `all 2ms`;
+//     el.style.opacity = op * 2;
+//   });
+// };
+
 const blur_to_prev_state_2 = (event, story, state) => {
   let t = story.animations.state;
-  let parent = state.story.stage.container;
-  let words = document.getElementsByClassName('word');
 
-  let bl = story.animations.down.blur(Math.abs(t));
-  let op = story.animations.down.opacity(Math.abs(t));
+	let words = document.querySelectorAll('.word:not(.pending)');
 
-  Array.from(words).forEach(el => {
-    el.style.transform = `matrix(1, ${t/100 + Math.random() / 10}, ${-t/100 + Math.random() / 10}, 1, 0, 0)`;
-    el.style.transition = `all 2ms`;
-    el.style.opacity = op * 2;
-  });
+	let bl = story.animations.down.blur(Math.abs(t));
+	let op = story.animations.down.opacity(t);
+
+	if (words.length > 0)
+	{
+		let el = words[words.length - 1];
+
+		el.style.transition = `all 150ms var(--curve)`;
+    el.style.opacity = op;
+    el.style.filter = `blur(${bl * 5}px)`;
+		el.style.transform = `translateZ(${t/2}px)`;
+
+		window.setTimeout(() => {
+			el.classList.add('pending');
+		}, state.timing.base);
+	}
 };
 
 
@@ -398,6 +420,7 @@ const blur_to_next_state = (event, story, state) => {
     el.style.transition = `all 2ms`;
     el.style.opacity = op;
     el.style.filter = `blur(${bl}px)`;
+		// el.style.transform = `translateZ(${t * 1.3}px)`;
   });
 };
 
@@ -520,7 +543,7 @@ let state = {
   timers: [],
 	timing: {
 		acc: 0,
-		base: 65,
+		base: 65, // should be 65
 		padding: 1000
 	},
 	sim: {
