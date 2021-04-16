@@ -9,7 +9,7 @@ const SPECIMEN_BASE_STORY_ID = 'specimen-i';
 // Sim Instantiation
 
 import * as R from './sim-states.js';
-import {run_simulation} from './sim.js';
+// import {run_simulation} from './sim.js';
 
 let sim_parameters = {
 	// dt: this is the length of the timestep for the simulation.
@@ -212,14 +212,14 @@ function do_transition_for_mousewheel(story, state)
 				}
       }
 
-      if (
-        (story.animations.state < story.animations.lower_limit ||
-         story.animations.state > story.animations.upper_limit) &&
-         story.transitions.prev.length == 0 &&
-         story.transitions.next.length == 0
-      ) {
-        render_end(state);
-      }
+      // if (
+      //   (story.animations.state < story.animations.lower_limit ||
+      //    story.animations.state > story.animations.upper_limit) &&
+      //    story.transitions.prev.length == 0 &&
+      //    story.transitions.next.length == 0
+      // ) {
+      //   render_end(state);
+      // }
     }
   };
 }
@@ -773,6 +773,12 @@ function preprocess_text_as_words(data)
 				delete parse.controls.count;
 			}
 
+			if (parse.controls.remaining)
+			{
+				element_data.element.innerHTML = (stories.length - state.history.sequence.length) + '&nbsp';
+				delete parse.controls.remaining;
+			}
+
 
       if (parse.controls.trim)
       {
@@ -1093,6 +1099,7 @@ function render_resume_story(previous_id)
 	return event => {
 		if (!state.transitioning)
 		{
+			specimen_toggle.classList.remove('active');
 			state.story.current = previous_id;
 			state.timing.base = 1;
 
@@ -1109,6 +1116,7 @@ function render_specimen()
 {
 	if (!state.transitioning) {
 		let previous_id = state.story.current;
+		specimen_toggle.classList.add('active');
 
 		state.story.current = SPECIMEN_BASE_STORY_ID;
 		render_frame(state, 'esc', true);
