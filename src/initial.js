@@ -1,1 +1,1 @@
-module.exports = 'specimen-lang-iii';
+module.exports = 'specimen-words-vii';

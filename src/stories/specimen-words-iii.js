@@ -1,7 +1,7 @@
 {
-  id: 'specimen-words-ii',
+  id: 'specimen-words-iii',
 
-  text: `Mantar#extralight#h Extra#extralight#h Light#extralight#h Italic#extralight#h$break Gljáfægður#w1#m$break Mantar#light#h Light#light#h$break Bleščice#w2#m$break Mantar#bold#h Bold#bold#h Italic#bold#h$break Fosforescenţă#w3#m$break Mantar#ultra#h Ultra#ultra#h$break Raffinato#w4`,
+  text: `Mantar#extralight#h Extra#extralight#h Light#extralight#h Italic#extralight#h$break Irridixxenza#w1#m$break Mantar#reg#h Regular#reg#h$break Yanardöner#w2#m$break Mantar#bold#h Bold#bold#h Italic#bold#h$break Mikrobølgeovn#w3#m$break Mantar#ultra#h Ultra#ultra#h$break Distopična#w4`,
 
   marginalia: [
   ],
@@ -30,7 +30,7 @@
 
     },
     w2: {
-      fontWeight: 300,
+      fontWeight: 400,
     },
     w3: {
       fontWeight: 700,

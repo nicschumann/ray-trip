@@ -1,7 +1,7 @@
 {
-  id: 'specimen-words-ii',
+  id: 'specimen-words-iv',
 
-  text: `Mantar#extralight#h Extra#extralight#h Light#extralight#h Italic#extralight#h$break Gljáfægður#w1#m$break Mantar#light#h Light#light#h$break Bleščice#w2#m$break Mantar#bold#h Bold#bold#h Italic#bold#h$break Fosforescenţă#w3#m$break Mantar#ultra#h Ultra#ultra#h$break Raffinato#w4`,
+  text: `Mantar#extralight#h Extra#extralight#h Light#extralight#h Italic#extralight#h$break 60#w1 frames$trim#w1 /#ultra$trim second#w1#m$break Mantar#reg#h Regular#reg#h$break ¼ Cup of Milk#w2#m$break Mantar#bold#h Bold#bold#h Italic#bold#h$break Champiñón²#w3#m$break Mantar#ultra#h Ultra#ultra#h$break C$trim#w4 ₁₆$trim#extralight#w4 H$trim#w4 ₁₆$trim#extralight#w4 N$trim#w4 ₂$trim#extralight#w4 O$trim#w4 ₂#extralight#w4`,
 
   marginalia: [
   ],
@@ -13,7 +13,7 @@
     top: '40vh',
     left: '50vw',
 
-    width: '80%',
+    width: '90%',
     // maxWidth: '900px',
 
     transform: 'translate(-50%,-50%)',
@@ -30,7 +30,7 @@
 
     },
     w2: {
-      fontWeight: 300,
+      fontWeight: 400,
     },
     w3: {
       fontWeight: 700,

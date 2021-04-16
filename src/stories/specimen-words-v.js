@@ -1,7 +1,7 @@
 {
-  id: 'specimen-words-ii',
+  id: 'specimen-words-v',
 
-  text: `Mantar#extralight#h Extra#extralight#h Light#extralight#h Italic#extralight#h$break Gljáfægður#w1#m$break Mantar#light#h Light#light#h$break Bleščice#w2#m$break Mantar#bold#h Bold#bold#h Italic#bold#h$break Fosforescenţă#w3#m$break Mantar#ultra#h Ultra#ultra#h$break Raffinato#w4`,
+  text: `Mantar#extralight#h Extra#extralight#h Light#extralight#h$break Maliwanag#w1#m$break Mantar#bold#h Bold#bold#h$break LUMINUŻ#w2#m$break Mantar#black#h Black#black#h Italic#black#h$break Ryškumas#w3#m$break Mantar#ultra#h Ultra#ultra#h Italic#ultra#h$break PASQYRË#w4`,
 
   marginalia: [
   ],
@@ -13,7 +13,7 @@
     top: '40vh',
     left: '50vw',
 
-    width: '80%',
+    width: '90%',
     // maxWidth: '900px',
 
     transform: 'translate(-50%,-50%)',
@@ -26,11 +26,11 @@
   definitions: {
     w1: {
       fontWeight: 280,
-      fontStyle: 'italic'
+      //fontStyle: 'italic'
 
     },
     w2: {
-      fontWeight: 300,
+      fontWeight: 400,
     },
     w3: {
       fontWeight: 700,
@@ -38,6 +38,7 @@
     },
     w4: {
       fontWeight: 900,
+      fontStyle: 'italic'
     },
     m: {
       marginBottom:'2vh'
