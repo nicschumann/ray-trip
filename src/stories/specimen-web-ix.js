@@ -1,7 +1,7 @@
 {
   id: 'specimen-web-ix',
 
-  text: `Mantar#h Regular#h$break We hope this “specimen” has showcased the potential of the world Mantar, both as a typeface and as a point of view. If you have any linger questions or comments, we’d love to have a conversation. Feel free get in touch at occupantfonts.com. `,
+  text: `Mantar#h Regular#h$break We hope this “specimen” has showcased the potential of the world Mantar, both as a typeface and as a point of view. If you have any linger questions or comments, we’d love to have a conversation. Feel free to get in touch at occupantfonts.com. `,
   // link to : https://occupantfonts.com/about#contact
 
   marginalia: [

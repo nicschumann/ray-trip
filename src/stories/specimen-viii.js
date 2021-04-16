@@ -1,7 +1,7 @@
 {
-  id: 'specimen-iv',
+  id: 'specimen-viii',
 
-  text: `Mantar#extralight#h Extra#extralight#h Light#extralight#h Italic#extralight#h$break Drawing this typeface was a non-linear process, as it was mainly driven by my curiosities and questions. It sure sent me down many rabbit holes, but I chose to take the longer path on every opportunity.`,
+  text: `Mantar#extralight#h Extra#extralight#h Light#extralight#h$break Unlike metal type where the mark is made through metal ink and pressure on paper; phototypesetting uses light, lenses, negatives and chemicals to create words.`,
 
   marginalia: [
   ],
@@ -19,8 +19,8 @@
     transform: 'translate(-50%,-50%)',
     textAlign: 'center',
     fontWeight: 280,
-    fontSize: 'calc(min(5.5vw, 72px))',
-    fontStyle:'italic',
+    fontSize: 'calc(min(3vw, 75px))',
+    //fontStyle:'italic',
   },
 
   definitions: {

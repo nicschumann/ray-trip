@@ -1,1 +1,1 @@
-module.exports = 'specimen-words-vi';
+module.exports = 'prelude-i';
