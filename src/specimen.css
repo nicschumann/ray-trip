@@ -96,21 +96,22 @@
 #specimen-toggle
 {
   position: absolute;
-  bottom:1vh;
-  left:1.5vh;
+  bottom:1rem;
+  left:1rem;
 
   font-family: "Mantar";
   font-weight:100;
-  font-size:36px;
+  font-size:42px;
 
   /* color:red; */
   color:#fff;
 
-  transition:bottom 250ms, color 250ms;
+  transition:top 250ms, bottom 250ms, left 250ms, color 250ms;
   cursor:pointer;
 }
 #specimen-toggle.active {
-  /* bottom:81vh; */
+  bottom:calc(100vh - 3rem);
+  left:calc(50vw - 1rem);
   font-weight:900;
 }
 
@@ -123,7 +124,6 @@
 
 #specimen-toggle.active:hover {
   animation: hover-specimen-toggle reverse 400ms;
-  bottom:80.5vh;
   font-weight: 100;
 }
 
