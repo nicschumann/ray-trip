@@ -1,7 +1,7 @@
 {
   id: 'specimen-iii',
 
-  text: `Mantar#ultra#h Ultra#ultra#h$break And when there is chaos$trim ;#reg there is order$trim ,#light control,  authority,  and power$trim .#bold`,
+  text: `Mantar#ultra#h Ultra#ultra#h$break And when there is chaos; there is order, control, authority, and power.`,
 
   marginalia: [
   ],

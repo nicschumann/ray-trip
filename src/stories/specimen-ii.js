@@ -2,7 +2,7 @@
   id: 'specimen-ii',
 
   text: `Extra#h Light#h$break Mantar is a pyschedelic scotch roman designed by Cem Eskinazi. After stumbling upon a phototypesetting specimen, Cem was inspired by the soft and warm look of the edges. Mantar consists of 12 individual styles across Roman and Italic. This is Extra Light.`,
-
+//bio here
   marginalia: [
   ],
   sidelines: [

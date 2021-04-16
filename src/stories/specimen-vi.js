@@ -1,7 +1,7 @@
 {
-  id: 'specimen-iv',
+  id: 'specimen-vi',
 
-  text: `Mantar#extralight#h Extra#extralight#h Light#extralight#h Italic#extralight#h$break Drawing this typeface was a non-linear process, as it was mainly driven by my curiosities and questions. It sure sent me down many rabbit holes, but I chose to take the longer path on every opportunity.`,
+  text: `Mantar#ultra#h ULTRA#ultra#h$break IF YOU STUMBLE UPON A WILD MUSHROOM, DO NOT TAKE IT—UNLESS YOU ARE AN EXPERT.`,
 
   marginalia: [
   ],
@@ -18,9 +18,9 @@
 
     transform: 'translate(-50%,-50%)',
     textAlign: 'center',
-    fontWeight: 280,
+    fontWeight: 900,
     fontSize: 'calc(min(5.5vw, 72px))',
-    fontStyle:'italic',
+    //fontStyle:'italic',
   },
 
   definitions: {

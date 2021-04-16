@@ -1,7 +1,7 @@
 {
-  id: 'specimen-iv',
+  id: 'specimen-lang-iv',
 
-  text: `Mantar#extralight#h Extra#extralight#h Light#extralight#h Italic#extralight#h$break Drawing this typeface was a non-linear process, as it was mainly driven by my curiosities and questions. It sure sent me down many rabbit holes, but I chose to take the longer path on every opportunity.`,
+  text: `Mantar#black#h Black#black#h$break Işığın boşluktaki hızı yaklaşık 300,000 km/s’dir. Tüm elektromanyetik dalgaların boşluktaki hızı da budur. Işık saydam maddelerin içinde boşluktaki hızından daha yavaş yayılır.`,
 
   marginalia: [
   ],
@@ -14,13 +14,13 @@
     left: '50vw',
 
     width: '80%',
-    // maxWidth: '900px',
+    maxWidth: '1100px',
 
     transform: 'translate(-50%,-50%)',
     textAlign: 'center',
-    fontWeight: 280,
-    fontSize: 'calc(min(5.5vw, 72px))',
-    fontStyle:'italic',
+    fontWeight: 800,
+    fontSize: 'calc(min(4.5vw, 55px))',
+    //fontStyle: 'italic'
   },
 
   definitions: {
