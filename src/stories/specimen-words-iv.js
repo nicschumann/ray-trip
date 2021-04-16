@@ -19,6 +19,7 @@
     transform: 'translate(-50%,-50%)',
     textAlign: 'center',
     fontWeight: 400,
+    // TODO: doesn't work on very large screen sizes.
     fontSize: 'calc(min(12vw, 150px))',
     lineHeight: 'calc(max(min(6.5vw, 80px), 40px))'
   },

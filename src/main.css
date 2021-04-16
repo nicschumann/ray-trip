@@ -69,12 +69,12 @@ body
 	/* TODO: figure out the right max width */
 	max-width: 1000px;
 
-	-webkit-backface-visibility: hidden;
-	-webkit-perspective: 1000;
-  backface-visibility: hidden;
-	transform-style: preserve-3d;
-	perspective: 550px;
-	overflow: visible;
+	/* -webkit-backface-visibility: hidden; */
+	/* -webkit-perspective: 1000; */
+  /* backface-visibility: hidden; */
+	/* transform-style: preserve-3d; */
+	/* perspective: 550px; */
+	/* overflow: visible; */
 	/* mix-blend-mode: difference; */
 
 	line-height: calc(min(max(1.1em, 6vw), 1.15em));
@@ -248,29 +248,30 @@ body
 	transition:opacity 50ms;
 }
 
-::selection {
+/* ::selection {
 	color:black;
-	background: white;
-}
+	background: gray;
+} */
 
 
 .word
 {
 	display: inline-block;
 	color:white;
-	white-space: nowrap;
+	/* white-space: nowrap; */
 	font-size: inherit;
 
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
 	-webkit-perspective: 1000;
-	transform: translateZ(0);
+	/* transform: translateZ(0); */
+	background-color: transparent;
 
 	--curve: cubic-bezier(1,.33,.73,.71);
 	--time: 850ms;
 
 	transition:
-		opacity var(--time) var(--curve),
+		opacity calc(var(--time) / 4) var(--curve),
 		filter var(--time) var(--curve),
 		color var(--time) var(--curve);
 }
@@ -309,6 +310,7 @@ br.word {
 {
   color:transparent;
 	filter: blur(30px);
+	opacity:0;
 }
 
 

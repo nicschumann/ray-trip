@@ -26,7 +26,9 @@
   definitions: {
     w1: {
       fontWeight: 280,
-      fontStyle: 'italic'
+      fontStyle: 'italic',
+      paddingLeft:'10px',
+      paddingRight:'10px'
 
     },
     w2: {
