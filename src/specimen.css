@@ -106,11 +106,14 @@
   /* color:red; */
   color:#fff;
 
-  transition:top 250ms, bottom 250ms, left 250ms, color 250ms;
+  transition:
+		filter calc(var(--time) / 3) var(--curve),
+		opacity calc(var(--time) / 3) var(--curve);
+
   cursor:pointer;
 }
 #specimen-toggle.active {
-  bottom:calc(100vh - 3rem);
+  /* bottom:calc(100vh - 3rem); */
   left:calc(50vw - 1rem);
   font-weight:900;
 }
@@ -119,7 +122,7 @@
 {
   /* bottom:1.5vh; */
   animation: hover-specimen-toggle 400ms;
-  font-weight: 900;
+	font-weight: 900;
 }
 
 #specimen-toggle.active:hover {
@@ -130,21 +133,28 @@
 #specimen-toggle.transitioning
 {
   color:#555;
-  cursor:pointer;
+  cursor:default;
+}
+
+#specimen-toggle.moving
+{
+	filter:blur(30px);
+	opacity:0;
+	/* color:transparent; */
 }
 
 @keyframes hover-specimen-toggle {
   0% {
-    font-weight: 100;
+    font-weight: 280;
   }
   20% {
-    font-weight: 200;
+    font-weight: 300;
   }
   40% {
     font-weight: 400;
   }
   60% {
-    font-weight: 600;
+    font-weight: 700;
   }
   78% {
     font-weight: 800;

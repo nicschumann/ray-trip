@@ -1099,12 +1099,16 @@ function render_resume_story(previous_id)
 	return event => {
 		if (!state.transitioning)
 		{
-			specimen_toggle.classList.remove('active');
+			specimen_toggle.classList.add('moving');
+			specimen_toggle.ontransitionend = specimen_toggle_classes;
+
 			state.story.current = previous_id;
 			state.timing.base = 1;
 
 			render_frame(state, 'esc', true, function() {
 				state.timing.base = previous_speed;
+				// specimen_toggle.classList.remove('active');
+				// specimen_toggle.classList.remove('moving');
 				specimen_toggle.onclick = render_specimen;
 				window.onkeyup = if_esc(render_specimen);
 			});
@@ -1116,13 +1120,21 @@ function render_specimen()
 {
 	if (!state.transitioning) {
 		let previous_id = state.story.current;
-		specimen_toggle.classList.add('active');
+		specimen_toggle.classList.add('moving');
+		specimen_toggle.ontransitionend = specimen_toggle_classes;
+
 
 		state.story.current = SPECIMEN_BASE_STORY_ID;
 		render_frame(state, 'esc', true);
 
 		specimen_toggle.onclick = render_resume_story(previous_id);
 	}
+}
+
+function specimen_toggle_classes () {
+	specimen_toggle.classList.toggle('active');
+	specimen_toggle.classList.remove('moving');
+	specimen_toggle.ontransitionend = null;
 }
 
 specimen_toggle.onclick = render_specimen;

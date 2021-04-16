@@ -16,6 +16,9 @@ body
   font-weight: 300;
   box-sizing: border-box;
 	height:100%;
+
+	--curve: cubic-bezier(1,.33,.73,.71);
+	--time: 850ms;
 }
 
 /* Debugging text frames */
@@ -266,9 +269,6 @@ body
 	-webkit-perspective: 1000;
 	/* transform: translateZ(0); */
 	background-color: transparent;
-
-	--curve: cubic-bezier(1,.33,.73,.71);
-	--time: 850ms;
 
 	transition:
 		opacity calc(var(--time) / 4) var(--curve),
