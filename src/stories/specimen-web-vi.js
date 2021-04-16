@@ -1,7 +1,7 @@
 {
-  id: 'specimen-i',
+  id: 'specimen-web-vi',
 
-  text: `Regular#h$break Hello again. Hope you are enjoying the story so far. I see that you already went through 22#i$count of#i 40#i$parts parts. If you want more help or want to read about the website, you can scroll up. If you want to read more about Mantar continue below.`,
+  text: `Mantar#h Regular#h$break The timbre of the text changed significatly as we changed the text speed$trim —$trim the rests between words, after punctuation, and between phrases. For us, the renderer Nic built paced the feeling of the text in time, the same way Cem’s font shaped the feeling of the words in space.`,
 
   marginalia: [
   ],
@@ -41,7 +41,7 @@
   ignore: true,
 
   transitions: {
-    next: [{id: 'specimen-ii'}],
-    prev: [{id: 'specimen-web-help'}]
+    next: [{id: 'specimen-web-vii'}],
+    prev: []
   }
 }

@@ -1,7 +1,7 @@
 {
-  id: 'specimen-i',
+  id: 'specimen-web-viii',
 
-  text: `Regular#h$break Hello again. Hope you are enjoying the story so far. I see that you already went through 22#i$count of#i 40#i$parts parts. If you want more help or want to read about the website, you can scroll up. If you want to read more about Mantar continue below.`,
+  text: `Mantar#h Regular#h$break This became the framework for the non-linear narrative which explores the themes embedded in the development of Mantar. The creation of this narrative was heavily influenced by the tools we built, while the tools evolved to meet the needs of the narrative. This interlocking creative process is an important facet to both of our practices, and the practice of Occupant Fonts as a foundry.`,
 
   marginalia: [
   ],
@@ -41,7 +41,7 @@
   ignore: true,
 
   transitions: {
-    next: [{id: 'specimen-ii'}],
-    prev: [{id: 'specimen-web-help'}]
+    next: [{id: 'specimen-web-ix'}],
+    prev: []
   }
 }

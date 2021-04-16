@@ -1,7 +1,7 @@
 {
-  id: 'specimen-i',
+  id: 'specimen-web-ii',
 
-  text: `Regular#h$break Hello again. Hope you are enjoying the story so far. I see that you already went through 22#i$count of#i 40#i$parts parts. If you want more help or want to read about the website, you can scroll up. If you want to read more about Mantar continue below.`,
+  text: `Mantar#h Regular#h$break So much hidden labor, stories, and inspiration go into the creation of a typeface. And not just by Cem$trim —$trim but by all of us, our partners, and our collaborators. We wanted to share some of those stories in an interesting and different way.`,
 
   marginalia: [
   ],
@@ -41,7 +41,7 @@
   ignore: true,
 
   transitions: {
-    next: [{id: 'specimen-ii'}],
-    prev: [{id: 'specimen-web-help'}]
+    next: [{id: 'specimen-web-iii'}],
+    prev: []
   }
 }

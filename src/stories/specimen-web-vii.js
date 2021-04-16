@@ -1,7 +1,7 @@
 {
-  id: 'specimen-i',
+  id: 'specimen-web-vii',
 
-  text: `Regular#h$break Hello again. Hope you are enjoying the story so far. I see that you already went through 22#i$count of#i 40#i$parts parts. If you want more help or want to read about the website, you can scroll up. If you want to read more about Mantar continue below.`,
+  text: `Mantar#h Regular#h$break Nic built us a reactive writing environment and developed a simple notation system that allows us to design the “flow” of each frame. The “flow” includes the speed at which each word enters the frame, the milliseconds of rest between each word, the inline style of each word, and any ambient animations. Every frame of the website is built using this system.`,
 
   marginalia: [
   ],
@@ -41,7 +41,7 @@
   ignore: true,
 
   transitions: {
-    next: [{id: 'specimen-ii'}],
-    prev: [{id: 'specimen-web-help'}]
+    next: [{id: 'specimen-web-viii'}],
+    prev: []
   }
 }

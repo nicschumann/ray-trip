@@ -1,7 +1,7 @@
 {
-  id: 'specimen-i',
+  id: 'specimen-web-v',
 
-  text: `Regular#h$break Hello again. Hope you are enjoying the story so far. I see that you already went through 22#i$count of#i 40#i$parts parts. If you want more help or want to read about the website, you can scroll up. If you want to read more about Mantar continue below.`,
+  text: `Mantar#h Regular#h$break When we first implemented the “blur-in” text-rendering you’ve been seeing, we were surprised by how temporal it made the text feel. It seemed suddenly like the text was being read to us in a very specific voice: we were listening, rather than reading.`,
 
   marginalia: [
   ],
@@ -41,7 +41,7 @@
   ignore: true,
 
   transitions: {
-    next: [{id: 'specimen-ii'}],
-    prev: [{id: 'specimen-web-help'}]
+    next: [{id: 'specimen-web-vi'}],
+    prev: []
   }
 }

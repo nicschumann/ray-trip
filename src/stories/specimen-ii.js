@@ -1,7 +1,7 @@
 {
-  id: 'specimen-i',
+  id: 'specimen-ii',
 
-  text: `Regular#h$break Hello again. Hope you are enjoying the story so far. I see that you already went through 22#i$count of#i 40#i$parts parts. If you want more help or want to read about the website, you can scroll up. If you want to read more about Mantar continue below.`,
+  text: `Extra#h Light#h$break Mantar is a pyschedelic scotch roman designed by Cem Eskinazi. After stumbling upon a phototypesetting specimen, Cem was inspired by the soft and warm look of the edges. Mantar consists of 12 individual styles across Roman and Italic. This is Extra Light.`,
 
   marginalia: [
   ],
@@ -13,12 +13,11 @@
     top: '40vh',
     left: '50vw',
 
-    width: '75%',
-    maxWidth:'75%',
+    width: '100%',
 
     transform: 'translate(-50%,-50%)',
     textAlign: 'center',
-    fontWeight: 400
+    fontWeight: 280
   },
 
   definitions: {
@@ -35,13 +34,14 @@
       letterSpacing: '1px',
       textTransform: 'uppercase',
       color:'magenta'
+
     }
   },
 
   ignore: true,
 
   transitions: {
-    next: [{id: 'specimen-ii'}],
-    prev: [{id: 'specimen-web-help'}]
+    next: [],
+    prev: []
   }
 }

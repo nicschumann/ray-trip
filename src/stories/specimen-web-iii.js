@@ -1,7 +1,8 @@
 {
-  id: 'specimen-i',
+  id: 'specimen-web-iii',
 
-  text: `Regular#h$break Hello again. Hope you are enjoying the story so far. I see that you already went through 22#i$count of#i 40#i$parts parts. If you want more help or want to read about the website, you can scroll up. If you want to read more about Mantar continue below.`,
+  text: `Mantar#h Regular#h$break From the beginning, we knew that we didn’t want to follow the standard formula for a specimen site. Type testers, character grids, and feature overviews are essential, but we already have a great framework for all of that on occupantfonts.com$lcontact$trim .`,
+  // link: occupantfonts.com/fonts/mantar
 
   marginalia: [
   ],
@@ -41,7 +42,7 @@
   ignore: true,
 
   transitions: {
-    next: [{id: 'specimen-ii'}],
-    prev: [{id: 'specimen-web-help'}]
+    next: [{id: 'specimen-web-iv'}],
+    prev: []
   }
 }

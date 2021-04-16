@@ -15,7 +15,7 @@
   },
 
   transitions: {
-    next: [],
+    next: [{id: 'end-i'}],
     prev: []
   }
 }

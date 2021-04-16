@@ -1,7 +1,8 @@
 {
-  id: 'specimen-i',
+  id: 'specimen-web-ix',
 
-  text: `Regular#h$break Hello again. Hope you are enjoying the story so far. I see that you already went through 22#i$count of#i 40#i$parts parts. If you want more help or want to read about the website, you can scroll up. If you want to read more about Mantar continue below.`,
+  text: `Mantar#h Regular#h$break We hope this “specimen” has showcased the potential of the world Mantar, both as a typeface and as a point of view. If you have any linger questions or comments, we’d love to have a conversation. Feel free get in touch at occupantfonts.com. `,
+  // link to : https://occupantfonts.com/about#contact
 
   marginalia: [
   ],
@@ -41,7 +42,7 @@
   ignore: true,
 
   transitions: {
-    next: [{id: 'specimen-ii'}],
-    prev: [{id: 'specimen-web-help'}]
+    next: [],
+    prev: [{id: 'specimen-i'}]
   }
 }

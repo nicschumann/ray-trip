@@ -1,7 +1,7 @@
 {
-  id: 'specimen-i',
+  id: 'specimen-iii',
 
-  text: `Regular#h$break Hello again. Hope you are enjoying the story so far. I see that you already went through 22#i$count of#i 40#i$parts parts. If you want more help or want to read about the website, you can scroll up. If you want to read more about Mantar continue below.`,
+  text: `Mantar#ultra#h Ultra#ultra#h$break And when there is chaos$trim ;#reg there is order$trim ,#light control,  authority,  and power$trim .#bold`,
 
   marginalia: [
   ],
@@ -13,12 +13,13 @@
     top: '40vh',
     left: '50vw',
 
-    width: '75%',
-    maxWidth:'75%',
+    width: '80%',
+    // maxWidth: '900px',
 
     transform: 'translate(-50%,-50%)',
     textAlign: 'center',
-    fontWeight: 400
+    fontWeight: 900,
+    fontSize: 'calc(min(5.5vw, 72px))'
   },
 
   definitions: {
@@ -34,14 +35,13 @@
       fontVariationSettings: "'wght' 400, 'wdth' 125",
       letterSpacing: '1px',
       textTransform: 'uppercase',
-      color:'magenta'
     }
   },
 
   ignore: true,
 
   transitions: {
-    next: [{id: 'specimen-ii'}],
-    prev: [{id: 'specimen-web-help'}]
+    next: [],
+    prev: []
   }
 }
