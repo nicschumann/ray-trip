@@ -1,9 +1,30 @@
-export const control_functions = {
-	trim: data => {
-		let idx = data.element.innerHTML.indexOf('&nbsp;');
-		data.element.innerHTML = data.element.innerHTML.slice(0, idx);
-	},
+function get_path_index(sequence, paths)
+{
+  // console.log(sequence);
+  for (let i = 0; i < paths.length; i++)
+  {
+    // console.log(paths[i]);
+    if (paths[i].length !== sequence.length) continue;
 
+    for (let j = 0; j < paths[i].length; j++)
+    {
+      // console.log(paths[i][j], sequence[j].id);
+      if (typeof sequence[j] === 'undefined') break;
+      if (sequence[j].id !== paths[i][j]) break;
+
+      if (j == paths[i].length - 1) { return i; }
+    }
+  }
+
+  return -1;
+}
+
+function make_link(el, href)
+{
+	el.innerHTML = `<a href="${href}">${el.innerHTML}</a>`;
+}
+
+export const control_functions = {
 	log: data => {
 		console.log(data.element.innerHTML);
 	},
@@ -30,6 +51,7 @@ export const control_functions = {
 	},
 
 	endframe: (data, story, state) => {
+		console.error('NotImplemented: endframe.')
 		state.transitioning = false;
 		document.onwheel = do_transition_for_mousewheel(story, state);
 		show_indicator();
@@ -37,6 +59,11 @@ export const control_functions = {
 
 	drip: (data, story, state) => {
 		state.sim.state.added_colors.push({data:{pos: {x: 0.65, y: 0.65}, dir: {x: 10, y: 20}}});
+	},
+
+	// inline links:
+	lcontact: (data, story, state) => {
+		make_link(data.element, 'https://occupantfonts.com/about#contact');
 	}
 }
 

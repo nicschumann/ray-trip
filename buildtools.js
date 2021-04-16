@@ -19,7 +19,8 @@ const buildjs = async path => {
       '.vs': 'text',
       '.fs': 'text',
       '.eot': 'file',
-      '.woff': 'file'
+      '.woff': 'file',
+      '.ttf': 'file'
     },
 
     platform: 'node',
@@ -75,11 +76,13 @@ const buildstories = async () => {
     // delete require cache entries, so we can actually rebuild.
     delete require.cache[require.resolve(target_stories_path)];
     delete require.cache[require.resolve('./src/initial.js')];
+    delete require.cache[require.resolve('./src/final.js')];
 
     const story_data = require(target_stories_path);
     const initial = require('./src/initial.js');
+    const final = require('./src/final.js')
 
-    let paths = solve_paths(story_data, initial);
+    let paths = solve_paths(story_data, initial, final);
 
     console.log('writing src/paths.js file.');
     fs.writeFileSync(target_pathways_path, `module.exports = ${util.inspect(paths, {depth: null, maxArrayLength: null})};`);

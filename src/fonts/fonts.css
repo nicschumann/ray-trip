@@ -1,4 +1,12 @@
 @font-face {
+  font-family: "Magmatic";
+  src: url("./MagmaticVF.ttf") format('truetype');
+
+  font-style: normal;
+}
+
+
+@font-face {
   font-family: "Mantar";
   src: url("./Mantar-Ultra.woff") format('woff'),
        url("./Mantar-Ultra.eot") format('eot');

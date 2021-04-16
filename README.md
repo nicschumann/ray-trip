@@ -30,6 +30,7 @@ This will install all of the dependencies you need for this project. Once this i
 | `Ray-Italic` | `.eot`, `.woff` |
 | `Ray-LightItalic` | `.eot`, `.woff`|
 | `Ray-ExtraLightItalic` | `.eot`, `.woff` |
+| `MagmaticVF` | `.ttf` |
 
 Finally, run
 

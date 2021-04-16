@@ -2,6 +2,7 @@
 *.woff
 *.woff2
 *.eot
+*.ttf
 
 # compiled files
 pub/bundle*

@@ -67,7 +67,7 @@ function make_story_transition(history, id, candidates)
 
 
 
-function dfs(stories, story_lookup, path, paths)
+function dfs(stories, story_lookup, target, path, paths)
 {
   let start_id = path[path.length - 1];
   let story = story_from_id(start_id, story_lookup, stories);
@@ -79,7 +79,9 @@ function dfs(stories, story_lookup, path, paths)
   }
 
   let neighbors_prime = story.transitions.next.concat(story.transitions.prev);
-	let candidates = make_story_transition(path, start_id, neighbors_prime);
+
+
+	let candidates = (story.id == target) ? [] : make_story_transition(path, start_id, neighbors_prime);
 
   // let neighbors = story.transitions.prev.map(x => x.id)
   //   .concat(story.transitions.next.map(x => x.id));
@@ -92,7 +94,7 @@ function dfs(stories, story_lookup, path, paths)
       if (path.indexOf(neighbor) == -1)
       {
         let new_path = path.concat([neighbor]);
-        paths = dfs(stories, story_lookup, new_path, paths);
+        paths = dfs(stories, story_lookup, target, new_path, paths);
       }
       else
       {
@@ -109,7 +111,7 @@ function dfs(stories, story_lookup, path, paths)
   return paths;
 }
 
-module.exports = (stories, initial) => {
+module.exports = (stories, initial, final) => {
   let story_lookup = stories_to_lookup_table(stories);
-  return dfs(stories, story_lookup, [initial], [])
+  return dfs(stories, story_lookup, final, [initial], [])
 }

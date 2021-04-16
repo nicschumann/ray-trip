@@ -159,7 +159,7 @@ function do_transition_for_mousewheel(story, state)
       }
       else if (story.animations.state < 0)
       {
-        blur_to_prev_state_2(event, story, state);
+        blur_to_prev_state(event, story, state);
       }
 
       if (
@@ -181,7 +181,7 @@ function do_transition_for_mousewheel(story, state)
 				else
 				{
 					let next_story = random_story_id(candidates);
-					console.log('prev_story', next_story);
+					console.log('scroll down:', next_story);
 	        state.story.current = next_story;
 	        render_frame(state, 'down');
 				}
@@ -206,7 +206,7 @@ function do_transition_for_mousewheel(story, state)
 				else
 				{
 					let prev_story = random_story_id(candidates);
-					console.log('prev_story', prev_story);
+					console.log('scroll up', prev_story);
 	        state.story.current = prev_story;
 	        render_frame(state, 'up');
 				}
@@ -271,70 +271,70 @@ function make_story_transition(history, id, candidates)
 /**
  * Ups
  */
-
-const get_function = (animations, channel, axis) =>
-{
-  return (typeof animations[channel] !== 'undefined' && typeof animations[channel][axis] !== 'undefined') ?
-          animations[channel][axis] :
-          () => 0;
-}
-
-const blur_to_prev_state = (event, story, state) => {
-  let t = story.animations.state;
-
-
-  let bs = document.getElementsByClassName('b-channel');
-
-  if (typeof story.animations.up.r !== 'undefined')
-  {
-    let color = {
-      top: get_function(story.animations.up, 'r', 'top'),
-      left: get_function(story.animations.up, 'r', 'left')
-    }
-
-    let rs = document.getElementsByClassName('r-channel');
-
-    Array.from(rs).forEach(el => el.setAttribute('style', `transition:all 2ms;top:${color.top(t)}px;left:${color.left(t)}px;`));
-  }
-
-  if (typeof story.animations.up.g !== 'undefined')
-  {
-    let color = {
-      top: get_function(story.animations.up, 'g', 'top'),
-      left: get_function(story.animations.up, 'g', 'left')
-    }
-
-    let gs = document.getElementsByClassName('g-channel');
-
-    Array.from(gs).forEach(el => el.setAttribute('style', `transition:all 2ms;top:${color.top(t)}px;left:${color.left(t)}px;`));
-  }
-
-  if (typeof story.animations.up.b !== 'undefined')
-  {
-    let color = {
-      top: get_function(story.animations.up, 'b', 'top'),
-      left: get_function(story.animations.up, 'b', 'left')
-    }
-
-    let bs = document.getElementsByClassName('b-channel');
-
-    Array.from(bs).forEach(el => el.setAttribute('style', `transition:all 2ms;top:${color.top(t)}px;left:${color.left(t)}px;`));
-  }
-
-
-
-
-  // quasi-sane version
-  let r = t => t * Math.sin(t) / 18;
-  let b = t => t * Math.cos(-t) / 18;
-
-  // bonkers version
-  // let r = t => t * Math.sin(Math.random() * t) / 20;
-  // let b = t => t * Math.cos(Math.random() * -t) / 20;
-
-
-  Array.from(bs).forEach(el => el.setAttribute('style', `transition:all 2ms;top:${r(t)}px;left:${b(t)}px;`));
-};
+//
+// const get_function = (animations, channel, axis) =>
+// {
+//   return (typeof animations[channel] !== 'undefined' && typeof animations[channel][axis] !== 'undefined') ?
+//           animations[channel][axis] :
+//           () => 0;
+// }
+//
+// const blur_to_prev_state = (event, story, state) => {
+//   let t = story.animations.state;
+//
+//
+//   let bs = document.getElementsByClassName('b-channel');
+//
+//   if (typeof story.animations.up.r !== 'undefined')
+//   {
+//     let color = {
+//       top: get_function(story.animations.up, 'r', 'top'),
+//       left: get_function(story.animations.up, 'r', 'left')
+//     }
+//
+//     let rs = document.getElementsByClassName('r-channel');
+//
+//     Array.from(rs).forEach(el => el.setAttribute('style', `transition:all 2ms;top:${color.top(t)}px;left:${color.left(t)}px;`));
+//   }
+//
+//   if (typeof story.animations.up.g !== 'undefined')
+//   {
+//     let color = {
+//       top: get_function(story.animations.up, 'g', 'top'),
+//       left: get_function(story.animations.up, 'g', 'left')
+//     }
+//
+//     let gs = document.getElementsByClassName('g-channel');
+//
+//     Array.from(gs).forEach(el => el.setAttribute('style', `transition:all 2ms;top:${color.top(t)}px;left:${color.left(t)}px;`));
+//   }
+//
+//   if (typeof story.animations.up.b !== 'undefined')
+//   {
+//     let color = {
+//       top: get_function(story.animations.up, 'b', 'top'),
+//       left: get_function(story.animations.up, 'b', 'left')
+//     }
+//
+//     let bs = document.getElementsByClassName('b-channel');
+//
+//     Array.from(bs).forEach(el => el.setAttribute('style', `transition:all 2ms;top:${color.top(t)}px;left:${color.left(t)}px;`));
+//   }
+//
+//
+//
+//
+//   // quasi-sane version
+//   let r = t => t * Math.sin(t) / 18;
+//   let b = t => t * Math.cos(-t) / 18;
+//
+//   // bonkers version
+//   // let r = t => t * Math.sin(Math.random() * t) / 20;
+//   // let b = t => t * Math.cos(Math.random() * -t) / 20;
+//
+//
+//   Array.from(bs).forEach(el => el.setAttribute('style', `transition:all 2ms;top:${r(t)}px;left:${b(t)}px;`));
+// };
 
 
 /**
@@ -348,7 +348,7 @@ const reset_state = (event, story, state) =>
   let words = document.getElementsByClassName('word');
 
 
-  parent.style.transform = `matrix(1, 0, 0, 1, 0, 0)`;
+  // parent.style.transform = `matrix(1, 0, 0, 1, 0, 0)`;
   parent.style.transition = `all 2ms`;
   parent.style.opacity = '1';
   parent.style.filter = `none`;
@@ -362,7 +362,7 @@ const reset_state = (event, story, state) =>
 }
 
 
-// const blur_to_prev_state_2 = (event, story, state) => {
+// const blur_to_prev_state = (event, story, state) => {
 //   let t = story.animations.state;
 //   let words = document.getElementsByClassName('word');
 //
@@ -376,7 +376,7 @@ const reset_state = (event, story, state) =>
 //   });
 // };
 
-const blur_to_prev_state_2 = (event, story, state) => {
+const blur_to_prev_state = (event, story, state) => {
   let t = story.animations.state;
 
 	let words = document.querySelectorAll('.word:not(.pending)');
@@ -404,6 +404,7 @@ const blur_to_next_state = (event, story, state) => {
   let t = story.animations.state;
 
   let words = document.getElementsByClassName('word');
+	const tranlate_divisor = 3;
 
   // normal version
   let bl = story.animations.down.blur(t);
@@ -420,7 +421,7 @@ const blur_to_next_state = (event, story, state) => {
     el.style.transition = `all 2ms`;
     el.style.opacity = op;
     el.style.filter = `blur(${bl}px)`;
-		// el.style.transform = `translateZ(${t * 1.3}px)`;
+		el.style.transform = `translateZ(${t/tranlate_divisor}px)`;
   });
 };
 
@@ -527,7 +528,9 @@ let state = {
     stage: {
       container: document.getElementById('story-container')
     },
-    current: INITIAL_STORY_ID
+    current: INITIAL_STORY_ID,
+		all: stories,
+		paths: paths
   },
   marginalia: {
     stage: { container: document.getElementById('margin-container') }
@@ -574,7 +577,7 @@ function make_channel_data(word, offset, color={})
 
   element.setAttribute('content', word + '&nbsp;');
 
-  element.innerHTML = word + '&#160;';
+  element.innerHTML = word + '&nbsp;';
 
   // this adds channeled data for RGB layering effects.
   // we discovered that this doesn't work on lower resolution
@@ -640,7 +643,11 @@ function extract_control_words(text, data)
           typeof data.definitions[id] !== 'undefined'
         ) {
           lookups.push(data.definitions[id]);
-        }
+        } else if (
+					typeof base_lookups[id] !== 'undefined'
+				){
+					lookups.push(base_lookups[id]);
+				}
       }
       else
       {
@@ -656,6 +663,27 @@ function extract_control_words(text, data)
     controls
 	}
 }
+
+const base_lookups = {
+	ultra: {
+		color: 'yellow'
+	},
+	black: {
+		color: 'rgb(58, 52, 255)'
+	},
+	bold: {
+		color: 'rgb(0, 255, 0)'
+	},
+	reg: {
+		color: 'cyan'
+	},
+	light: {
+		color: 'magenta'
+	},
+	extralight: {
+		color: 'red'
+	}
+};
 
 
 function preprocess_text_as_words(data)
@@ -717,11 +745,49 @@ function preprocess_text_as_words(data)
       }
 
       // handle custom commands
+
+			if (parse.controls.paths)
+			{
+				element_data.element.innerHTML = paths.length + '&nbsp';
+				delete parse.controls.paths;
+			}
+
+			if (parse.controls.path)
+			{
+				console.log(state.history.sequence)
+				console.log(paths);
+
+				element_data.element.innerHTML = (get_path_index(state.history.sequence, paths) + 1) + '&nbsp';
+				delete parse.controls.path;
+			}
+
+			if (parse.controls.parts)
+			{
+				element_data.element.innerHTML = stories.length + '&nbsp';
+				delete parse.controls.parts;
+			}
+
+			if (parse.controls.count)
+			{
+				element_data.element.innerHTML = state.history.sequence.length + '&nbsp';
+				delete parse.controls.count;
+			}
+
+
       if (parse.controls.trim)
       {
         let idx = element_data.element.innerHTML.indexOf('&nbsp;');
         element_data.element.innerHTML = element_data.element.innerHTML.slice(0, idx);
 				delete parse.controls.trim;
+				element_data.trim = true;
+      }
+
+
+
+      if (parse.controls.break)
+      {
+        element_data.breakAfter = true;
+				delete parse.controls.break;
       }
 
 			for (const key in parse.controls)
@@ -761,12 +827,14 @@ function render_frame(state, direction, ignore, ondone)
   let data = story_from_id(state.story.current, story_lookup, stories);
 
 	if (
-		(typeof data.ignore === 'undefined' || !data.ignore) ||
+		(typeof data.ignore === 'undefined' || !data.ignore) &&
 		(typeof ignore === 'undefined' || !ignore)
 	) {
 		state.history.sequence.push({id: state.story.current, direction})
 	  state.history.frames[data.id] = {index: state.history.sequence.length - 1};
 	}
+
+	console.log(state.history.sequence);
 
   state.transitioning = true;
 	specimen_toggle.classList.add('transitioning');
@@ -823,9 +891,49 @@ function render_frame(state, direction, ignore, ondone)
   // (optionally) add a process to precompile rests and stops into the data.
   let {text, marginalia, sidelines} = preprocess_text_as_words(data);
 
-  text.forEach((d, i, a) => {
-    story_parent.appendChild(d.element);
-  });
+	for (let i = 0; i < text.length; i++)
+	{
+
+		let d = text[i];
+
+		if (typeof d.trim !== 'undefined' && d.trim)
+		{
+			let wrapper = document.createElement('span');
+			wrapper.classList.add('no-break');
+
+			while (
+				(typeof d.trim !== 'undefined' && d.trim) ||
+				(typeof text[i-1] !== 'undefined' && typeof text[i-1].trim !== 'undefined' && text[i-1].trim)
+			) {
+
+				d = text[i];
+				wrapper.appendChild(d.element);
+
+				if (typeof d.breakAfter !== 'undefined' && d.breakAfter)
+				{
+					let br = document.createElement('br');
+					br.classList.add('word');
+					wrapper.appendChild(br)
+				}
+
+				i++;
+			}
+
+			i--;
+
+			story_parent.appendChild(wrapper);
+		}
+		else
+		{
+			story_parent.appendChild(d.element);
+			if (typeof d.breakAfter !== 'undefined' && d.breakAfter)
+			{
+				let br = document.createElement('br');
+				br.classList.add('word');
+				story_parent.appendChild(br)
+			}
+		}
+	}
 
 	// fit text to content with fit2d_binsearch
 

@@ -23,7 +23,9 @@ src_watcher.on('ready', async () => {
 
 
 
-let stories_watcher = chokidar.watch(['src/stories/**/*', 'src/initial.js'], {
+let stories_watcher = chokidar.watch([
+  'src/stories/**/*', 'src/initial.js', 'src/final.js'
+], {
   persistent: true
 });
 
