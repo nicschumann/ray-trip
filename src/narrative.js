@@ -71,7 +71,7 @@ let timers = []
 const default_animation = {
   state: 0,
   upper_limit: 10,
-  lower_limit: -50,
+  lower_limit: -10000,
 
   in: {
     offset: i => (i % 3 == 0) ? 0 : 100
@@ -378,6 +378,7 @@ const reset_state = (event, story, state) =>
 
 const blur_to_prev_state = (event, story, state) => {
   let t = story.animations.state;
+	let padding = 10;
 
 	let words = document.querySelectorAll('.word:not(.pending)');
 
@@ -396,6 +397,10 @@ const blur_to_prev_state = (event, story, state) => {
 		window.setTimeout(() => {
 			el.classList.add('pending');
 		}, state.timing.base);
+	}
+	else if (story.animations.state > story.animations.lower_limit + padding)
+	{
+		story.animations.state = story.animations.lower_limit + padding;
 	}
 };
 
@@ -822,6 +827,9 @@ function preprocess_text_as_words(data)
     let data = make_channel_data(text, offset, color);
     sidelines.push(data);
   });
+
+	// data.animations.lower_limit = -(text.length * 1.8) - 20;
+	// console.log(data.animations.lower_limit);
 
   return {text, marginalia, sidelines};
 }

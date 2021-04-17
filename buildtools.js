@@ -86,6 +86,7 @@ const buildstories = async () => {
 
     console.log('writing src/paths.js file.');
     fs.writeFileSync(target_pathways_path, `module.exports = ${util.inspect(paths, {depth: null, maxArrayLength: null})};`);
+    fs.writeFileSync(target_pathways_path, `module.exports = ${util.inspect(paths, {depth: null, maxArrayLength: null})};`);
   });
 }
 
