@@ -6,8 +6,14 @@
   sidelines: [
   ],
 
-  font: {
-    size: 42
+//  font: {
+//    size: 42
+//  },
+
+font: {
+    fontFamily: "Georgia",
+    fontSize: `35px`,
+    lineHeight: '42px',
   },
 
   transitions: {

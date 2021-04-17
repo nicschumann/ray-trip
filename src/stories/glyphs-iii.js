@@ -1,6 +1,10 @@
 {
   id: 'glyphs-iii',
-  text: `H, *150 O, *150 and D *150 carry the ideas required to build capitals. *1500 Gibberish strings keep time, *250 and I listen, *350 looking for ways to stretch and distort. *1500 I adjust the silences between the lights, *350 capturing the groove of a Psychedelic Georgia.`,
+  text: `Gibberish strings keep time, *1100 and I listen, *700 looking for ways to stretch and distort. *1500 Adjusting the silences between the lights, *500 I begin to capture the groove of a Psychedelic Georgia.`,
+
+  //H, *150 O, *150 and D *150 carry the ideas required to build capitals. *1500 
+
+
   marginalia: [
   ],
   sidelines: [
