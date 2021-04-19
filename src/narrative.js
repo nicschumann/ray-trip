@@ -550,7 +550,7 @@ let state = {
 	  frames: {},
 	  sequence: []
 	},
-  timers: [],
+  timeouts: [],
 	timing: {
 		acc: 0,
 		base: 65, // should be 65
@@ -793,13 +793,23 @@ function preprocess_text_as_words(data)
 				element_data.trim = true;
       }
 
-
-
       if (parse.controls.break)
       {
         element_data.breakAfter = true;
 				delete parse.controls.break;
       }
+
+			if (parse.controls.endframe)
+			{
+				element_data.functions.push((data, story, state) => {
+					state.timeouts.push(setTimeout(() => {
+						state.transitioning = false;
+						document.onwheel = do_transition_for_mousewheel(story, state);
+						specimen_toggle.classList.remove('transitioning');
+					}, state.timing.padding));
+				});
+				delete parse.controls.endframe;
+			}
 
 			for (const key in parse.controls)
 			{
@@ -838,6 +848,7 @@ function preprocess_text_as_words(data)
 
 function render_frame(state, direction, ignore, ondone)
 {
+	state.timeouts.forEach(clearTimeout);
   let data = story_from_id(state.story.current, story_lookup, stories);
 
 	if (
@@ -847,8 +858,6 @@ function render_frame(state, direction, ignore, ondone)
 		state.history.sequence.push({id: state.story.current, direction})
 	  state.history.frames[data.id] = {index: state.history.sequence.length - 1};
 	}
-
-	console.log(state.history.sequence);
 
   state.transitioning = true;
 	specimen_toggle.classList.add('transitioning');
@@ -1001,6 +1010,8 @@ function render_frame(state, direction, ignore, ondone)
 		}
 
   }, state.timing.acc + state.timing.padding);
+
+	state.timeouts.push(timer);
 
 
   state.timing.acc = 0;
