@@ -378,9 +378,12 @@ const reset_state = (event, story, state) =>
 
 const blur_to_prev_state = (event, story, state) => {
   let t = story.animations.state;
-	let padding = 10;
+	let padding = 0;
 
+	let pending = document.querySelectorAll('.word.pending');
 	let words = document.querySelectorAll('.word:not(.pending)');
+
+	Array.from(pending).forEach(el => { el.remove() });
 
 	let bl = story.animations.down.blur(Math.abs(t));
 	let op = story.animations.down.opacity(t);
@@ -704,144 +707,151 @@ function preprocess_text_as_words(data)
   let offset = 0;
 	let speed_ratio = state.timing.base / state.timing.default;
 
-  words.forEach((word, i) => {
-		let prefix = '';
-		if (word.indexOf('#') == 0)
-		{
-			word = word.slice(1);
-			prefix = '#';
-		}
-		else if (word.indexOf('$') == 0)
-		{
-			word = word.slice(1);
-			prefix = '$';
-		}
-
-
-    let parse = extract_control_words(word, data);
-    word = parse.word;
-
-    // deal with timing marks
-    if (word == '*') {
-      offset = 600 * speed_ratio;
-    }
-    else if (
-      word.indexOf('*') == 0 &&
-      Number.isInteger(+word.slice(1))
-    ) {
-      offset = +word.slice(1) * speed_ratio;
-    }
-
-    // deal with content
-    else
-    {
-      let element_data = make_channel_data(prefix + word, offset, data);
-
-      // handle custom style lookups
-      if (parse.lookups.length > 0)
-      {
-        for (const data of parse.lookups)
-        {
-          for (const key in data)
-          {
-            if (data.hasOwnProperty(key))
-            {
-              element_data.element.style[key] = data[key];
-            }
-          }
-        }
-      }
-
-      // handle custom commands
-
-			if (parse.controls.paths)
+	if (data.notiming)
+	{
+		let content = words.join(space);
+		let element_data = make_channel_data(content, offset, data);
+		text.push(element_data);
+	}
+	else
+	{
+		words.forEach((word, i) => {
+			let prefix = '';
+			if (word.indexOf('#') == 0)
 			{
-				element_data.element.innerHTML = paths.length + space;
-				delete parse.controls.paths;
+				word = word.slice(1);
+				prefix = '#';
 			}
-
-			if (parse.controls.path)
+			else if (word.indexOf('$') == 0)
 			{
-				element_data.element.innerHTML = (get_path_index(state.history.sequence, paths) + 1) + space;
-				delete parse.controls.path;
-			}
-
-			if (parse.controls.parts)
-			{
-				element_data.element.innerHTML = stories.length + space;
-				delete parse.controls.parts;
-			}
-
-			if (parse.controls.count)
-			{
-				element_data.element.innerHTML = state.history.sequence.length + space;
-				delete parse.controls.count;
-			}
-
-			if (parse.controls.remaining)
-			{
-				element_data.element.innerHTML = (stories.length - state.history.sequence.length) + space;
-				delete parse.controls.remaining;
+				word = word.slice(1);
+				prefix = '$';
 			}
 
 
-      if (parse.controls.trim)
-      {
-        let idx = element_data.element.innerHTML.indexOf(space);
-        element_data.element.innerHTML = element_data.element.innerHTML.slice(0, idx);
-				delete parse.controls.trim;
-				element_data.trim = true;
-      }
+	    let parse = extract_control_words(word, data);
+	    word = parse.word;
 
-      if (parse.controls.break)
-      {
-        element_data.breakAfter = true;
-				delete parse.controls.break;
-      }
+	    // deal with timing marks
+	    if (word == '*') {
+	      offset = 600 * speed_ratio;
+	    }
+	    else if (
+	      word.indexOf('*') == 0 &&
+	      Number.isInteger(+word.slice(1))
+	    ) {
+	      offset = +word.slice(1) * speed_ratio;
+	    }
 
-			if (parse.controls.endframe)
-			{
-				element_data.functions.push((data, story, state) => {
-					state.timeouts.push(setTimeout(() => {
-						state.transitioning = false;
-						document.onwheel = do_transition_for_mousewheel(story, state);
-						specimen_toggle.classList.remove('transitioning');
-					}, state.timing.padding));
-				});
-				delete parse.controls.endframe;
-			}
+	    // deal with content
+	    else
+	    {
+	      let element_data = make_channel_data(prefix + word, offset, data);
 
-			for (const key in parse.controls)
-			{
-				if (
-					parse.controls.hasOwnProperty(key) &&
-					typeof control_functions[key] === 'function'
-				) {
-					element_data.functions.push(control_functions[key]);
+	      // handle custom style lookups
+	      if (parse.lookups.length > 0)
+	      {
+	        for (const data of parse.lookups)
+	        {
+	          for (const key in data)
+	          {
+	            if (data.hasOwnProperty(key))
+	            {
+	              element_data.element.style[key] = data[key];
+	            }
+	          }
+	        }
+	      }
+
+	      // handle custom commands
+
+				if (parse.controls.paths)
+				{
+					element_data.element.innerHTML = paths.length + space;
+					delete parse.controls.paths;
 				}
-			}
 
-      offset = 0;
-      text.push(element_data);
-    }
-  });
+				if (parse.controls.path)
+				{
+					element_data.element.innerHTML = (get_path_index(state.history.sequence, paths) + 1) + space;
+					delete parse.controls.path;
+				}
 
-  data.marginalia.forEach((text, i) => {
-    let color = random_color();
-    let data = make_channel_data(text, offset, color);
-    marginalia.push(data);
-  });
+				if (parse.controls.parts)
+				{
+					element_data.element.innerHTML = stories.length + space;
+					delete parse.controls.parts;
+				}
 
-  data.sidelines.forEach((text, i) => {
-    let color = random_color();
-    let data = make_channel_data(text, offset, color);
-    sidelines.push(data);
-  });
+				if (parse.controls.count)
+				{
+					element_data.element.innerHTML = state.history.sequence.length + space;
+					delete parse.controls.count;
+				}
 
-	// data.animations.lower_limit = -(text.length * 1.8) - 20;
-	// console.log(data.animations.lower_limit);
+				if (parse.controls.remaining)
+				{
+					element_data.element.innerHTML = (stories.length - state.history.sequence.length) + space;
+					delete parse.controls.remaining;
+				}
 
-  return {text, marginalia, sidelines};
+
+	      if (parse.controls.trim)
+	      {
+	        let idx = element_data.element.innerHTML.indexOf(space);
+	        element_data.element.innerHTML = element_data.element.innerHTML.slice(0, idx);
+					delete parse.controls.trim;
+					element_data.trim = true;
+	      }
+
+	      if (parse.controls.break)
+	      {
+	        element_data.breakAfter = true;
+					delete parse.controls.break;
+	      }
+
+				if (parse.controls.endframe)
+				{
+					element_data.functions.push((data, story, state) => {
+						state.timeouts.push(setTimeout(() => {
+							state.transitioning = false;
+							document.onwheel = do_transition_for_mousewheel(story, state);
+							specimen_toggle.classList.remove('transitioning');
+						}, state.timing.padding));
+					});
+					delete parse.controls.endframe;
+				}
+
+				for (const key in parse.controls)
+				{
+					if (
+						parse.controls.hasOwnProperty(key) &&
+						typeof control_functions[key] === 'function'
+					) {
+						element_data.functions.push(control_functions[key]);
+					}
+				}
+
+	      offset = 0;
+	      text.push(element_data);
+	    }
+	  });
+	}
+
+	data.marginalia.forEach((text, i) => {
+		let color = random_color();
+		let data = make_channel_data(text, offset, color);
+		marginalia.push(data);
+	});
+
+	data.sidelines.forEach((text, i) => {
+		let color = random_color();
+		let data = make_channel_data(text, offset, color);
+		sidelines.push(data);
+	});
+
+
+	return {text, marginalia, sidelines};
 }
 
 

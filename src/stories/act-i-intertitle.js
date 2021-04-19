@@ -19,6 +19,7 @@
   },
 
   zerowidth: true,
+  notiming: true,
 
   animations: {
     in: {offset: i => (i % 8 == 0) ? 100 : 0}

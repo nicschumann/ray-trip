@@ -42,7 +42,7 @@
   ignore: true,
 
   transitions: {
-    next: [],
+    next: [{id: 'specimen-ii'}],
     prev: []
   }
 }
