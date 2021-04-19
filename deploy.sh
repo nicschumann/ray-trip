@@ -7,6 +7,7 @@ git checkout -b pre-gh-pages
 echo "!pub/bundle*" >> .gitignore
 echo "!pub/*.woff" >> .gitignore
 echo "!pub/*.eot" >> .gitignore
+echo "!pub/*.ttf" >> .gitignore
 
 git add pub .gitignore
 git commit -m "[pre-deploy] adds compiled assets to subtree."
