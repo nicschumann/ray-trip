@@ -6,7 +6,6 @@
 - [ ] **Typesetting for centered specimen text (desktop & mobile)**
 - [ ] **Typesetting for Large Words**
 - [ ] **Typesetting for end frames**
-
 - [x] debug negative sidebearings (f italic, for example) getting clipped on Safari.
 - [ ] ~manual "kerning" for `$trim`'ed colored punct.~
 - [ ] ~Think about Georgia / how to differentiate it? Maybe not?~
@@ -41,7 +40,7 @@
 
 ## Development
 
-- [ ] **Add command to support proper linebreaking for tapistry pages.**
+- [ ] **Add command to support proper linebreaking for tapestry pages, if needed.**
 - [ ] Design Mobile Interactions that work on iPhone.
 - [ ] Debug type on Mobile.
 - [x] Test out specimen icon as centered text.
