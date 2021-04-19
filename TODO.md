@@ -34,7 +34,7 @@
 - [ ] **Decide how to do animations, if at all.**
   - [ ] lean into timing? (Cem did a pass)
   - [ ] **push into snow effect / prototype it?**
-- [ ] `prelude-ii` timeout help.
+- [x] `prelude-ii` timeout help.
 - [x] Modify the up transition so that the duration depends on the length of the text.
 
 ## Development
