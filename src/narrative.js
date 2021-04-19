@@ -553,7 +553,7 @@ let state = {
   timeouts: [],
 	timing: {
 		acc: 0,
-		base: 65, // should be 65
+		base: 0, // should be 65
 		default: 65,
 		padding: 1000
 	},
@@ -572,17 +572,18 @@ let state = {
  *  4. Transition text in with a custom transition function.
  */
 
-function make_channel_data(word, offset, color={})
+function make_channel_data(word, offset, data, color={})
 {
+	let space = (data.zerowidth) ? '&#x200B;' : '&nbsp;';
 
   let element = document.createElement('span');
   element.classList.add('word');
   element.classList.add('channeled-word');
   element.classList.add('pending');
 
-  element.setAttribute('content', word + '&nbsp;');
+  element.setAttribute('content', word + space);
 
-  element.innerHTML = word + '&nbsp;';
+  element.innerHTML = word + space;
 
   // this adds channeled data for RGB layering effects.
   // we discovered that this doesn't work on lower resolution
@@ -693,9 +694,11 @@ const base_lookups = {
 
 function preprocess_text_as_words(data)
 {
+	let space = ((data.zerowidth) ? '&#x200B;' : '&nbsp;');
 
   let words = data.text.split(' ').filter(word => word.length > 0);
-  let text = [];
+
+	let text = [];
   let marginalia = [];
   let sidelines = [];
   let offset = 0;
@@ -732,7 +735,7 @@ function preprocess_text_as_words(data)
     // deal with content
     else
     {
-      let element_data = make_channel_data(prefix + word, offset);
+      let element_data = make_channel_data(prefix + word, offset, data);
 
       // handle custom style lookups
       if (parse.lookups.length > 0)
@@ -753,41 +756,38 @@ function preprocess_text_as_words(data)
 
 			if (parse.controls.paths)
 			{
-				element_data.element.innerHTML = paths.length + '&nbsp';
+				element_data.element.innerHTML = paths.length + space;
 				delete parse.controls.paths;
 			}
 
 			if (parse.controls.path)
 			{
-				console.log(state.history.sequence)
-				console.log(paths);
-
-				element_data.element.innerHTML = (get_path_index(state.history.sequence, paths) + 1) + '&nbsp';
+				element_data.element.innerHTML = (get_path_index(state.history.sequence, paths) + 1) + space;
 				delete parse.controls.path;
 			}
 
 			if (parse.controls.parts)
 			{
-				element_data.element.innerHTML = stories.length + '&nbsp';
+				element_data.element.innerHTML = stories.length + space;
 				delete parse.controls.parts;
 			}
 
 			if (parse.controls.count)
 			{
-				element_data.element.innerHTML = state.history.sequence.length + '&nbsp';
+				element_data.element.innerHTML = state.history.sequence.length + space;
 				delete parse.controls.count;
 			}
 
 			if (parse.controls.remaining)
 			{
-				element_data.element.innerHTML = (stories.length - state.history.sequence.length) + '&nbsp';
+				element_data.element.innerHTML = (stories.length - state.history.sequence.length) + space;
 				delete parse.controls.remaining;
 			}
 
 
       if (parse.controls.trim)
       {
-        let idx = element_data.element.innerHTML.indexOf('&nbsp;');
+        let idx = element_data.element.innerHTML.indexOf(space);
         element_data.element.innerHTML = element_data.element.innerHTML.slice(0, idx);
 				delete parse.controls.trim;
 				element_data.trim = true;

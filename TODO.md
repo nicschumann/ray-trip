@@ -12,13 +12,13 @@
 
 ## Content
 
-- [x] **Specimen ordering**
-- [ ] **Generate a proof-reading document or protocol somehow...**
-- [ ] **Deploy site, send link to friends.**
-- [ ] Act I / Act II intertitle content
-  - [ ] Consider the "tapestry" style.
-  - [ ] Consider using Glyph Snow animation.
-- [ ] Add a *The End* slide after `mantar` to show that the story is over, and we're transitioning to a new space.
+- [x] Specimen ordering
+- [ ] Generate a proof-reading document or protocol somehow...
+- [ ] Deploy site, send link to friends.
+- [ ] Consider: Intertitle content
+  - [x] Consider the "tapestry" style.
+  - [ ] Design Act I / Act II intertitle.
+  - [ ] Add a *The End* slide after `mantar` to show that the story is over, and we're transitioning to a new space.
 - [ ] Create second draft of story / edit all story frames
 - [ ] Copyedit specimen frames
 - [ ] Copyedit all quotemarks / punctuation / typographic marks
@@ -39,10 +39,10 @@
 
 ## Development
 
-- [ ] **Add command to support proper linebreaking for tapestry pages, if needed.**
 - [ ] Design Mobile Interactions that work on iPhone.
 - [ ] Debug type on Mobile.
 - [ ] The story data is really big, and takes too long to load. Add an "initial story" into the script, and then load `stories.js` asynchronously. `paths.js`, too.
+- [x] Add command to support proper linebreaking for tapestry pages, if needed.
 - [x] Test out specimen icon as centered text.
 
 ## Pre-Launch

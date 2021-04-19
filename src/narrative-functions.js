@@ -50,13 +50,6 @@ export const control_functions = {
 	  document.body.appendChild(span);
 	},
 
-	endframe: (data, story, state) => {
-		console.error('NotImplemented: endframe.')
-		state.transitioning = false;
-		document.onwheel = do_transition_for_mousewheel(story, state);
-		show_indicator();
-	},
-
 	drip: (data, story, state) => {
 		state.sim.state.added_colors.push({data:{pos: {x: 0.65, y: 0.65}, dir: {x: 10, y: 20}}});
 	},
