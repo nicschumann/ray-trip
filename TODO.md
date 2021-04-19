@@ -28,7 +28,7 @@
 - [ ] Decide how to do animations, if at all.
   - [ ] lean into timing?
   - [ ] push into snow effect / prototype it?
-- [ ] Modify the up transition so that the duration depends on the length of the text.
+- [x] Modify the up transition so that the duration depends on the length of the text.
 
 ## Development
 
