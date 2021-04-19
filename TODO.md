@@ -13,8 +13,8 @@
 ## Content
 
 - [x] Specimen ordering
-- [ ] Generate a proof-reading document or protocol somehow...
-- [ ] Deploy site, send link to friends.
+- [x] Generate a proof-reading document or protocol somehow...
+- [x] Deploy site, send link to friends.
 - [ ] Consider: Intertitle content
   - [x] Consider the "tapestry" style.
   - [ ] Design Act I / Act II intertitle.
