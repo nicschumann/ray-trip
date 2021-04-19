@@ -1,7 +1,7 @@
 {
   id: 'specimen-lang-i',
 
-  text: `Mantar#reg#h Regular#reg#h$break La escarcha$trim ,#light diamantina o purpurina es una variedad muy pequeña (#ultra$trim cerca de 1 mm²$trim )#ultra de pedazos de plásticos copolimerizados$trim ,#reg hojas de aluminio$trim ,#bold dióxido de titanio$trim ,#black óxidos de hierro$trim ,#extralight oxicloreto de bismuto u otros materiales pintados con colores metálicos$trim ,#light de neón y colores iridiscentes para reflejar la luz en un espectro de espumantes$trim .#reg`,
+  text: `Mantar#reg#h Regular#reg#h$break La escarcha, diamantina o purpurina es una variedad muy pequeña (cerca de 1 mm²) de pedazos de plásticos copolimerizados, hojas de aluminio, dióxido de titanio, óxidos de hierro, oxicloreto de bismuto u otros materiales pintados con colores metálicos, de neón y colores iridiscentes para reflejar la luz en un espectro de espumantes.`,
 
   marginalia: [
   ],
@@ -36,7 +36,7 @@
   ignore: true,
 
   transitions: {
-    next: [],
+    next: [{id: 'specimen-iii'}],
     prev: []
   }
 }

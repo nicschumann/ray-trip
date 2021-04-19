@@ -1,7 +1,7 @@
 {
   id: 'specimen-lang-iii',
 
-  text: `Mantar#light#h Light#light#h Italic#light#h$break Der Begriff Fotosatz oder Lichtsatz wurde für ein Verfahren zur Satzherstellung verwendet$trim ,#ultra bei welchem durch Belichtung der Schriftzeichen mittels eines optischen ($trim#bold und später optoelektronischen$trim )#bold Verfahrens mit sichtbarem Licht das zu setzende Zeichen auf einen Trägerfilm übertragen wurde$trim .#extralight Die dazu verwendeten Anlagen werden als Lichtsatzmaschinen oder Fotosatzmaschinen bezeichnet$trim .#reg`,
+  text: `Mantar#light#h Light#light#h Italic#light#h$break Der Begriff Fotosatz oder Lichtsatz wurde für ein Verfahren zur Satzherstellung verwendet, bei welchem durch Belichtung der Schriftzeichen mittels eines optischen (und später optoelektronischen) Verfahrens mit sichtbarem Licht das zu setzende Zeichen auf einen Trägerfilm übertragen wurde. Die dazu verwendeten Anlagen werden als Lichtsatzmaschinen oder Fotosatzmaschinen bezeichnet.`,
 
   marginalia: [
   ],
@@ -37,7 +37,7 @@
   ignore: true,
 
   transitions: {
-    next: [],
+    next: [{id: 'specimen-v'}],
     prev: []
   }
 }

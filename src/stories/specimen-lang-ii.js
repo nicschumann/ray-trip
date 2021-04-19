@@ -1,7 +1,7 @@
 {
   id: 'specimen-lang-ii',
 
-  text: `Mantar#bold#h Bold#bold#h$break Fotosazba byl způsob vytváření tiskové předlohy pro ofsetový tisk ($trim#black tisk z plochy$trim )#black pomocí fotografického filmu a papíru$trim .#reg Fotosázecí stroj promítal obrázky písmen na citlivý materiál$trim ,#light který po vyvolání sloužil k výrobě ofsetového listu$trim .#extralight Fotosazba v 60$trim .#reg letech téměř vytlačila „$trim#light horkou sazbu$trim “#light a pomohla nahradit knihtisk ofsetem$trim .#ultra`,
+  text: `Mantar#bold#h Bold#bold#h$break Fotosazba byl způsob vytváření tiskové předlohy pro ofsetový tisk (tisk z plochy) pomocí fotografického filmu a papíru. Fotosázecí stroj promítal obrázky písmen na citlivý materiál, který po vyvolání sloužil k výrobě ofsetového listu. Fotosazba v 60. letech téměř vytlačila „horkou sazbu“ a pomohla nahradit knihtisk ofsetem.`,
 
   marginalia: [
   ],
@@ -36,7 +36,7 @@
   ignore: true,
 
   transitions: {
-    next: [],
+    next: [{id: 'specimen-iv'}],
     prev: []
   }
 }

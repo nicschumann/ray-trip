@@ -1,7 +1,7 @@
 {
   id: 'specimen-words-iv',
 
-  text: `Mantar#extralight#h Extra#extralight#h Light#extralight#h Italic#extralight#h$break 60#w1 frames$trim#w1 /#ultra$trim second#w1#m$break Mantar#reg#h Regular#reg#h$break ¼ Cup of Milk#w2#m$break Mantar#bold#h Bold#bold#h Italic#bold#h$break Champiñón²#w3#m$break Mantar#ultra#h Ultra#ultra#h$break C$trim#w4 ₁₆$trim#extralight#w4 H$trim#w4 ₁₆$trim#extralight#w4 N$trim#w4 ₂$trim#extralight#w4 O$trim#w4 ₂#extralight#w4`,
+  text: `Mantar#extralight#h Extra#extralight#h Light#extralight#h Italic#extralight#h$break 60#w1 frames/second#w1#m$break Mantar#reg#h Regular#reg#h$break ¼ Cup of Milk#w2#m$break Mantar#bold#h Bold#bold#h Italic#bold#h$break Champiñón²#w3#m$break Mantar#ultra#h Ultra#ultra#h$break C₁₆H₁₆N₂O₂#w4`,
 
   marginalia: [
   ],
@@ -56,7 +56,7 @@
   ignore: true,
 
   transitions: {
-    next: [],
+    next: [{id: 'specimen-lang-iv'}],
     prev: []
   }
 }

@@ -41,7 +41,7 @@
   ignore: true,
   // TODO: link up the remaining specimens
   transitions: {
-    next: [],
+    next: [{id: 'specimen-words-i'}],
     prev: []
   }
 }
