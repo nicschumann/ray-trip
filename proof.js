@@ -1,3 +1,4 @@
-const buildproof = require('./buildtools.js').buildproof;
+const {buildstories, buildproof} = require('./buildtools.js');
 
+buildstories();
 buildproof();

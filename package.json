@@ -5,7 +5,8 @@
   "main": "src/main.js",
   "scripts": {
     "build": "node build.js",
-    "serve": "node serve.js"
+    "serve": "node serve.js",
+    "proof": "node proof.js"
   },
   "author": "",
   "license": "ISC",
