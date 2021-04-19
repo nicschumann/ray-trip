@@ -22,6 +22,7 @@
 - [ ] Copyedit specimen frames
 - [ ] Copyedit all quotemarks / punctuation / typographic marks
 - [ ] **Act I / Act II intertitle content**
+- [ ] Favicon
 
 ## Animation
 
