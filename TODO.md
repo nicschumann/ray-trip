@@ -12,7 +12,7 @@
 
 ## Content
 
-- [ ] **Specimen ordering**
+- [x] **Specimen ordering**
 - [ ] **Generate a proof-reading document or protocol somehow...**
 - [ ] **Deploy site, send link to friends.**
 - [ ] Act I / Act II intertitle content
