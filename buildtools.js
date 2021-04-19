@@ -2,7 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const util = require('util');
 const esbuild = require('esbuild');
-const solve_paths = require('./paths.js');
+const solve_paths = require('./paths.js').paths;
+const topsort = require('./paths.js').topsort;
 
 const buildjs = async path => {
   console.log('changed', path);
@@ -90,7 +91,116 @@ const buildstories = async () => {
   });
 }
 
+
+function extract_control_words(text, data)
+{
+  let word = '';
+  let controls = {}; // $
+  let lookups = []; // #
+
+  let split_words = text.split('$');
+
+  for (let i = 0; i < split_words.length; i++)
+  {
+    let split_subword = split_words[i].split('#');
+
+    for (let j = 0; j < split_subword.length; j++)
+    {
+      if (i == 0 && j == 0) {
+        let c = split_subword[0]
+        if (c.length == 0 && split_subword.length > 1) {
+          word = '#' + split_subword[1];
+        }
+        else
+        {
+          word = split_subword[0];
+        }
+      } else if (j > 0) {
+        // we split out a '#', do a lookup.
+        let id = split_subword[j]
+        if (
+          typeof data.definitions !== 'undefined' &&
+          typeof data.definitions[id] !== 'undefined'
+        ) {
+          lookups.push(data.definitions[id]);
+        } else if (
+					typeof {}[id] !== 'undefined'
+				){
+					lookups.push({}[id]);
+				}
+      }
+      else
+      {
+        // we split out a '$', set a command.
+        controls[split_subword[j]] = true;
+      }
+    }
+  }
+
+  return {
+    word,
+    lookups,
+    controls
+	}
+}
+
+function clean(story) {
+	let text = story.text.split(' ');
+
+	let words = text.map(word => {
+		if (word.indexOf('*') == 0) { return ''; }
+		data = extract_control_words(word, story);
+		let w = data.word;
+
+		if (typeof data.controls.break !== 'undefined') { w = w + '<br/>'; }
+		else if (typeof data.controls.trim == 'undefined') { w = w + ' '; }
+
+		return w;
+	});
+
+	return words.join('');
+}
+
+const buildproof = () => {
+  const target_stories_path = './src/stories.js';
+  const target_proof_path = './pub/proof.html';
+
+  delete require.cache[require.resolve(target_stories_path)];
+  delete require.cache[require.resolve('./src/initial.js')];
+  delete require.cache[require.resolve('./src/final.js')];
+
+  const story_data = require(target_stories_path);
+  const story_initial = require('./src/initial.js');
+  const story_final = require('./src/final.js');
+  const specimen_initial = 'specimen-i';
+
+  let story_sort = topsort(story_data, story_initial, story_final);
+
+  let story_text = story_sort.map(s => {
+    return [
+      `<h4>id: ${s.id}</h4>`,
+      `<p>${clean(s)}</p>`,
+    ].join("\n")
+  });
+
+	story_text = '<h1>Story</h1>' + story_text.join('\n\n');
+
+	let specimen_sort = topsort(story_data, specimen_initial);
+
+  let specimen_text = specimen_sort.map(s => {
+    return [
+			`<h4>id: ${s.id}</h4>`,
+      `<p>${clean(s)}</p>`,
+    ].join("\n")
+  });
+
+	specimen_text = '<h1>Specimen</h1>' + specimen_text.join('\n\n');
+
+	fs.writeFileSync(target_proof_path, `${story_text}\n\n\n\n${specimen_text}`);
+};
+
 module.exports = {
   buildjs,
-  buildstories
+  buildstories,
+  buildproof
 }

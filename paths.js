@@ -66,6 +66,41 @@ function make_story_transition(history, id, candidates)
 }
 
 
+function topsort(stories, story_lookup, initial, final)
+{
+		let permanent_marks = {};
+		let temporary_marks = {};
+		let results = [];
+
+		function visit(story_id)
+		{
+			let story = story_from_id(story_id, story_lookup, stories);
+
+			if (typeof permanent_marks[story.id] !== 'undefined' && permanent_marks[story.id]) {
+				return;
+			}
+
+			if (typeof temporary_marks[story.id] !== 'undefined' && temporary_marks[story.id]) {
+				throw new Error('TopSort: Not a DAG.');
+			}
+
+			temporary_marks[story.id] = true;
+
+			let candidates = story.transitions.next.concat(story.transitions.prev);
+			candidates = candidates.map(x => x.id);
+
+			candidates.forEach(visit);
+
+			delete temporary_marks[story.id];
+			permanent_marks[story.id] = true;
+			results.unshift(story);
+		}
+
+		visit(initial);
+
+		return results;
+}
+
 
 function dfs(stories, story_lookup, target, path, paths)
 {
@@ -111,7 +146,13 @@ function dfs(stories, story_lookup, target, path, paths)
   return paths;
 }
 
-module.exports = (stories, initial, final) => {
-  let story_lookup = stories_to_lookup_table(stories);
-  return dfs(stories, story_lookup, final, [initial], [])
+module.exports = {
+	paths: (stories, initial, final) => {
+	  let story_lookup = stories_to_lookup_table(stories);
+	  return dfs(stories, story_lookup, final, [initial], [])
+	},
+	topsort: (stories, initial, final) => {
+		let story_lookup = stories_to_lookup_table(stories);
+	  return topsort(stories, story_lookup, initial, final, []);
+	}
 }

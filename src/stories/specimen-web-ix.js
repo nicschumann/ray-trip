@@ -43,6 +43,6 @@
 
   transitions: {
     next: [],
-    prev: [{id: 'specimen-i'}]
+    prev: []
   }
 }
