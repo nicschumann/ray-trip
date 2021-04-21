@@ -9,12 +9,6 @@
   sidelines: [
   ],
 
-  font: {
-    fontFamily: "Georgia",
-    fontSize: `35px`,
-    lineHeight: '42px',
-  },
-
   transitions: {
     next: [{id: 'students-ii'}],
     prev: []

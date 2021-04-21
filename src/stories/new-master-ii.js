@@ -6,11 +6,6 @@
   sidelines: [
   ],
 
-  font: {
-    // weight: 200,
-    size: 36
-  },
-
   transitions: {
     next: [{id: 'overview-c-intro'}],
     prev: []

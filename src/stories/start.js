@@ -9,10 +9,6 @@
   sidelines: [
   ],
 
-  font: {
-    size: 36
-  },
-
   transitions: {
     next: [],
     prev: []

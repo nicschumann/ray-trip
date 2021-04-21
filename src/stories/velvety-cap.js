@@ -6,12 +6,6 @@
   sidelines: [
   ],
 
-  font: {
-    fontFamily: "Georgia",
-    fontSize: `35px`,
-    lineHeight: '42px',
-  },
-
   transitions: {
     next: [{id: 'typographic-abnormality-i'}],
     prev: [{id: 'students-i'}]

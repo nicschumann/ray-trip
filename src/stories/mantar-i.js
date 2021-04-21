@@ -6,16 +6,12 @@
   sidelines: [
   ],
 
-  font: {
-    size: 36
-  },
-
   definitions: {
     i: { fontStyle: 'italic' }
   },
 
   transitions: {
-    next: [{id: 'end-i'}],
+    next: [{id: 'act-end-intertitle'}],
     prev: []
   }
 }

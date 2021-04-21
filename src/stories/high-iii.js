@@ -6,10 +6,6 @@
   sidelines: [
   ],
 
-  font: {
-    size: 36
-  },
-
   transitions: {
     next: [{id: 'glyphs-i'}],
     prev: [{id: 'high-iv'}]

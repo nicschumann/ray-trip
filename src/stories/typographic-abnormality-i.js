@@ -6,16 +6,8 @@
   sidelines: [
   ],
 
-  font: {
-    fontFamily: "Georgia",
-    fontSize: `35px`,
-    lineHeight: '42px',
-  },
-
   definitions: {
     i: {
-      fontFamily: "Mantar",
-      fontSize: '40.5px',
       fontWeight: 300,
       fontStyle: 'italic'
     }

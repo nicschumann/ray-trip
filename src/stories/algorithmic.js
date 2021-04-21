@@ -5,11 +5,6 @@
   ],
   sidelines: [
   ],
-
-  font: {
-    size: 36
-  },
-
   transitions: {
     next: [{id: 'new-master-i'}],
     prev: []

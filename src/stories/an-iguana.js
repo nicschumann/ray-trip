@@ -9,9 +9,7 @@
   ],
 
   definitions: {
-    i: {
-      fontStyle: 'italic'}
-
+    i: {fontStyle: 'italic'}
   },
 
   transitions: {

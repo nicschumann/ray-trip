@@ -11,12 +11,6 @@
   sidelines: [
   ],
 
-  font: {
-    fontFamily: "Georgia",
-    fontSize: `35px`,
-    lineHeight: '42px',
-  },
-
   definitions: {
     itals: {
       fontStyle: 'italic'

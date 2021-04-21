@@ -6,10 +6,6 @@
   sidelines: [
   ],
 
-  font: {
-    size: 42
-  },
-
   transitions: {
     next: [],
     prev: []
