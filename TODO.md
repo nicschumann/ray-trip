@@ -2,33 +2,33 @@
 
 ## Typesetting
 
-- [ ] **Typesetting for main story (desktop & mobile)**
-- [ ] **Typesetting for centered specimen text (desktop & mobile)**
-- [ ] **Typesetting for Large Words**
-- [ ] **Typesetting for end frames**
 - [ ] **Link Styles**
+- [x] Typesetting for main story (desktop & mobile)
+- [x] Typesetting for centered specimen text (desktop & mobile)
+- [x] Typesetting for Large Words
+- [x] Typesetting for end frames
 - [x] debug negative sidebearings (f italic, for example) getting clipped on Safari.
+- [x] Think about Georgia / how to differentiate it? Maybe not?
 - [ ] ~manual "kerning" for `$trim`'ed colored punct.~
-- [ ] ~Think about Georgia / how to differentiate it? Maybe not?~
 
 ## Content
 
-- [x] Specimen ordering
-- [x] Generate a proof-reading document or protocol somehow...
-- [x] Deploy site, send link to friends.
+- [ ] **Favicon**
 - [ ] Consider: Intertitle content
   - [x] Consider the "tapestry" style.
-  - [ ] Design Act I / Act II intertitle.
-  - [ ] Add a *The End* slide after `mantar` to show that the story is over, and we're transitioning to a new space.
+  - [ ] **Design Act I / Act II intertitle.**
+  - [x] Add a *The End* slide after `mantar` to show that the story is over, and we're transitioning to a new space.
 - [ ] Create second draft of story / edit all story frames
 - [ ] Copyedit specimen frames
 - [ ] Copyedit all quotemarks / punctuation / typographic marks
-- [ ] Consider adding more intertitles (Act I, Act II, The End, ...) if needed.
-- [ ] Favicon
+- [x] Specimen ordering
+- [x] Generate a proof-reading document or protocol somehow...
+- [x] Deploy site, send link to friends.
 - [x] Create 3 more large word layouts
 - [x] Create 3 more large language layouts
 - [x] Create 3 more large story specimen layouts
 - [x] Finish story ending frames
+- [ ] ~Consider adding more intertitles (Act I, Act II, The End, ...) if needed.~
 
 ## animation
 
@@ -53,9 +53,13 @@
 
 ## Pre-Launch
 
-- [ ] Review QA Jill Notes and update fonts on site (if needed).
+- [ ] Review QA Jill Notes.
+  - [ ] update fonts on site (if needed).
 - [ ] Develop instagram posts (video + caption)
+  - [ ] plan instagram rollout strategy and timeline
+  - [ ] develop content for posts
+  - [ ] screen-record posts
 - [ ] Build font page for occ website upload.
-- [ ] Do domain redirects w/ Marie (mantar.occupantfonts.com)
+- [ ] **Do domain redirects w/ Marie (mantar.occupantfonts.com)**
 - [ ] Write Mantar Design Notes article (for occupantfonts.com).
 - [ ] Have a recorded conversation about the website project (to scaffold an article for occupantfonts.com on the project).
