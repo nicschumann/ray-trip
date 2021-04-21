@@ -101,7 +101,7 @@
 
   font-family: "Mantar";
   font-weight:100;
-  font-size:42px;
+  font-size:calc(max(42px, min(5vw, 50px)));
 
   /* color:red; */
   color:#fff;

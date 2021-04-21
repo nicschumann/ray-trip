@@ -78,9 +78,19 @@ body
 	/* perspective: 550px; */
 	/* overflow: visible; */
 	/* mix-blend-mode: difference; */
-	font-size:calc(max(25px, min(5vw, 40px)));
-	line-height: 1.15em;
+
+	/* TODO: Edit this later */
+	font-size:calc(max(31px, min(5vw, 40px)));
+	line-height: 1.13em;
 	/* line-height: calc(min(max(1.1em, 6vw), 1.15em)); */
+}
+.story-frame.specimen {
+	width: 75%;
+	max-width: 75%;
+}
+.story-frame.specimen-word {
+	width: 200%;
+	max-width: 200%;
 }
 .story-frame.debug
 {
@@ -262,7 +272,6 @@ body
 	display: inline-block;
 	color:white;
 	/* white-space: nowrap; */
-	font-size: inherit;
 
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
@@ -359,7 +368,7 @@ br.word {
 
 /* Sidebar visible */
 
-@media screen and (min-width:1250px) {
+/* @media screen and (min-width:1250px) {
 	.margin-text-frame .word,
 	.margin-text-frame .channel
 	{
@@ -387,9 +396,9 @@ br.word {
 
 		width:calc(81vw - 2rem);
 	}
-}
+} */
 
-
+/*
 @media screen and (min-width:1000px) and (max-width:1250px) {
 	.margin-text-frame .word,
 	.margin-text-frame .channel
@@ -410,20 +419,12 @@ br.word {
 		margin-right: 2vw;
 		display:block;
 	}
-
-	#primary-text-frame
-	{
-		position:absolute;
-		left:23vw;
-
-		width:calc(77vw - 2rem);
-	}
-}
+} */
 
 
 
 /* No sidebar visible */
-
+/*
 @media screen and (min-width:750px) and (max-width:1000px) {
 	.margin-text-frame .word,
 	.margin-text-frame .channel
@@ -437,9 +438,9 @@ br.word {
 	{
 		display: none;
 	}
-}
+} */
 
-
+/*
 @media screen and (min-width:580px) and (max-width:750px) {
 	.margin-text-frame .word,
 	.margin-text-frame .channel
@@ -464,8 +465,8 @@ br.word {
 		width:60%;
 		margin-bottom:2em;
 	}
-}
-
+} */
+/*
 @media screen and (max-width:580px) {
 	.margin-text-frame .word,
 	.margin-text-frame .channel
@@ -490,12 +491,20 @@ br.word {
 		width:80%;
 		margin-bottom:2em;
 	}
-}
+} */
 
 
 /* Extra letter spacing for smaller sizes. */
 @media screen and (max-width:750px) {
 	.story-frame {
 			letter-spacing: 0.2px;
+	}
+}
+
+/* Extra letter spacing for smaller sizes. */
+@media screen and (max-width:420px) {
+	.story-frame.specimen {
+		width:95%;
+		max-width: 95%;
 	}
 }

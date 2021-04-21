@@ -691,6 +691,13 @@ const base_lookups = {
 	},
 	extralight: {
 		color: 'red'
+	},
+	h: {
+		fontSize: `clamp(7.0px, 1.5vw, 10px)`,
+		fontFamily: 'Magmatic',
+		fontVariationSettings: "'wght' 400, 'wdth' 125",
+		letterSpacing: '1px',
+		textTransform: 'uppercase',
 	}
 };
 
@@ -897,6 +904,25 @@ function render_frame(state, direction, ignore, ondone)
   indicator.classList.remove('done');
   story_parent.setAttribute('style', '');
   story_parent.parentNode.setAttribute('style', '');
+
+	// NOTE: Remove this if you ever want
+	// to use it for anything other than Mantar.
+	// This is specific to the naming scheme for mantar.
+	if (data.id.indexOf('specimen-words') !== -1)
+	{
+		story_parent.classList.add('specimen-word');
+		story_parent.classList.remove('specimen');
+	}
+	else if (data.id.indexOf('specimen') !== -1)
+	{
+		story_parent.classList.add('specimen');
+		story_parent.classList.remove('specimen-word');
+	}
+	else
+	{
+		story_parent.classList.remove('specimen');
+		story_parent.classList.remove('specimen-word');
+	}
 
   if (typeof data.font !== 'undefined')
   {
