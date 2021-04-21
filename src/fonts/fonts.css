@@ -3,6 +3,8 @@
   src: url("./MagmaticVF.ttf") format('truetype');
 
   font-style: normal;
+  font-display: swap;
+
 }
 
 
@@ -13,6 +15,8 @@
 
   font-weight: 900;
   font-style: normal;
+  font-display: swap;
+
 }
 
 @font-face {
@@ -22,6 +26,8 @@
 
   font-weight: 900;
   font-style: italic;
+  font-display: swap;
+
 }
 
 
@@ -32,6 +38,8 @@
 
   font-weight: 800;
   font-style: normal;
+  font-display: swap;
+
 }
 
 @font-face {
@@ -41,6 +49,8 @@
 
   font-weight: 800;
   font-style: italic;
+  font-display: swap;
+
 }
 
 
@@ -51,6 +61,8 @@
 
   font-weight: 700;
   font-style: normal;
+  font-display: swap;
+
 }
 
 @font-face {
@@ -60,6 +72,8 @@
 
   font-weight: 700;
   font-style: italic;
+  font-display: swap;
+
 }
 
 
@@ -70,6 +84,8 @@
 
   font-weight: 400;
   font-style: normal;
+  font-display: swap;
+
 }
 
 @font-face {
@@ -79,6 +95,7 @@
 
   font-weight: 400;
   font-style: italic;
+  font-display: swap;
 }
 
 
@@ -89,6 +106,8 @@
 
   font-weight: 300;
   font-style: normal;
+  font-display: swap;
+
 }
 
 @font-face {
@@ -98,6 +117,8 @@
 
   font-weight: 300;
   font-style: italic;
+  font-display: swap;
+
 }
 
 
@@ -108,6 +129,8 @@
 
   font-weight: 280;
   font-style: normal;
+  font-display: swap;
+
 }
 
 @font-face {
@@ -117,6 +140,8 @@
 
   font-weight: 280;
   font-style: italic;
+  font-display: swap;
+
 }
 
 

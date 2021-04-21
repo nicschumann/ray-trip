@@ -96,12 +96,13 @@
 #specimen-toggle
 {
   position: absolute;
-  bottom:1rem;
-  left:1rem;
+  bottom:0;
+  left:0;
 
   font-family: "Mantar";
   font-weight:100;
   font-size:calc(max(42px, min(5vw, 50px)));
+	padding:1rem;
 
   /* color:red; */
   color:#fff;
@@ -114,7 +115,7 @@
 }
 #specimen-toggle.active {
   /* bottom:calc(100vh - 3rem); */
-  left:calc(50vw - 1rem);
+  left:calc(50vw - 1.5rem);
   font-weight:900;
 }
 

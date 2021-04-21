@@ -3,11 +3,16 @@
 @import "./specimen.css";
 @import "./sim.css";
 
+* {
+	/* cursor: url("./fonts/cursor.svg") 10 0, auto; */
+}
+
 html
 {
 	--breakpoint: 700px;
 	overflow: hidden;
 	height:100%;
+
 }
 
 body
@@ -285,15 +290,12 @@ body
 		color var(--time) var(--curve);
 }
 
-.word.break:after {
-	content: '\A';
-	white-space: pre-line;
+.word a {
+	color:white;
 }
 
-.comma-after:after {
-	content:', ';
-	white-space: pre;
-	color:red;
+.word a:hover {
+	font-style: italic;
 }
 
 br.word {

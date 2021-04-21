@@ -1,1 +1,1 @@
-module.exports = 'act-end-intertitle';
+module.exports = 'end-iii';

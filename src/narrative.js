@@ -1,4 +1,5 @@
 require('./main.css');
+let FontFaceObserver = require('fontfaceobserver');
 const stories = require( './stories.js');
 const paths = require('./paths.js');
 import {fit2d_binsearch} from './fit2d.js';
@@ -1099,47 +1100,24 @@ function render_end(state) {
   document.onwheel = null;
 }
 
+let fonts = [
+	new FontFaceObserver("Mantar", { weight: 280, style: 'normal' }).load(),
+	new FontFaceObserver("Mantar", { weight: 300, style: 'normal' }).load(),
+	new FontFaceObserver("Mantar", { weight: 400, style: 'normal' }).load(),
+	new FontFaceObserver("Mantar", { weight: 700, style: 'normal' }).load(),
+	new FontFaceObserver("Mantar", { weight: 800, style: 'normal' }).load(),
+	new FontFaceObserver("Mantar", { weight: 900, style: 'normal' }).load(),
+	new FontFaceObserver("Mantar", { weight: 280, style: 'italic' }).load(),
+	new FontFaceObserver("Mantar", { weight: 300, style: 'italic' }).load(),
+	new FontFaceObserver("Mantar", { weight: 400, style: 'italic' }).load(),
+	new FontFaceObserver("Mantar", { weight: 700, style: 'italic' }).load(),
+	new FontFaceObserver("Mantar", { weight: 800, style: 'italic' }).load(),
+	new FontFaceObserver("Mantar", { weight: 900, style: 'italic' }).load()
+];
 
-render_frame(state, 'start');
-// render_end(state);
-
-// let timer_id = null;
-// const ro = new ResizeObserver(entries => {
-//   window.clearTimeout(timer_id);
-//   timer_id = window.setTimeout(() => {
-//     var story = story_from_id(state.story.current);
-//     if (
-//       typeof story.font == 'undefined' ||
-//       typeof story.font.fontSize === 'undefined'
-//     ) {
-//       fit2d_binsearch(state.story.stage.container, 1);
-//     }
-//   }, 100);
-// });
-//
-// ro.observe(document.querySelector('#story-container').parentNode);
-
-// uncomment this for a janky transition function
-// we might need to do some book-keeping to clear the timers.
-// document.addEventListener('click', () => {
-//   let words = document.getElementsByClassName('word');
-//
-//   Array.from(words).forEach((el, i) => {
-//     window.setTimeout(() => {
-//       el.classList.remove('pending');
-//     }, i * 3);
-//   });
-//
-//   state.transitioning = false;
-//   let indicator = document.getElementById('state-indicator');
-//   indicator.classList.add('active');
-//   window.setTimeout(() => {
-//     indicator.classList.add('done');
-//   }, 250);
-//   let data = story_from_id(state.story.current);
-//   document.onwheel = do_transition_for_mousewheel(data, state);
-//   timers = [];
-// });
+Promise.all(fonts).then(() => {
+	render_frame(state, 'start');
+})
 
 function if_esc(f)
 {
@@ -1187,6 +1165,17 @@ function render_specimen()
 }
 
 function specimen_toggle_classes () {
+	if (specimen_toggle.classList.contains('active'))
+	{
+		console.log('toggling to &');
+		specimen_toggle.innerText = '&';
+	}
+	else
+	{
+		console.log('toggling to ⁂');
+		specimen_toggle.innerText = '⁂';
+	}
+
 	specimen_toggle.classList.toggle('active');
 	specimen_toggle.classList.remove('moving');
 	specimen_toggle.ontransitionend = null;

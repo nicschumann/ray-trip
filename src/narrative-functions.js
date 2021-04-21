@@ -57,6 +57,10 @@ export const control_functions = {
 	// inline links:
 	lcontact: (data, story, state) => {
 		make_link(data.element, 'https://occupantfonts.com/about#contact');
+	},
+
+	lpurchase: (data, story, state) => {
+		make_link(data.element, 'https://store.typenetwork.com/foundry/occupant/fonts/mantar');
 	}
 }
 
