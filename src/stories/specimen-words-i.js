@@ -13,13 +13,10 @@
     top: '40vh',
     left: '50vw',
 
-    width: '80%',
-    // maxWidth: '900px',
-
     transform: 'translate(-50%,-50%)',
     textAlign: 'center',
     fontWeight: 400,
-    fontSize: 'calc(min(10vw, 100px))',
+    fontSize: 'calc(clamp(53px, 12.5vw, 100px))',
     lineHeight: 'calc(max(min(6vw, 50px), 35px))'
   },
 
@@ -40,14 +37,6 @@
     },
     m: {
       marginBottom:'2vh'
-    },
-    h: {
-      fontSize: `12px`,
-      fontFamily: 'Magmatic',
-      fontVariationSettings: "'wght' 400, 'wdth' 125",
-      letterSpacing: '1px',
-      textTransform: 'uppercase',
-      fontStyle:'normal',
     }
   },
 

@@ -12,9 +12,6 @@
     top: '40vh',
     left: '50vw',
 
-    width: '75%',
-    maxWidth:'75%',
-
     transform: 'translate(-50%,-50%)',
     textAlign: 'center',
     fontWeight: 400
@@ -26,14 +23,6 @@
     },
     i: {
       fontStyle: 'italic'
-    },
-    h: {
-      fontSize: `12px`,
-      fontFamily: 'Magmatic',
-      fontVariationSettings: "'wght' 400, 'wdth' 125",
-      letterSpacing: '1px',
-      textTransform: 'uppercase',
-      color:'magenta'
     }
   },
 

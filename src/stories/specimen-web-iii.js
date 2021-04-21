@@ -14,9 +14,6 @@
     top: '40vh',
     left: '50vw',
 
-    width: '75%',
-    maxWidth:'75%',
-
     transform: 'translate(-50%,-50%)',
     textAlign: 'center',
     fontWeight: 400

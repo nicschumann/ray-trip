@@ -13,13 +13,9 @@
     top: '40vh',
     left: '50vw',
 
-    width: '80%',
-    // maxWidth: '900px',
-
     transform: 'translate(-50%,-50%)',
     textAlign: 'center',
     fontWeight: 700,
-    fontSize: 'calc(min(4.5vw, 55px))',
   },
 
   definitions: {

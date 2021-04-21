@@ -13,14 +13,11 @@
     top: '40vh',
     left: '50vw',
 
-    width: '90%',
-    // maxWidth: '900px',
-
     transform: 'translate(-50%,-50%)',
     textAlign: 'center',
     fontWeight: 400,
-    fontSize: 'calc(min(12vw, 150px))',
-    lineHeight: 'calc(max(min(6.5vw, 80px), 40px))'
+    fontSize: 'calc(clamp(53px, 12.5vw, 100px))',
+    lineHeight: 'calc(max(min(6vw, 50px), 35px))'
   },
 
   definitions: {
@@ -42,14 +39,6 @@
     },
     m: {
       marginBottom:'2vh'
-    },
-    h: {
-      fontSize: `12px`,
-      fontFamily: 'Magmatic',
-      fontVariationSettings: "'wght' 400, 'wdth' 125",
-      letterSpacing: '1px',
-      textTransform: 'uppercase',
-      fontStyle:'normal',
     }
   },
 

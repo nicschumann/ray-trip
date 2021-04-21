@@ -13,13 +13,11 @@
     top: '40vh',
     left: '50vw',
 
-    width: '80%',
-    // maxWidth: '900px',
-
     transform: 'translate(-50%,-50%)',
     textAlign: 'center',
     fontWeight: 900,
-    fontSize: 'calc(min(5.5vw, 72px))'
+    fontSize: 'min(max(45px,7.5vw), 80px)',
+    lineHeight: '0.85em'
   },
 
   definitions: {
@@ -28,13 +26,6 @@
     },
     i: {
       fontStyle: 'italic'
-    },
-    h: {
-      fontSize: `12px`,
-      fontFamily: 'Magmatic',
-      fontVariationSettings: "'wght' 400, 'wdth' 125",
-      letterSpacing: '1px',
-      textTransform: 'uppercase',
     }
   },
 

@@ -13,25 +13,15 @@
     top: '40vh',
     left: '50vw',
 
-    width: '80%',
-    // maxWidth: '900px',
-
     transform: 'translate(-50%,-50%)',
     textAlign: 'center',
     fontWeight: 280,
-    fontSize: 'calc(min(5.5vw, 72px))',
+    fontSize: 'min(max(30px, 7vw), 60px)',
     fontStyle:'italic',
+    lineHeight: '1em'
   },
 
   definitions: {
-    h: {
-      fontSize: `12px`,
-      fontFamily: 'Magmatic',
-      fontVariationSettings: "'wght' 400, 'wdth' 125",
-      letterSpacing: '1px',
-      textTransform: 'uppercase',
-      fontStyle:'normal',
-    }
   },
 
   ignore: true,

@@ -12,14 +12,12 @@
     position: 'absolute',
     top: '40vh',
     left: '50vw',
-
-    width: '80%',
-    // maxWidth: '900px',
+    fontSize: 'calc(min(max(31px,5.2vw), 80px))',
+    lineHeight: '0.9em',
 
     transform: 'translate(-50%,-50%)',
     textAlign: 'center',
     fontWeight: 900,
-    fontSize: 'calc(min(5.5vw, 72px))',
     //fontStyle:'italic',
   },
 

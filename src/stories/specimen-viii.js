@@ -13,13 +13,10 @@
     top: '40vh',
     left: '50vw',
 
-    width: '80%',
-    // maxWidth: '900px',
 
     transform: 'translate(-50%,-50%)',
     textAlign: 'center',
     fontWeight: 280,
-    fontSize: 'calc(min(3vw, 75px))',
     //fontStyle:'italic',
   },
 
