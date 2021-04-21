@@ -41,19 +41,21 @@
 ## Development
 
 - [ ] Add links to relevant websites.
-- [ ] Make the clickable area for the `&` a little bigger, and make the typesize a bit bigger, too.
-  - [ ] Change the icon for the `&` to something else? `?` or `⁂`, for example?
-- [ ] Change the cursor to the up-down arrow by default, and then the hand over the `&`.
 - [ ] Design Mobile Interactions that work on iPhone.
-- [ ] Debug type on Mobile.
+- [x] Debug type on Mobile.
 - [ ] The story data is really big, and takes too long to load. Add an "initial story" into the script, and then load `stories.js` asynchronously. `paths.js`, too.
 - [ ] Check for horizontal scroll.
 - [x] Add command to support proper linebreaking for tapestry pages, if needed.
 - [x] Test out specimen icon as centered text.
+- [x] Add `FontObserver` trigger to prevent style pop-in.
+- [x] Make the clickable area for the `&` a little bigger, and make the typesize a bit bigger, too.
+  - [x] Change the icon for the `&` to something else? `?` or `⁂`, for example?
+- [ ] ~Change the cursor to the up-down arrow by default, and then the hand over the `&`.~
+
 
 ## Pre-Launch
 
-- [ ] Review QA Jill Notes.
+- [x] Review QA Jill Notes.
   - [ ] update fonts on site (if needed).
 - [ ] Develop instagram posts (video + caption)
   - [ ] plan instagram rollout strategy and timeline
