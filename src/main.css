@@ -67,7 +67,6 @@ body
 {
 	display: block;
   color:white;
-  font-size:40px;
   height:fit-content;
 	/* TODO: figure out the right max width */
 	max-width: 1000px;
@@ -79,8 +78,9 @@ body
 	/* perspective: 550px; */
 	/* overflow: visible; */
 	/* mix-blend-mode: difference; */
-
-	line-height: calc(min(max(1.1em, 6vw), 1.15em));
+	font-size:calc(max(25px, min(5vw, 40px)));
+	line-height: 1.15em;
+	/* line-height: calc(min(max(1.1em, 6vw), 1.15em)); */
 }
 .story-frame.debug
 {
@@ -489,5 +489,13 @@ br.word {
 	{
 		width:80%;
 		margin-bottom:2em;
+	}
+}
+
+
+/* Extra letter spacing for smaller sizes. */
+@media screen and (max-width:750px) {
+	.story-frame {
+			letter-spacing: 0.2px;
 	}
 }
