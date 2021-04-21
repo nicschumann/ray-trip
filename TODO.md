@@ -6,6 +6,7 @@
 - [ ] **Typesetting for centered specimen text (desktop & mobile)**
 - [ ] **Typesetting for Large Words**
 - [ ] **Typesetting for end frames**
+- [ ] **Link Styles**
 - [x] debug negative sidebearings (f italic, for example) getting clipped on Safari.
 - [ ] ~manual "kerning" for `$trim`'ed colored punct.~
 - [ ] ~Think about Georgia / how to differentiate it? Maybe not?~
@@ -39,9 +40,14 @@
 
 ## Development
 
+- [ ] Add links to relevant websites.
+- [ ] Make the clickable area for the `&` a little bigger, and make the typesize a bit bigger, too.
+  - [ ] Change the icon for the `&` to something else? `?` or `⁂`, for example?
+- [ ] Change the cursor to the up-down arrow by default, and then the hand over the `&`.
 - [ ] Design Mobile Interactions that work on iPhone.
 - [ ] Debug type on Mobile.
 - [ ] The story data is really big, and takes too long to load. Add an "initial story" into the script, and then load `stories.js` asynchronously. `paths.js`, too.
+- [ ] Check for horizontal scroll.
 - [x] Add command to support proper linebreaking for tapestry pages, if needed.
 - [x] Test out specimen icon as centered text.
 
