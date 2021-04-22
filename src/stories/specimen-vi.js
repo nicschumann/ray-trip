@@ -21,21 +21,10 @@
     //fontStyle:'italic',
   },
 
-  definitions: {
-    h: {
-      fontSize: `12px`,
-      fontFamily: 'Magmatic',
-      fontVariationSettings: "'wght' 400, 'wdth' 125",
-      letterSpacing: '1px',
-      textTransform: 'uppercase',
-      fontStyle:'normal',
-    }
-  },
-
   ignore: true,
 
   transitions: {
-    next: [{id: 'specimen-i'}],
+    next: [{id: 'specimen-words-v'}],
     prev: []
   }
 }

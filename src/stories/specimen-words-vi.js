@@ -47,7 +47,7 @@
   ignore: true,
 
   transitions: {
-    next: [],
+    next: [{id: 'specimen-lang-vi'}],
     prev: []
   }
 }
