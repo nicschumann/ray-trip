@@ -7,27 +7,25 @@
 
 ## Content
 
-- [ ] **Expand / complete specimen frames**
 - [ ] **Favicon**
 - [ ] **Copyedit all quotemarks / punctuation / typographic marks**
 - [ ] Review links to relevant websites.
 - [ ] Consider: Intertitle content
   - [x] Consider the "tapestry" style.
-  - [ ] **Design Act I / Act II intertitle.**
+  - [x] Design Act I / Act II intertitle.
+  - [ ] Implement intertitles
   - [x] Add a *The End* slide after `mantar` to show that the story is over, and we're transitioning to a new space.
-- [ ] Create second draft of story / edit all story frames
+- [ ] Edit all story frames
 
 ## Development
 
 
 - [ ] [Not sure if this is a real issue?] The story data is really big, and takes too long to load. Add an "initial story" into the script, and then load `stories.js` asynchronously. `paths.js`, too.
-- [x] Check for horizontal scroll.
-- [x] **Design Mobile Interactions that work on iPhone.**
-- [x] Fix placement of asterism so its centered; update text of `specimen-i`.
+
 
 ## Animation
 
-- [ ] Decide how to do animations, if at all.
+- [ ] **Decide how to do animations, if at all.**
   - [ ] lean into timing? (Cem did a pass)
   - [ ] push into snow effect / prototype it?
 
@@ -70,6 +68,10 @@
   - [x] Change the icon for the `&` to something else? `?` or `⁂`, for example?
 - [x] `prelude-ii` timeout help.
 - [x] Modify the up transition so that the duration depends on the length of the text.
+- [x] Check for horizontal scroll.
+- [x] Design Mobile Interactions that work on iPhone.
+- [x] Fix placement of asterism so its centered; update text of `specimen-i`.
+- [x] Expand / complete specimen frames
 - [ ] ~manual "kerning" for `$trim`'ed colored punct.~
 - [ ] ~Change the cursor to the up-down arrow by default, and then the hand over the `&`.~
 - [ ] ~Consider adding more intertitles (Act I, Act II, The End, ...) if needed.~
