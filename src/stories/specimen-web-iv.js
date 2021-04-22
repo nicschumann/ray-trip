@@ -1,7 +1,7 @@
 {
   id: 'specimen-web-iv',
 
-  text: `Mantar#h Regular#h$break We also knew that we wanted to tell a story, a fictionalized account of how the typeface was inspired and made. We wanted a narrative experience that was “shallow,” centering a single browser interaction (vertical scroll). Our hope is that this makes the site feel like a journey, rather than a document.`,
+  text: `Mantar#h#reg Regular#h#reg$break We also knew that we wanted to tell a story, *350 a fictionalized account of how the typeface was inspired and made. *1500 We wanted a narrative experience that was “shallow,” *350 centering a single browser interaction (vertical scroll). *1500 Our hope is that this makes the site feel like a journey, *350 rather than a document.`,
 
   marginalia: [
   ],
@@ -23,14 +23,6 @@
     },
     i: {
       fontStyle: 'italic'
-    },
-    h: {
-      fontSize: `12px`,
-      fontFamily: 'Magmatic',
-      fontVariationSettings: "'wght' 400, 'wdth' 125",
-      letterSpacing: '1px',
-      textTransform: 'uppercase',
-      color:'magenta'
     }
   },
 

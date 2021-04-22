@@ -1,7 +1,7 @@
 {
   id: 'specimen-web-iii',
 
-  text: `Mantar#h Regular#h$break From the beginning, we knew that we didn’t want to follow the standard formula for a specimen site. Type testers, character grids, and feature overviews are essential, but we already have a great framework for all of that on occupantfonts.com$lcontact$trim .`,
+  text: `Mantar#h#reg Regular#h#reg$break From the beginning, *350 we knew that we didn’t want to follow the standard formula for a specimen site. *1500 Type testers, *350 character grids, *350 and feature overviews are essential, *450 but we already have a great framework for all of that on occupantfonts.com$lmantar$trim .`,
   // link: occupantfonts.com/fonts/mantar
 
   marginalia: [
@@ -25,14 +25,6 @@
     },
     i: {
       fontStyle: 'italic'
-    },
-    h: {
-      fontSize: `12px`,
-      fontFamily: 'Magmatic',
-      fontVariationSettings: "'wght' 400, 'wdth' 125",
-      letterSpacing: '1px',
-      textTransform: 'uppercase',
-      color:'magenta'
     }
   },
 

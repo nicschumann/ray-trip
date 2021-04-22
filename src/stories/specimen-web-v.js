@@ -1,7 +1,7 @@
 {
   id: 'specimen-web-v',
 
-  text: `Mantar#h Regular#h$break When we first implemented the “blur-in” text-rendering you’ve been seeing, we were surprised by how temporal it made the text feel. It seemed suddenly like the text was being read to us in a very specific voice: we were listening, rather than reading.`,
+  text: `Mantar#h#reg Regular#h#reg$break When we first implemented the “blur-in” text-rendering you’ve been seeing, *500 we were surprised by how temporal it made the text feel. *1500 It seemed suddenly like the text was being read to us in a very specific voice: *500 we were listening, rather than reading.`,
 
   marginalia: [
   ],
@@ -24,14 +24,6 @@
     },
     i: {
       fontStyle: 'italic'
-    },
-    h: {
-      fontSize: `12px`,
-      fontFamily: 'Magmatic',
-      fontVariationSettings: "'wght' 400, 'wdth' 125",
-      letterSpacing: '1px',
-      textTransform: 'uppercase',
-      color:'magenta'
     }
   },
 

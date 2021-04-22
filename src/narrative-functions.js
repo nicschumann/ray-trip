@@ -68,6 +68,10 @@ export const control_functions = {
 
 	lpurchase: (data, story, state) => {
 		make_link(data.element, 'https://store.typenetwork.com/foundry/occupant/fonts/mantar');
+	},
+
+	lmantar: (data, story, state) => {
+		make_link(data.element, 'https://occupantfonts.com/fonts/mantar');
 	}
 }
 

@@ -299,7 +299,7 @@ const blur_to_prev_state = (event, story, state) => {
 	let bl = story.animations.down.blur(Math.abs(t));
 	let op = story.animations.down.opacity(t);
 	// TODO: consider making this depend on the window size or text length...
-	let stride = 4;
+	let stride = Math.max(Math.floor(words.length / 4), 4);
 
 	if (words.length > 0)
 	{

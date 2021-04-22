@@ -1,7 +1,7 @@
 {
   id: 'specimen-web-ix',
 
-  text: `Mantar#h Regular#h$break We hope this “specimen” has showcased the potential of the world Mantar, both as a typeface and as a point of view. If you have any linger questions or comments, we’d love to have a conversation. Feel free to get in touch at occupantfonts.com. `,
+  text: `Mantar#h#reg Regular#h#reg$break We hope this “specimen” has showcased the potential of the world Mantar, both as a typeface and as a point of view. If you have any questions or comments, we’d love to have a conversation. Feel&nbsp;free&nbsp;to&nbsp;reach&nbsp;out.$lcontact`,
   // link to : https://occupantfonts.com/about#contact
 
   marginalia: [
@@ -25,14 +25,6 @@
     },
     i: {
       fontStyle: 'italic'
-    },
-    h: {
-      fontSize: `12px`,
-      fontFamily: 'Magmatic',
-      fontVariationSettings: "'wght' 400, 'wdth' 125",
-      letterSpacing: '1px',
-      textTransform: 'uppercase',
-      color:'magenta'
     }
   },
 
