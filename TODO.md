@@ -6,8 +6,8 @@
 
 ## Content
 
-- [ ] **Favicon**
 - [ ] **Expand / complete specimen frames**
+- [ ] **Favicon**
 - [ ] **Copyedit all quotemarks / punctuation / typographic marks**
 - [ ] Add links to relevant websites.
 - [ ] Consider: Intertitle content
@@ -18,10 +18,11 @@
 
 ## Development
 
-- [ ] **Design Mobile Interactions that work on iPhone.**
-- [ ] Fix placement of asterism so its centered; update text of `specimen-i`.
-- [ ] The story data is really big, and takes too long to load. Add an "initial story" into the script, and then load `stories.js` asynchronously. `paths.js`, too.
-- [ ] Check for horizontal scroll.
+
+- [ ] [Not sure if this is a real issue?] The story data is really big, and takes too long to load. Add an "initial story" into the script, and then load `stories.js` asynchronously. `paths.js`, too.
+- [x] Check for horizontal scroll.
+- [x] **Design Mobile Interactions that work on iPhone.**
+- [x] Fix placement of asterism so its centered; update text of `specimen-i`.
 
 ## Animation
 
@@ -67,8 +68,6 @@
   - [x] Change the icon for the `&` to something else? `?` or `⁂`, for example?
 - [x] `prelude-ii` timeout help.
 - [x] Modify the up transition so that the duration depends on the length of the text.
-
-
 - [ ] ~manual "kerning" for `$trim`'ed colored punct.~
 - [ ] ~Change the cursor to the up-down arrow by default, and then the hand over the `&`.~
 - [ ] ~Consider adding more intertitles (Act I, Act II, The End, ...) if needed.~
