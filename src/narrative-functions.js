@@ -21,7 +21,14 @@ function get_path_index(sequence, paths)
 
 function make_link(el, href)
 {
-	el.innerHTML = `<a href="${href}">${el.innerHTML}</a>`;
+	let t = el.innerHTML;
+	let space = false;
+	if (t.slice(t.length - 6) == '&nbsp;') {
+		t = t.slice(0, t.length - 6);
+		space = true;
+	}
+
+	el.innerHTML = `<a href="${href}">${t}</a>${(space) ? '&nbsp' : ''}`;
 }
 
 export const control_functions = {
