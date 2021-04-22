@@ -10,7 +10,8 @@
 
 @font-face {
   font-family: "Mantar";
-  src: url("./Mantar-Ultra.woff") format('woff'),
+  src: url("./Mantar-Ultra.woff2") format('woff2'),
+       url("./Mantar-Ultra.woff") format('woff'),
        url("./Mantar-Ultra.eot") format('eot');
 
   font-weight: 900;
@@ -21,7 +22,8 @@
 
 @font-face {
   font-family: "Mantar";
-  src: url("./Mantar-UltraItalic.woff") format('woff'),
+  src: url("./Mantar-UltraItalic.woff2") format('woff2'),
+       url("./Mantar-UltraItalic.woff") format('woff'),
        url("./Mantar-UltraItalic.eot") format('eot');
 
   font-weight: 900;
@@ -33,7 +35,8 @@
 
 @font-face {
   font-family: "Mantar";
-  src: url("./Mantar-Black.woff") format('woff'),
+  src: url("./Mantar-Black.woff2") format('woff2'),
+       url("./Mantar-Black.woff") format('woff'),
        url("./Mantar-Black.eot") format('eot');
 
   font-weight: 800;
@@ -44,7 +47,8 @@
 
 @font-face {
   font-family: "Mantar";
-  src: url("./Mantar-BlackItalic.woff") format('woff'),
+  src: url("./Mantar-BlackItalic.woff2") format('woff2'),
+       url("./Mantar-BlackItalic.woff") format('woff'),
        url("./Mantar-BlackItalic.eot") format('eot');
 
   font-weight: 800;
@@ -56,7 +60,8 @@
 
 @font-face {
   font-family: "Mantar";
-  src: url("Mantar-Bold.woff") format('woff'),
+  src: url("Mantar-Bold.woff2") format('woff2'),
+       url("Mantar-Bold.woff") format('woff'),
        url("Mantar-Bold.eot") format('eot');
 
   font-weight: 700;
@@ -67,7 +72,8 @@
 
 @font-face {
   font-family: "Mantar";
-  src: url("Mantar-BoldItalic.woff") format('woff'),
+  src: url("Mantar-BoldItalic.woff") format('woff2'),
+       url("Mantar-BoldItalic.woff") format('woff'),
        url("Mantar-BoldItalic.eot") format('eot');
 
   font-weight: 700;
@@ -79,7 +85,8 @@
 
 @font-face {
   font-family: "Mantar";
-  src: url("Mantar-Regular.woff") format('woff'),
+  src: url("Mantar-Regular.woff") format('woff2'),
+       url("Mantar-Regular.woff") format('woff'),
        url("Mantar-Regular.eot") format('eot');
 
   font-weight: 400;
@@ -90,7 +97,8 @@
 
 @font-face {
   font-family: "Mantar";
-  src: url("Mantar-Italic.woff") format('woff'),
+  src: url("Mantar-Italic.woff2") format('woff2'),
+       url("Mantar-Italic.woff") format('woff'),
        url("Mantar-Italic.eot") format('eot');
 
   font-weight: 400;
@@ -101,7 +109,8 @@
 
 @font-face {
   font-family: "Mantar";
-  src: url("Mantar-Light.woff") format('woff'),
+  src: url("Mantar-Light.woff2") format('woff2'),
+       url("Mantar-Light.woff") format('woff'),
        url("Mantar-Light.eot") format('eot');
 
   font-weight: 300;
@@ -112,7 +121,8 @@
 
 @font-face {
   font-family: "Mantar";
-  src: url("Mantar-LightItalic.woff") format('woff'),
+  src: url("Mantar-LightItalic.woff2") format('woff2'),
+       url("Mantar-LightItalic.woff") format('woff'),
        url("Mantar-LightItalic.eot") format('eot');
 
   font-weight: 300;
@@ -124,7 +134,8 @@
 
 @font-face {
   font-family: "Mantar";
-  src: url("Mantar-ExtraLight.woff") format('woff'),
+  src: url("Mantar-ExtraLight.woff2") format('woff2'),
+       url("Mantar-ExtraLight.woff") format('woff'),
        url("Mantar-ExtraLight.eot") format('eot');
 
   font-weight: 280;
@@ -135,7 +146,8 @@
 
 @font-face {
   font-family: "Mantar";
-  src: url("Mantar-ExtraLightItalic.woff") format('woff'),
+  src: url("Mantar-ExtraLightItalic.woff2") format('woff2'),
+       url("Mantar-ExtraLightItalic.woff") format('woff'),
        url("Mantar-ExtraLightItalic.eot") format('eot');
 
   font-weight: 280;

@@ -23,6 +23,7 @@ const buildjs = async path => {
 			'.png': 'file',
       '.eot': 'file',
       '.woff': 'file',
+			'.woff2': 'file',
       '.ttf': 'file'
     },
 

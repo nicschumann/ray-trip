@@ -3,13 +3,14 @@
 ## Typesetting
 
 - [ ] **Link Styles**
+- [ ] Change the width of Magmatic at small sizes (make it slightly wider).
 
 ## Content
 
 - [ ] **Expand / complete specimen frames**
 - [ ] **Favicon**
 - [ ] **Copyedit all quotemarks / punctuation / typographic marks**
-- [ ] Add links to relevant websites.
+- [ ] Review links to relevant websites.
 - [ ] Consider: Intertitle content
   - [x] Consider the "tapestry" style.
   - [ ] **Design Act I / Act II intertitle.**
@@ -37,11 +38,12 @@
 - [x] Review QA Jill Notes.
   - [ ] TN Form for the website.
   - [ ] Package and send to TN.
-  - [ ] update fonts on site (if needed).
+  - [x] update fonts on site (if needed).
 - [ ] Develop instagram posts (video + caption)
   - [ ] plan instagram rollout strategy and timeline
   - [ ] develop content for posts
   - [ ] screen-record posts
+- [ ] Create Mantar PDF specimen for occupantfonts.com.
 - [ ] Write Mantar Design Notes article (for occupantfonts.com).
 - [ ] Have a recorded conversation about the website project (to scaffold an article for occupantfonts.com on the project).
 
