@@ -212,15 +212,6 @@ function do_transition_for_mousewheel(story, state)
 	        render_frame(state, 'up');
 				}
       }
-
-      // if (
-      //   (story.animations.state < story.animations.lower_limit ||
-      //    story.animations.state > story.animations.upper_limit) &&
-      //    story.transitions.prev.length == 0 &&
-      //    story.transitions.next.length == 0
-      // ) {
-      //   render_end(state);
-      // }
     }
   };
 }
@@ -269,74 +260,6 @@ function make_story_transition(history, id, candidates)
 	}
 }
 
-/**
- * Ups
- */
-//
-// const get_function = (animations, channel, axis) =>
-// {
-//   return (typeof animations[channel] !== 'undefined' && typeof animations[channel][axis] !== 'undefined') ?
-//           animations[channel][axis] :
-//           () => 0;
-// }
-//
-// const blur_to_prev_state = (event, story, state) => {
-//   let t = story.animations.state;
-//
-//
-//   let bs = document.getElementsByClassName('b-channel');
-//
-//   if (typeof story.animations.up.r !== 'undefined')
-//   {
-//     let color = {
-//       top: get_function(story.animations.up, 'r', 'top'),
-//       left: get_function(story.animations.up, 'r', 'left')
-//     }
-//
-//     let rs = document.getElementsByClassName('r-channel');
-//
-//     Array.from(rs).forEach(el => el.setAttribute('style', `transition:all 2ms;top:${color.top(t)}px;left:${color.left(t)}px;`));
-//   }
-//
-//   if (typeof story.animations.up.g !== 'undefined')
-//   {
-//     let color = {
-//       top: get_function(story.animations.up, 'g', 'top'),
-//       left: get_function(story.animations.up, 'g', 'left')
-//     }
-//
-//     let gs = document.getElementsByClassName('g-channel');
-//
-//     Array.from(gs).forEach(el => el.setAttribute('style', `transition:all 2ms;top:${color.top(t)}px;left:${color.left(t)}px;`));
-//   }
-//
-//   if (typeof story.animations.up.b !== 'undefined')
-//   {
-//     let color = {
-//       top: get_function(story.animations.up, 'b', 'top'),
-//       left: get_function(story.animations.up, 'b', 'left')
-//     }
-//
-//     let bs = document.getElementsByClassName('b-channel');
-//
-//     Array.from(bs).forEach(el => el.setAttribute('style', `transition:all 2ms;top:${color.top(t)}px;left:${color.left(t)}px;`));
-//   }
-//
-//
-//
-//
-//   // quasi-sane version
-//   let r = t => t * Math.sin(t) / 18;
-//   let b = t => t * Math.cos(-t) / 18;
-//
-//   // bonkers version
-//   // let r = t => t * Math.sin(Math.random() * t) / 20;
-//   // let b = t => t * Math.cos(Math.random() * -t) / 20;
-//
-//
-//   Array.from(bs).forEach(el => el.setAttribute('style', `transition:all 2ms;top:${r(t)}px;left:${b(t)}px;`));
-// };
-
 
 /**
  * Downs
@@ -363,19 +286,6 @@ const reset_state = (event, story, state) =>
 }
 
 
-// const blur_to_prev_state = (event, story, state) => {
-//   let t = story.animations.state;
-//   let words = document.getElementsByClassName('word');
-//
-//   let bl = story.animations.down.blur(Math.abs(t));
-//   let op = story.animations.down.opacity(Math.abs(t));
-//
-//   Array.from(words).forEach(el => {
-//     el.style.transform = `matrix(1, ${t/100 + Math.random() / 10}, ${-t/100 + Math.random() / 10}, 1, 0, 0)`;
-//     el.style.transition = `all 2ms`;
-//     el.style.opacity = op * 2;
-//   });
-// };
 
 const blur_to_prev_state = (event, story, state) => {
   let t = story.animations.state;
@@ -388,19 +298,24 @@ const blur_to_prev_state = (event, story, state) => {
 
 	let bl = story.animations.down.blur(Math.abs(t));
 	let op = story.animations.down.opacity(t);
+	// TODO: consider making this depend on the window size or text length...
+	let stride = 4;
 
 	if (words.length > 0)
 	{
-		let el = words[words.length - 1];
+		let els = Array.from(words).slice(words.length - stride);
 
-		el.style.transition = `all 150ms var(--curve)`;
-    el.style.opacity = op;
-    el.style.filter = `blur(${bl * 5}px)`;
-		el.style.transform = `translateZ(${t/2}px)`;
+		els.forEach(el => {
+			el.style.transition = `all 150ms var(--curve)`;
+	    el.style.opacity = op;
+	    el.style.filter = `blur(${bl * 5}px)`;
+			el.style.transform = `translateZ(${t/2}px)`;
 
-		window.setTimeout(() => {
-			el.classList.add('pending');
-		}, state.timing.base);
+			window.setTimeout(() => {
+				el.classList.add('pending');
+			}, state.timing.base);
+		});
+
 	}
 	else if (story.animations.state > story.animations.lower_limit + padding)
 	{
@@ -560,10 +475,6 @@ let state = {
 		base: 65, // should be 65
 		default: 65,
 		padding: 1000
-	},
-	sim: {
-		state: sim_state,
-		parameters: sim_parameters
 	}
 };
 
@@ -1182,3 +1093,37 @@ function specimen_toggle_classes () {
 }
 
 specimen_toggle.onclick = render_specimen;
+
+
+
+// mobile event handlers
+let touch_queue = [];
+
+window.ontouchstart = event => {
+	console.log('touch start');
+	let coordinates = Array.from(event.touches).map(t => [t.pageX, t.pageY]);
+	touch_queue = touch_queue.concat(coordinates);
+};
+
+window.ontouchmove = event => {
+	// console.log('touch move');
+	let coordinates = Array.from(event.touches).map(t => [t.pageX, t.pageY]);
+	touch_queue = touch_queue.concat(coordinates);
+
+	let prev = touch_queue[touch_queue.length - 2];
+	let curr = touch_queue[touch_queue.length - 1];
+
+	if (
+		typeof prev !== 'undefined' &&
+		typeof curr !== 'undefined' &&
+		!state.transitioning
+	) {
+		let dY = - (curr[1] - prev[1]);
+		document.onwheel({deltaY: dY});
+	}
+};
+
+window.ontouchend = event => {
+	console.log('touch end');
+	touch_queue = [];
+};
