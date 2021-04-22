@@ -28,7 +28,7 @@
 {
   width:100vw;
   font-size:calc(min(9vw, 5vh));
-  text-align:  center;
+  text-align: center;
   margin-bottom:calc(min(4vw, 4vh));
 }
 
@@ -106,6 +106,7 @@
 
   /* color:red; */
   color:#fff;
+	text-align: center;
 
   transition:
 		filter calc(var(--time) / 3) var(--curve),
@@ -115,8 +116,10 @@
 }
 #specimen-toggle.active {
   /* bottom:calc(100vh - 3rem); */
-  left:calc(50vw - 1.5rem);
+  left:calc(50vw);
   font-weight:900;
+	width: 50px;
+	transform: translateX(-50%);
 }
 
 #specimen-toggle:hover
