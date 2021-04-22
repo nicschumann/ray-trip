@@ -550,8 +550,10 @@ const base_lookups = {
 		fontSize: `clamp(7.0px, 1.5vw, 10px)`,
 		fontFamily: 'Magmatic',
 		fontVariationSettings: "'wght' 400, 'wdth' 125",
+		fontWeight: 400,
 		letterSpacing: '1px',
 		textTransform: 'uppercase',
+		fontStyle: 'normal'
 	}
 };
 
@@ -996,7 +998,6 @@ function render_resume_story(previous_id)
 				// specimen_toggle.classList.remove('active');
 				// specimen_toggle.classList.remove('moving');
 				specimen_toggle.onclick = render_specimen;
-				window.onkeyup = if_esc(render_specimen);
 			});
 		}
 	}
