@@ -32,8 +32,8 @@ const default_animation = {
   down: {
     blur: t => Math.exp(t / 55),
     opacity: t => -1 / (55 / 4) * t + 1
-  }
-  // ambient: () => {},
+  },
+  ambient: 'glyph_snow'
 };
 
 
@@ -762,6 +762,7 @@ function preprocess_text_as_words(data)
 function render_frame(state, direction, ignore, ondone)
 {
 	state.timeouts.forEach(clearTimeout);
+	clearInterval(state.ambient_interval)
   let data = story_from_id(state.story.current, story_lookup, stories);
 
 	if (
@@ -925,12 +926,22 @@ function render_frame(state, direction, ignore, ondone)
 			typeof data.animations.ambient !== 'undefined' &&
 			typeof animations[data.animations.ambient] == 'function'
 		) {
+			let t = 0;
+			let ts_prev = performance.now();
+			let t_max = 1000;
       state.ambient_interval = window.setInterval(() => {
-        if (data.animations.state == 0)
+				let ts_curr = performance.now();
+				let dt = ts_curr - ts_prev;
+        if (data.animations.state == 0 && t < t_max)
         {
-          let span = animations[data.animations.ambient](data, state);
+          animations[data.animations.ambient](data, state, {dt, step: t});
         }
-      }, 250);
+
+				ts_prev = ts_curr;
+				t += 1;
+
+				if (t >= t_max) { window.clearInterval(state.ambient_interval); }
+      }, 1000);
     }
 
     document.onwheel = do_transition_for_mousewheel(data, state);

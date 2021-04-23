@@ -93,24 +93,35 @@ function random_color()
 }
 
 export const animations = {
-	glyph_snow: (data, state) => {
-	  let glyphs = ['$', '&', '*', '@', '#', '%'];
+	glyph_snow: (data, state, time) => {
+		let seconds = 120;
+		let steps = seconds * 1;
+		if (time.step > steps) {
+			let glyphs = "π?¿*⁂#฿₵¢₡¤$₫€ƒ₣₲₴₤₺₼₦₧₱₽₹£₸₮₩¥∞∫Ω∆∏∑∂µ%‰@&¶§©®℗™℅†‡№".split('');
 
-	  let span = document.createElement('span');
-	  span.classList.add('word');
-	  span.classList.add('ambient');
+			// let weights = [280, 300, 400, 700, 800, 900];
+			// let weight = weights[Math.floor(Math.random() * weights.length)];
+			let p = state.story.stage.container;
+			let rect = p.getBoundingClientRect();
+			console.log(rect);
 
-	  span.style.position = 'absolute';
-	  span.style.left = `${Math.random() * window.innerWidth}px`;
-	  span.style.top = `${Math.random() * window.innerHeight}px`;
+		  let span = document.createElement('span');
+		  span.classList.add('word');
+		  span.classList.add('ambient');
 
-	  span.style.fontSize = `18px`;
-	  let c = random_color();
-	  span.style.color = `rgb(${c.r * 255}, ${c.g * 255}, ${c.b * 255})`
+		  span.style.position = 'absolute';
+			// span.style.fontWeight = weight;
+		  span.style.left = `${(Math.random() * window.innerWidth) - rect.x}px`;
+		  span.style.top = `${(Math.random() * window.innerHeight) - rect.y}px`;
 
-	  span.style.transform = `rotate(${Math.random()*360}deg)`;
-	  span.innerHTML = glyphs[Math.floor(Math.random() * glyphs.length)];
+		  span.style.fontSize = `18px`;
+		  let c = random_color();
+		  span.style.color = `rgb(${c.r * 255}, ${c.g * 255}, ${c.b * 255})`
 
-	  state.story.stage.container.appendChild(span);
+		  span.style.transform = `rotate(${Math.random()*360}deg)`;
+		  span.innerHTML = glyphs[Math.floor(Math.random() * glyphs.length)];
+
+		  state.story.stage.container.appendChild(span);
+		}
 	}
 };
