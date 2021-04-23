@@ -2,19 +2,12 @@
 
 ## Typesetting
 
-- [ ] **Link Styles**
-- [ ] Change the width of Magmatic at small sizes (make it slightly wider).
+*done.*
 
 ## Content
 
-- [x] Favicon
 - [ ] **Copyedit all quotemarks / punctuation / typographic marks**
 - [ ] Review links to relevant websites.
-- [ ] Consider: Intertitle content
-  - [x] Consider the "tapestry" style.
-  - [x] Design Act I / Act II intertitle.
-  - [ ] Implement intertitles
-  - [x] Add a *The End* slide after `mantar` to show that the story is over, and we're transitioning to a new space.
 - [ ] Edit all story frames
 
 ## Development
@@ -47,6 +40,14 @@
 
 ## Archive
 
+- [x] Favicon
+- [x] Consider: Intertitle content
+  - [x] Consider the "tapestry" style.
+  - [x] Design Act I / Act II intertitle.
+  - [x] Implement intertitles
+  - [x] Add a *The End* slide after `mantar` to show that the story is over, and we're transitioning to a new space.
+- [x] Link Styles
+- [x] Change the width of Magmatic at small sizes (make it slightly wider).
 - [x] Typesetting for main story (desktop & mobile)
 - [x] Typesetting for centered specimen text (desktop & mobile)
 - [x] Typesetting for Large Words
