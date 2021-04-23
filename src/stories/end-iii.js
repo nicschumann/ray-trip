@@ -7,7 +7,7 @@
   ],
 
   definitions: {
-    i: {fontWeight: 800},
+    i: {fontStyle: 'italic'},
     s: {marginBottom: '42px'}
     // TODO: fix this margin so it's responsive
   },
