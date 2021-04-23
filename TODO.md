@@ -19,7 +19,7 @@
 
 ## Development
 
-
+- [ ] Add masking under the specimen toggle to make it more easily clickable on mobile.
 - [ ] [Not sure if this is a real issue?] The story data is really big, and takes too long to load. Add an "initial story" into the script, and then load `stories.js` asynchronously. `paths.js`, too.
 
 
