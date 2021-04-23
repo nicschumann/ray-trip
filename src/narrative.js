@@ -438,8 +438,6 @@ function make_channel_data(word, offset, data, color={})
   element.classList.add('channeled-word');
   element.classList.add('pending');
 
-  element.setAttribute('content', word + space);
-
   element.innerHTML = word + space;
 
   // this adds channeled data for RGB layering effects.
@@ -557,6 +555,49 @@ const base_lookups = {
 	}
 };
 
+function make_notiming_data(words, space, data)
+{
+	console.log(words);
+
+	let element = document.createElement('span');
+	element.classList.add('word');
+  element.classList.add('channeled-word');
+  element.classList.add('pending');
+
+	words.forEach(word => {
+		let prefix = '';
+		if (word.indexOf('#') == 0)
+		{
+			word = word.slice(1);
+			prefix = '#';
+		}
+		else if (word.indexOf('$') == 0)
+		{
+			word = word.slice(1);
+			prefix = '$';
+		}
+
+		let parse = extract_control_words(word, data);
+
+		let subword = document.createElement('span');
+		subword.classList.add('subword');
+
+		parse.lookups.forEach(lookup => {
+			for (let key in lookup) {
+				if (lookup.hasOwnProperty(key))
+				{
+					console.log(key);
+					subword.style[key] = lookup[key];
+				}
+			}
+		});
+
+		subword.innerHTML = parse.word;
+		element.appendChild(subword);
+	})
+
+	return {element, offset: 0, functions: []};
+}
 
 function preprocess_text_as_words(data)
 {
@@ -572,8 +613,7 @@ function preprocess_text_as_words(data)
 
 	if (data.notiming)
 	{
-		let content = words.join(space);
-		let element_data = make_channel_data(content, offset, data);
+		let element_data = make_notiming_data(words, space, data);
 		text.push(element_data);
 	}
 	else
