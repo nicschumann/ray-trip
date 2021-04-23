@@ -547,7 +547,7 @@ const base_lookups = {
 	h: {
 		fontSize: `clamp(7.0px, 1.5vw, 10px)`,
 		fontFamily: 'Magmatic',
-		fontVariationSettings: "'wght' 400, 'wdth' 125",
+		fontVariationSettings: "'wght' 400, 'wdth' 130",
 		fontWeight: 400,
 		letterSpacing: '1px',
 		textTransform: 'uppercase',
