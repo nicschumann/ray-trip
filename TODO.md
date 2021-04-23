@@ -7,7 +7,7 @@
 
 ## Content
 
-- [ ] **Favicon**
+- [x] Favicon
 - [ ] **Copyedit all quotemarks / punctuation / typographic marks**
 - [ ] Review links to relevant websites.
 - [ ] Consider: Intertitle content
