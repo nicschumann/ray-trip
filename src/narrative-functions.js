@@ -28,7 +28,7 @@ function make_link(el, href)
 		space = true;
 	}
 
-	el.innerHTML = `<a href="${href}">${t}</a>${(space) ? '&nbsp' : ''}`;
+	el.innerHTML = `<a target="_blank" href="${href}">${t}</a>${(space) ? '&nbsp' : ''}`;
 }
 
 export const control_functions = {
@@ -72,6 +72,10 @@ export const control_functions = {
 
 	lmantar: (data, story, state) => {
 		make_link(data.element, 'https://occupantfonts.com/fonts/mantar');
+	},
+
+	locc: (data, story, state) => {
+		make_link(data.element, 'https://occupantfonts.com/');
 	}
 }
 

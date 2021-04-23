@@ -7,7 +7,7 @@
   ],
 
   definitions: {
-    i: {fontStyle: 'italic', fontWeight: 800}
+    i: {fontWeight: 800}
   },
 
   ignore: true,

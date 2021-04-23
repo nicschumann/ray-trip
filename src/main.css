@@ -290,10 +290,16 @@ body
 
 .word a {
 	color:white;
-}
-
-.word a:hover {
+	text-decoration: none;
 	font-style: italic;
+	/* filter:blur(20px);
+	transition: filter 250ms var(--curve); */
+
+}
+.word a:hover {
+	/* filter:blur(0px);
+	transition: filter 250ms var(--curve); */
+	color: yellow;
 }
 
 br.word {
