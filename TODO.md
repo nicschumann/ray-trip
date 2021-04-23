@@ -6,29 +6,27 @@
 
 ## Content
 
-- [ ] **Copyedit all quotemarks / punctuation / typographic marks**
+- [ ] Copyedit all quotemarks / punctuation / typographic marks
 - [ ] Review links to relevant websites.
 - [ ] Edit all story frames
 
 ## Development
 
-- [ ] Add masking under the specimen toggle to make it more easily clickable on mobile.
 - [ ] [Not sure if this is a real issue?] The story data is really big, and takes too long to load. Add an "initial story" into the script, and then load `stories.js` asynchronously. `paths.js`, too.
 
 
 ## Animation
 
-- [ ] **Decide how to do animations, if at all.**
-  - [ ] lean into timing? (Cem did a pass)
-  - [ ] push into snow effect / prototype it?
+*done.*
+
 
 ## Pre-Launch
 
 - [ ] **Build font page for occ website upload.**
 - [ ] **Do domain redirects w/ Marie (mantar.occupantfonts.com)**
-- [x] Review QA Jill Notes.
+- [x] **Review QA Jill Notes.**
   - [ ] TN Form for the website.
-  - [ ] Package and send to TN.
+  - [ ] **Package and send to TN.**
   - [x] update fonts on site (if needed).
 - [ ] Develop instagram posts (video + caption)
   - [ ] plan instagram rollout strategy and timeline
@@ -40,6 +38,11 @@
 
 ## Archive
 
+- [x] Add masking under the specimen toggle to make it more easily clickable on mobile.
+- [x] Regenerate google doc.
+- [x] Decide how to do animations, if at all.
+  - [x] lean into timing? (Cem did a pass)
+  - [x] push into snow effect / prototype it?
 - [x] Favicon
 - [x] Consider: Intertitle content
   - [x] Consider the "tapestry" style.

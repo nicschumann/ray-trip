@@ -287,7 +287,7 @@ const blur_to_next_state = (event, story, state) => {
     el.style.transition = `all 2ms`;
     el.style.opacity = op;
     el.style.filter = `blur(${bl}px)`;
-		el.style.transform = `translateZ(${t/tranlate_divisor}px)`;
+		// el.style.transform = `translateZ(${t/tranlate_divisor}px)`;
   });
 };
 
