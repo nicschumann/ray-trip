@@ -6,7 +6,7 @@
 
 ## Content
 
-- [x] Frame Length
+
 - [ ] Copyedit all quotemarks / punctuation / typographic marks
 - [ ] Review links to relevant websites.
 - [ ] Edit all story frames
@@ -26,10 +26,10 @@
 - [ ] **Build font page for occ website upload.**
 - [ ] **Do domain redirects w/ Marie (mantar.occupantfonts.com)**
 - [x] **Review QA Jill Notes.**
-  - [ ] TN Form for the website.
-  - [ ] **Package and send to TN.**
+  - [ ] **TN Form for the website.**
+  - [x] Package and send to TN.
   - [x] update fonts on site (if needed).
-- [ ] Develop instagram posts (video + caption)
+- [ ] **Develop instagram posts (video + caption)**
   - [ ] plan instagram rollout strategy and timeline
   - [ ] develop content for posts
   - [ ] screen-record posts
@@ -39,6 +39,7 @@
 
 ## Archive
 
+- [x] Frame Length
 - [x] Add masking under the specimen toggle to make it more easily clickable on mobile.
 - [x] Regenerate google doc.
 - [x] Decide how to do animations, if at all.
