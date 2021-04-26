@@ -1,1 +1,1 @@
-module.exports = 'prelude-i';
+module.exports = 'act-i-intertitle';

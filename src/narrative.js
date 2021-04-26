@@ -213,14 +213,12 @@ const reset_state = (event, story, state) =>
   let parent = state.story.stage.container;
   let words = document.getElementsByClassName('word');
 
-
-  // parent.style.transform = `matrix(1, 0, 0, 1, 0, 0)`;
   parent.style.transition = `all 2ms`;
   parent.style.opacity = '1';
   parent.style.filter = `none`;
 
   Array.from(words).forEach(el => {
-    el.style.transform = `matrix(1, 0, 0, 1, 0, 0)`;
+    // el.style.transform = `matrix(1, 0, 0, 1, 0, 0)`;
     el.style.transition = `all 2ms`;
     el.style.opacity = '1';
     el.style.filter = `none`;
@@ -240,7 +238,6 @@ const blur_to_prev_state = (event, story, state) => {
 
 	let bl = story.animations.down.blur(Math.abs(t));
 	let op = story.animations.down.opacity(t);
-	// TODO: consider making this depend on the window size or text length...
 	let stride = Math.max(Math.floor(words.length / 4), 4);
 
 	if (words.length > 0)
@@ -251,7 +248,7 @@ const blur_to_prev_state = (event, story, state) => {
 			el.style.transition = `all 150ms var(--curve)`;
 	    el.style.opacity = op;
 	    el.style.filter = `blur(${bl * 5}px)`;
-			el.style.transform = `translateZ(${t/2}px)`;
+			// el.style.transform = `translateZ(${t/2}px)`;
 
 			window.setTimeout(() => {
 				el.classList.add('pending');
@@ -270,41 +267,18 @@ const blur_to_next_state = (event, story, state) => {
   let t = story.animations.state;
 
   let words = document.getElementsByClassName('word');
-	const tranlate_divisor = 3;
 
   // normal version
   let bl = story.animations.down.blur(t);
   let op = story.animations.down.opacity(t);
 
-  // bonkers version
-  // let bl = t => Math.exp(Math.random() * t / 20);
-  // let op = t => -1 / (55 / 4) * bl(t) + 1;
-
-  // console.log(`blur: ${bl(t)}px, op: ${op(t)}`);
 
   Array.from(words).forEach(el => {
-    // el.setAttribute('style', `transition:all 2ms; opacity:${op(t)};filter:blur(${bl(t)}px);`
     el.style.transition = `all 2ms`;
     el.style.opacity = op;
     el.style.filter = `blur(${bl}px)`;
-		// el.style.transform = `translateZ(${t/tranlate_divisor}px)`;
   });
 };
-
-// const blur_to_next_state = (event, story, state) => {
-//   let parent = document.getElementById('story-container');
-//   console.log('next');
-//
-//   const max_blur = 40;
-//   let blur = state.story.stage.blur;
-//   blur += (event.deltaY > 0) ? 1.0 / (blur + 0.5) : -1.0 / (blur + 0.5);
-//   blur = Math.max(Math.min(blur, max_blur), 0);
-//   state.story.stage.blur = blur;
-//
-//   state.story.stage.opacity = -1 / (max_blur / 4) * blur + 1;
-//
-//   parent.setAttribute('style', `opacity:${state.story.stage.opacity}; filter:blur(${state.story.stage.blur}px);`)
-// };
 
 
 /**
@@ -941,7 +915,7 @@ function render_frame(state, direction, ignore, ondone)
 				t += 1;
 
 				if (t >= t_max) { window.clearInterval(state.ambient_interval); }
-      }, 1000);
+      }, 2000);
     }
 
     document.onwheel = do_transition_for_mousewheel(data, state);

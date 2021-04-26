@@ -1,1 +1,1 @@
-module.exports = 'mantar';
+module.exports = 'act-end-intertitle';
