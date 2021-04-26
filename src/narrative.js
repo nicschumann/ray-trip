@@ -124,7 +124,7 @@ function do_transition_for_mousewheel(story, state)
 				else
 				{
 					let next_story = random_story_id(candidates);
-					console.log('scroll down:', next_story);
+					// console.log('scroll down:', next_story);
 	        state.story.current = next_story;
 	        render_frame(state, 'down');
 				}
@@ -149,7 +149,7 @@ function do_transition_for_mousewheel(story, state)
 				else
 				{
 					let prev_story = random_story_id(candidates);
-					console.log('scroll up', prev_story);
+					// console.log('scroll up', prev_story);
 	        state.story.current = prev_story;
 	        render_frame(state, 'up');
 				}
@@ -566,7 +566,7 @@ function make_notiming_data(words, space, data)
 			}
 		});
 
-		subword.innerHTML = parse.word;
+		subword.innerHTML = parse.word + space;
 		element.appendChild(subword);
 	})
 
@@ -902,7 +902,7 @@ function render_frame(state, direction, ignore, ondone)
 		) {
 			let t = 0;
 			let ts_prev = performance.now();
-			let t_max = 1000;
+			let t_max = 500;
       state.ambient_interval = window.setInterval(() => {
 				let ts_curr = performance.now();
 				let dt = ts_curr - ts_prev;
@@ -936,12 +936,7 @@ function render_frame(state, direction, ignore, ondone)
 
 function show_indicator()
 {
-	let indicator = document.getElementById('state-indicator');
-	indicator.classList.add('active');
 
-	window.setTimeout(() => {
-		indicator.classList.add('done');
-	}, 250)
 }
 
 function render_end(state) {
@@ -1046,12 +1041,12 @@ function render_specimen()
 function specimen_toggle_classes () {
 	if (specimen_toggle.classList.contains('active'))
 	{
-		console.log('toggling to &');
+		// console.log('toggling to &');
 		specimen_toggle.innerText = '&';
 	}
 	else
 	{
-		console.log('toggling to ⁂');
+		// console.log('toggling to ⁂');
 		specimen_toggle.innerText = '⁂';
 	}
 
@@ -1068,7 +1063,6 @@ specimen_toggle.onclick = render_specimen;
 let touch_queue = [];
 
 window.ontouchstart = event => {
-	console.log('touch start');
 	let coordinates = Array.from(event.touches).map(t => [t.pageX, t.pageY]);
 	touch_queue = touch_queue.concat(coordinates);
 };
@@ -1092,6 +1086,5 @@ window.ontouchmove = event => {
 };
 
 window.ontouchend = event => {
-	console.log('touch end');
 	touch_queue = [];
 };
