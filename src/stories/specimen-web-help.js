@@ -1,7 +1,7 @@
 {
   id: 'specimen-web-help',
 
-  text: `Mantar#h Extra#h Light#h$break This website has two modes of navigation. Scroll down ($trim ↓#r$trim ) and scroll up ($trim ↑#b$trim ). On some pages, you can ↓#r$trim . This will continue your current path through the narrative. If you ↓#r on this page, you will read more about the website. On some pages, you can ↑#b$trim . This will move the narrative onto a new thread. If you ↑#b on this page, you will return to the specimen.`,
+  text: `Mantar#h#extralight Extra#h#extralight Light#h#extralight$break This website has two modes of navigation: scroll down ($trim ↓#r$trim ) and scroll up ($trim ↑#b$trim ). Scrolling ↓#r continues your path through the narrative. If you ↓#r on this page, you will read more about the website. On some pages, you can ↑#b$trim . This will move the narrative onto a new thread. If you ↑#b on this page, you will return to the specimen.`,
 
   marginalia: [
   ],
@@ -27,14 +27,6 @@
     },
     i: {
       fontStyle: 'italic'
-    },
-    h: {
-      fontSize: `12px`,
-      fontFamily: 'Magmatic',
-      fontVariationSettings: "'wght' 400, 'wdth' 125",
-      letterSpacing: '1px',
-      textTransform: 'uppercase',
-      color:'magenta'
     }
   },
 

@@ -7,10 +7,6 @@
   sidelines: [
   ],
 
-  font: {
-    fontSize: 'calc(max(35px, min(5vw, 40px)))'
-  },
-
   definitions: {
     i: { fontStyle: 'italic' }
   },

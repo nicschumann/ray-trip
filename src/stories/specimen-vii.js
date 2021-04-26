@@ -1,7 +1,7 @@
 {
   id: 'specimen-vii',
 
-  text: `Mantar#black#h Black#black#h$break During this time Cyrus told me that Matthew Carter once compared drawing heavy weights to drawing caricatures of the regular versions.`,
+  text: `Mantar#black#h Black#black#h$break During this time, Cyrus told me that Matthew Carter once compared drawing heavy weights to drawing caricatures of the regular versions.`,
 
   marginalia: [
   ],
