@@ -388,7 +388,7 @@ let state = {
   timeouts: [],
 	timing: {
 		acc: 0,
-		base: 1, // should be 65
+		base: 65, // should be 65
 		default: 65,
 		padding: 1000
 	}
