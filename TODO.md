@@ -23,8 +23,11 @@
 
 ## Pre-Launch
 
-- [ ] **Build font page for occ website upload.**
-- [ ] **Do domain redirects w/ Marie (mantar.occupantfonts.com)**
+- [ ] Build font page for occ website upload.
+  - [x] Nic builds the base font page.
+  - [ ] **Cem reviews and completes the font page.**
+- [ ] Do domain redirects w/ Marie (mantar.occupantfonts.com)
+  - [ ] Add SSL cert to the microsite.
 - [x] **Review QA Jill Notes.**
   - [ ] **TN Form for the website.**
   - [x] Package and send to TN.
