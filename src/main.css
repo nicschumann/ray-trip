@@ -4,6 +4,7 @@
 
 * {
 	/* cursor: url("./fonts/cursor.svg") 10 0, auto; */
+	/*cursor: none;*/
 }
 
 html
@@ -21,7 +22,8 @@ body
 	height:100%;
 
 	--curve: cubic-bezier(1,.33,.73,.71);
-	--time: 850ms;
+	 --time: 850ms; 
+	/*--time: 1350ms;*/
 }
 
 /* Debugging text frames */

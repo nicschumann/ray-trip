@@ -739,6 +739,15 @@ function render_frame(state, direction, ignore, ondone)
 	clearInterval(state.ambient_interval)
   let data = story_from_id(state.story.current, story_lookup, stories);
 
+	if (data.notoggle)
+	{
+		specimen_toggle.classList.add('hidden');
+	}
+	else
+	{
+		specimen_toggle.classList.remove('hidden');
+	}
+
 	if (
 		(typeof data.ignore === 'undefined' || !data.ignore) &&
 		(typeof ignore === 'undefined' || !ignore)

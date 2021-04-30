@@ -114,6 +114,9 @@
 		opacity calc(var(--time) / 3) var(--curve);
 
   cursor:pointer;
+
+	/* Added for IG */
+	/*display: none;*/
 }
 #specimen-toggle.active {
   /* bottom:calc(100vh - 3rem); */
@@ -146,6 +149,11 @@
 	filter:blur(30px);
 	opacity:0;
 	/* color:transparent; */
+}
+
+#specimen-toggle.hidden
+{
+	display: none;
 }
 
 @keyframes hover-specimen-toggle {
