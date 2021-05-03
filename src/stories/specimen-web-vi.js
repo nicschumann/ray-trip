@@ -1,7 +1,7 @@
 {
   id: 'specimen-web-vi',
 
-  text: `Mantar#h#reg Regular#h#reg$break The timbre of the text changed as we changed the text speed$trim *500 —$trim the rests between words, *350 after punctuation, *350 and between phrases. *1500 For us, *350 the renderer Nic built paced the feeling of the text in time, *350 the same way Cem’s font shaped the feeling of the words in space.`,
+  text: `Mantar#h#light Light#h#light$break The timbre of the text changed as we changed the text speed$trim *500 —$trim the rests between words, *350 after punctuation, *350 and between phrases. *1500 For us, *350 the renderer Nic built paced the feeling of the text in time, *350 the same way Cem’s font shaped the feeling of the words in space.`,
 
   marginalia: [
   ],
@@ -15,7 +15,7 @@
 
     transform: 'translate(-50%,-50%)',
     textAlign: 'center',
-    fontWeight: 400
+    fontWeight: 300
   },
 
   definitions: {
