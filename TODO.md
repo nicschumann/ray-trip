@@ -33,10 +33,9 @@
   - [ ] **TN Form for the website.**
   - [x] Package and send to TN.
   - [x] update fonts on site (if needed).
-- [ ] Develop instagram posts (video + caption)
+- [x] Develop instagram posts (video + caption)
   - [x] plan instagram rollout strategy and timeline
-  - [ ] **develop content for posts**
-  - [ ] screen-record posts
+  - [ ] develop content for posts
 - [ ] Create Mantar PDF specimen for occupantfonts.com.
 - [ ] Write Mantar Design Notes article (for occupantfonts.com).
   - [ ] Team reviews the design notes article page.
