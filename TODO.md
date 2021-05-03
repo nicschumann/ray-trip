@@ -25,19 +25,21 @@
 
 - [ ] Build font page for occ website upload.
   - [x] Nic builds the base font page.
-  - [ ] **Cem reviews and completes the font page.**
-- [ ] Do domain redirects w/ Marie (mantar.occupantfonts.com)
-  - [ ] Add SSL cert to the microsite.
-- [x] **Review QA Jill Notes.**
+  - [x] Cem reviews and completes the font page.
+  - [ ] Team reviews the font page.
+- [x] Do domain redirects w/ Marie (mantar.occupantfonts.com)
+  - [x] Add SSL cert to the microsite.
+- [x] Review QA Jill Notes.
   - [ ] **TN Form for the website.**
   - [x] Package and send to TN.
   - [x] update fonts on site (if needed).
-- [ ] **Develop instagram posts (video + caption)**
-  - [ ] plan instagram rollout strategy and timeline
-  - [ ] develop content for posts
+- [ ] Develop instagram posts (video + caption)
+  - [x] plan instagram rollout strategy and timeline
+  - [ ] **develop content for posts**
   - [ ] screen-record posts
 - [ ] Create Mantar PDF specimen for occupantfonts.com.
 - [ ] Write Mantar Design Notes article (for occupantfonts.com).
+  - [ ] Team reviews the design notes article page.
 - [ ] Have a recorded conversation about the website project (to scaffold an article for occupantfonts.com on the project).
 
 ## Archive
