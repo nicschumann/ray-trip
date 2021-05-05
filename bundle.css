@@ -1,0 +1,659 @@
+/* src/reset.css */
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* src/fonts/fonts.css */
+@font-face {
+  font-family: "Magmatic";
+  src: url(./MagmaticVF.KHUISQG3.ttf) format("truetype");
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Mantar";
+  src:
+    url(./Mantar-Ultra.UWZYNTBK.woff2) format("woff2"),
+    url(./Mantar-Ultra.X7OICN22.woff) format("woff"),
+    url(./Mantar-Ultra.DBQBD3P6.eot) format("eot");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Mantar";
+  src:
+    url(./Mantar-UltraItalic.WKS2RRBK.woff2) format("woff2"),
+    url(./Mantar-UltraItalic.PBJOOCIF.woff) format("woff"),
+    url(./Mantar-UltraItalic.72SHBHXM.eot) format("eot");
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Mantar";
+  src:
+    url(./Mantar-Black.SN6MFPU2.woff2) format("woff2"),
+    url(./Mantar-Black.B2DKPCHI.woff) format("woff"),
+    url(./Mantar-Black.H4KFW4ZT.eot) format("eot");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Mantar";
+  src:
+    url(./Mantar-BlackItalic.VTUJIN3L.woff2) format("woff2"),
+    url(./Mantar-BlackItalic.HHVOHP7M.woff) format("woff"),
+    url(./Mantar-BlackItalic.25SDU4LO.eot) format("eot");
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Mantar";
+  src:
+    url(./Mantar-Bold.MKFS55QD.woff2) format("woff2"),
+    url(./Mantar-Bold.46LHGP25.woff) format("woff"),
+    url(./Mantar-Bold.COJ6M6CF.eot) format("eot");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Mantar";
+  src:
+    url(./Mantar-BoldItalic.RMCIQ4WJ.woff) format("woff2"),
+    url(./Mantar-BoldItalic.RMCIQ4WJ.woff) format("woff"),
+    url(./Mantar-BoldItalic.CV36D55X.eot) format("eot");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Mantar";
+  src:
+    url(./Mantar-Regular.KA2YFG2S.woff) format("woff2"),
+    url(./Mantar-Regular.KA2YFG2S.woff) format("woff"),
+    url(./Mantar-Regular.TR7WMHKD.eot) format("eot");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Mantar";
+  src:
+    url(./Mantar-Italic.PTIA4GHH.woff2) format("woff2"),
+    url(./Mantar-Italic.ISS7T6YN.woff) format("woff"),
+    url(./Mantar-Italic.WIEBDAZM.eot) format("eot");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Mantar";
+  src:
+    url(./Mantar-Light.WRL3ZJGV.woff2) format("woff2"),
+    url(./Mantar-Light.GCAOHBFH.woff) format("woff"),
+    url(./Mantar-Light.FUFBUKMT.eot) format("eot");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Mantar";
+  src:
+    url(./Mantar-LightItalic.G6Q2LO56.woff2) format("woff2"),
+    url(./Mantar-LightItalic.TK27ODBM.woff) format("woff"),
+    url(./Mantar-LightItalic.HXYDECBX.eot) format("eot");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Mantar";
+  src:
+    url(./Mantar-ExtraLight.VWPUAEYD.woff2) format("woff2"),
+    url(./Mantar-ExtraLight.BSFGFFXT.woff) format("woff"),
+    url(./Mantar-ExtraLight.4WHRFABJ.eot) format("eot");
+  font-weight: 280;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Mantar";
+  src:
+    url(./Mantar-ExtraLightItalic.O62VGI43.woff2) format("woff2"),
+    url(./Mantar-ExtraLightItalic.EFF6RZWT.woff) format("woff"),
+    url(./Mantar-ExtraLightItalic.FQPDHNAU.eot) format("eot");
+  font-weight: 280;
+  font-style: italic;
+  font-display: swap;
+}
+.georgia {
+  font-family: "Georgia", serif;
+}
+.mantar {
+  font-family: "Mantar", serif;
+}
+.extra-light {
+  font-weight: 280;
+}
+.light {
+  font-weight: 300;
+}
+.regular {
+  font-weight: 400;
+}
+.bold {
+  font-weight: 700;
+}
+.black {
+  font-weight: 800;
+}
+.ultra {
+  font-weight: 900;
+}
+.italic {
+  font-style: italic;
+}
+
+/* src/specimen.css */
+#specimen-frame {
+  position: absolute;
+  top: 100vh;
+  left: 0;
+  width: 100vw;
+  height: 80vh;
+  color: white;
+  font-family: "Mantar";
+  background-color: black;
+  transition: top 350ms;
+  z-index: 1000;
+}
+#specimen-frame.active {
+  position: absolute;
+  top: 20vh;
+  left: 0;
+  border-top: 1px dashed #fff;
+}
+#specimen-frame .typeface-row {
+  width: 100vw;
+  font-size: calc(min(9vw, 5vh));
+  text-align: center;
+  margin-bottom: calc(min(4vw, 4vh));
+}
+#specimen-frame .typeface-row:first-child {
+  margin-top: calc(min(4vw, 4vh));
+}
+#specimen-frame .typeface-meta {
+  width: 100vw;
+  font-size: calc(min(2.5vw, 2vh));
+  text-align: center;
+  padding-left: calc(min(8vw, 2.5vh));
+  margin-bottom: 0.4em;
+}
+#specimen-frame .typeface-italic {
+  font-style: italic;
+}
+#specimen-frame .typeface-ultralight {
+  font-weight: 200;
+}
+.yellow {
+  color: rgb(255, 241, 0);
+}
+.red {
+  color: rgb(236, 28, 36);
+}
+.blue {
+  color: rgb(0, 173, 238);
+}
+.magenta {
+  color: rgb(255, 3, 249);
+}
+.teal {
+  color: rgb(65, 255, 244);
+}
+.green {
+  color: rgb(12, 248, 1);
+}
+#story-stage {
+  transition: filter 500ms, top 350ms;
+}
+#story-stage.deactivated {
+  filter: blur(10px);
+}
+#specimen-toggle {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  font-family: "Mantar";
+  font-weight: 100;
+  font-size: calc(max(42px, min(5vw, 50px)));
+  padding: 1rem;
+  color: #fff;
+  background: radial-gradient(circle at 50%, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
+  text-align: center;
+  transition: filter calc(var(--time) / 3) var(--curve), opacity calc(var(--time) / 3) var(--curve);
+  cursor: pointer;
+}
+#specimen-toggle.active {
+  left: calc(50vw);
+  font-weight: 900;
+  width: 50px;
+  transform: translateX(-50%);
+}
+#specimen-toggle:hover {
+  animation: hover-specimen-toggle 400ms;
+  font-weight: 900;
+}
+#specimen-toggle.active:hover {
+  animation: hover-specimen-toggle reverse 400ms;
+  font-weight: 100;
+}
+#specimen-toggle.transitioning {
+  color: #555;
+  cursor: default;
+}
+#specimen-toggle.moving {
+  filter: blur(30px);
+  opacity: 0;
+}
+#specimen-toggle.hidden {
+  display: none;
+}
+@keyframes hover-specimen-toggle {
+  0% {
+    font-weight: 280;
+  }
+  20% {
+    font-weight: 300;
+  }
+  40% {
+    font-weight: 400;
+  }
+  60% {
+    font-weight: 700;
+  }
+  78% {
+    font-weight: 800;
+  }
+  100% {
+    font-weight: 900;
+  }
+}
+
+/* src/main.css */
+* {
+}
+html {
+  --breakpoint: 700px;
+  overflow: hidden;
+  height: 100%;
+}
+body {
+  background-color: black;
+  font-weight: 300;
+  box-sizing: border-box;
+  height: 100%;
+  --curve: cubic-bezier(1,.33,.73,.71);
+  --time: 850ms;
+}
+#margin-container.debug {
+  border-top: 1px solid red;
+}
+#primary-text-frame {
+  display: block;
+  top: 0;
+  height: 80vh;
+  margin: 1rem;
+}
+#primary-text-frame.debug {
+  border-bottom: 2px solid red;
+}
+.sidebar-text-frame {
+  font-family: "Mantar";
+  display: none;
+  position: relative;
+  width: 25vw;
+  height: 80vh;
+  margin: 1rem;
+}
+.sidebar-text-frame.debug {
+  border-bottom: 1px solid red;
+}
+.sidebar-text-bottom-anchor {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+.story-frame {
+  display: block;
+  color: white;
+  height: fit-content;
+  max-width: 1000px;
+  font-size: calc(max(31px, min(5vw, 40px)));
+  line-height: 1.13em;
+}
+.story-frame.specimen {
+  width: 75%;
+  max-width: 75%;
+}
+.story-frame.specimen-word {
+  width: 200%;
+  max-width: 200%;
+}
+.story-frame.debug {
+  border-bottom: 2px solid orange;
+}
+#primary-text-frame.ended,
+.story-frame.ended,
+.margin-text-frame.ended,
+#sidebar-text-frame.ended {
+  display: none;
+}
+.margin-text-frame {
+  font-family: "Mantar";
+  position: absolute;
+  top: 85vh;
+  color: white;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 1rem;
+  font-weight: 100;
+  width: calc(100vw - 2rem);
+}
+.margin-text-frame .word,
+.margin-text-frame .channel {
+  white-space: normal;
+  width: 29vw;
+  margin-right: 2vw;
+}
+.sidebar-text-frame .word,
+.sidebar-text-frame .channel {
+  white-space: normal;
+  width: 100%;
+  margin-bottom: 2vw;
+}
+.sidebar-text-frame .word:last-child,
+.sidebar-text-frame .channel:last-child {
+  margin-bottom: 0;
+}
+.end-text-frame {
+  font-family: "Mantar";
+  display: none;
+  color: white;
+  opacity: 0;
+  margin: 1rem;
+  transition: opacity 4s;
+}
+.end-text-frame.active {
+  display: block;
+}
+.end-text-frame:not(.pending) {
+  opacity: 1;
+}
+.end-text-frame.debug {
+}
+.end-text-frame .story-box {
+  height: 50vh;
+}
+.end-text-frame h1 {
+  font-size: 72px;
+  font-weight: 900;
+  margin-bottom: 0.5em;
+}
+.end-text-frame #edition-number {
+  font-size: 36px;
+}
+.end-text-frame .meta-box {
+  font-size: calc(max(2vh, 18px));
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 1em;
+  font-weight: 100;
+}
+.end-text-frame .story-column {
+  width: 49%;
+  line-height: 1.1em;
+}
+.end-text-frame .story-column:first-child {
+  margin-right: 2%;
+}
+.end-text-frame .story-column h2 {
+  font-size: calc(max(2.5vh, 24px));
+  font-weight: 600;
+  margin-bottom: 1em;
+}
+.end-text-frame .story-column p {
+  margin-bottom: 1em;
+}
+.end-text-frame .story-column a {
+  color: inherit;
+}
+#state-indicator {
+  position: absolute;
+  font-family: "Mantar";
+  display: flex;
+  display: none;
+  text-align: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 52px;
+  right: 20px;
+  bottom: 20px;
+  width: 25px;
+  height: 25px;
+  color: #fff;
+  background-color: #000;
+  border-radius: 50%;
+  opacity: 0;
+}
+#state-indicator.active {
+  opacity: 1;
+}
+#state-indicator.done {
+  opacity: 0;
+  transition: opacity 2s;
+}
+#state-indicator.transition {
+  opacity: 1;
+  transition: opacity 50ms;
+}
+.word {
+  display: inline-block;
+  color: white;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  background-color: transparent;
+  transition:
+    opacity calc(var(--time) / 4) var(--curve),
+    filter var(--time) var(--curve),
+    color var(--time) var(--curve);
+}
+.word a {
+  color: white;
+  text-decoration: none;
+  font-style: italic;
+}
+.word a:hover {
+  color: yellow;
+}
+br.word {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.no-break {
+  white-space: nowrap;
+}
+.channeled-word {
+  position: relative;
+}
+.word.pending,
+.channeled-word.pending {
+  color: transparent;
+  filter: blur(30px);
+  opacity: 0;
+}
+.r-channel {
+  color: rgb(255, 0, 0);
+}
+.g-channel {
+  color: rgb(0, 255, 0);
+}
+.b-channel {
+  color: rgb(0, 0, 255);
+}
+.word.pending .channel,
+.word.pending .r-channel,
+.word.pending .g-channel,
+.word.pending .b-channel,
+.word.pending .static-channel {
+  color: transparent;
+  filter: blur(10px);
+  opacity: 0;
+}
+.channel {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition:
+    opacity var(--time) var(--curve),
+    filter var(--time) var(--curve),
+    color var(--time) var(--curve);
+}
+@media screen and (max-width:750px) {
+  .story-frame {
+    letter-spacing: 0.2px;
+  }
+}
+@media screen and (max-width:420px) {
+  .story-frame.specimen {
+    width: 95%;
+    max-width: 95%;
+  }
+}
